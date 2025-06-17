@@ -1,9 +1,14 @@
-#include "RecordsManager.h"
 #include <algorithm>
 #include <iostream>
 #include <fstream>
+#include <sstream>
+#include <vector>
+#include <string>
 
 using namespace std;
+
+#include "Records.h"
+#include "RecordsManager.h"
 
 RecordsManager::~RecordsManager()
 {
@@ -43,8 +48,26 @@ void RecordsManager::editRecord(const string& id, Records* updatedRecord)
 
 void RecordsManager::loadFromFile(const string& filename)
 {
-    // Placeholder: implement file loading here
+    fstream aFile;
+
     cout << "Loading records from " << filename << endl;
+
+    aFile.open(filename, ios::in);
+    if (aFile.is_open()) {
+        string record_line;
+        while (getline(aFile, record_line)) {
+            string recId, recLocation, recTime;
+            istringstream iss(record_line);
+
+            getline(iss, recId, ',');
+            getline(iss, recLocation, ',');
+            getline(iss, recTime, ',');
+
+            Records* rec = new Records(recId, recLocation, recTime);
+            addRecord(rec);
+        }
+    }
+
 }
 
 vector<Records*> RecordsManager::getAllRecords() const
