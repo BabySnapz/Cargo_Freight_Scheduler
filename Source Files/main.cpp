@@ -36,14 +36,13 @@ int main()
         {
         case 1:
         {
-            cout << "Enter path for freight data file: ";
-            getline(cin, freightFile);
-            cout << "Enter path for cargo data file: ";
-            getline(cin, cargoFile);
+           
+            freightFile = "freight.txt";
+            cargoFile = "cargo.txt";
 
             scheduler.loadFreights(freightFile);
             scheduler.loadCargos(cargoFile);
-            //cout << "Data loaded successfully." << endl;
+            cout << "\n";
             break;
         }
         case 2:
@@ -53,6 +52,7 @@ int main()
             {
                 freightPtr->showDetails();
             }
+            cout << "\n";
             break;
         }
         case 3:
@@ -62,26 +62,29 @@ int main()
             {
                 cargoPtr->showDetails();
             }
+            cout << "\n";
             break;
         }
         case 4:
         {
             scheduler.runScheduling();
-            cout << "Scheduling completed." << endl;
+            cout << "Scheduling completed.\n" << endl;
+
             break;
         }
         case 5:
         {
-            cout << "Enter path to export schedule: ";
             string exportPath;
-            getline(cin, exportPath);
+
+            exportPath = "schedule.txt";
             scheduler.exportSchedule(exportPath);
             cout << "Schedule exported to " << exportPath << endl;
+            cout << "\n";
             break;
         }
         case 6:
         {
-            cout << "Add/Edit/Delete feature not implemented in this demo." << endl;
+            cout << "Add/Edit/Delete feature not implemented in this demo.\n" << endl;
             break;
         }
         case 0:
@@ -91,7 +94,7 @@ int main()
         }
         default:
         {
-            cout << "Invalid option. Try again." << endl;
+            cout << "Invalid option. Try again.\n" << endl;
             break;
         }
         }
