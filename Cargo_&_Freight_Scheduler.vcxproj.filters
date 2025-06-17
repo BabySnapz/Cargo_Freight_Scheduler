@@ -15,48 +15,51 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Records.h">
+    <ClInclude Include="Header Files\Cargo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Freight.h">
+    <ClInclude Include="Header Files\CargoManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Cargo.h">
+    <ClInclude Include="Header Files\Freight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RecordsManager.h">
+    <ClInclude Include="Header Files\FreightManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FreightManager.h">
+    <ClInclude Include="Header Files\Records.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CargoManager.h">
+    <ClInclude Include="Header Files\RecordsManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Scheduler.h">
+    <ClInclude Include="Header Files\Scheduler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Records.cpp">
+    <ClCompile Include="Source Files\Cargo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Freight.cpp">
+    <ClCompile Include="Source Files\CargoManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Cargo.cpp">
+    <ClCompile Include="Source Files\Freight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RecordsManager.cpp">
+    <ClCompile Include="Source Files\FreightManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FreightManager.cpp">
+    <ClCompile Include="Source Files\Records.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CargoManager.cpp">
+    <ClCompile Include="Source Files\RecordsManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scheduler.cpp">
+    <ClCompile Include="Source Files\Scheduler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
