@@ -44,19 +44,19 @@ void RecordsManager::editRecord(const string& id, Records* updatedRecord)
 
 #include <sstream> // Add this include for istringstream
 
-void RecordsManager::loadFromFile(const string& filename)  
-{  
-    string cleanFilename = filename;
+void RecordsManager::loadFromFile(const string& filename_in)
+{
+    string filename = filename_in; // make a local copy
 
-    if (!cleanFilename.empty() && cleanFilename.front() == '"' && cleanFilename.back() == '"') {
-        cleanFilename = cleanFilename.substr(1, cleanFilename.length() - 2);
+    if (!filename.empty() && filename.front() == '"' && filename.back() == '"') {
+        filename = filename.substr(1, filename.length() - 2);
     }
 
-    cout << "Loading records from: " << cleanFilename << endl;
+    cout << "Loading records from: " << filename << endl;
 
-    ifstream aFile(cleanFilename);
+    ifstream aFile(filename);
     if (!aFile.is_open()) {
-        cerr << "Failed to open file: " << cleanFilename << endl;
+        cerr << "Failed to open file: " << filename << endl;
         return;
     }
 
@@ -65,9 +65,9 @@ void RecordsManager::loadFromFile(const string& filename)
         string recId, recLocation, recTime;
         istringstream iss(record_line);
 
-        if (!getline(iss, recId, ' ') ||
-            !getline(iss, recLocation, ' ') ||
-            !getline(iss, recTime, ' ')) {
+        if (!getline(iss, recId, ',') ||
+            !getline(iss, recLocation, ',') ||
+            !getline(iss, recTime, ',')) {
             cerr << "Malformed line skipped: " << record_line << endl;
             continue;
         }
@@ -79,6 +79,7 @@ void RecordsManager::loadFromFile(const string& filename)
     aFile.close();
     cout << "Data loaded successfully." << endl;
 }
+
 
 vector<Records*> RecordsManager::getAllRecords() const  
 {  

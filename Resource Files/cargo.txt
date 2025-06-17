@@ -1,3 +1,3 @@
-C01 London 0700
-C02 Paris 1720
-C03 Tokyo 1500
+C01,London,0700
+C02,Paris,1720
+C03,Tokyo,1500

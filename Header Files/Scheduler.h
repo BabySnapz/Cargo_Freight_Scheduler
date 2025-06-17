@@ -14,6 +14,10 @@ private:
     FreightManager freightMgr;
     CargoManager cargoMgr;
 
+    std::vector<std::pair<Records*, Records*>> matchedList;
+    std::vector<Records*> unmatchedFreights;
+    std::vector<Records*> unmatchedCargos;
+
 public:
     void Start();
 
@@ -32,8 +36,9 @@ public:
     void editCargo(const std::string& id, const Cargo& updatedCargo);
     void deleteCargo(const std::string& id);
 
-    std::vector<std::pair<Freight, Cargo>> getMatchedList() const;
-
+    std::vector<std::pair<Records*, Records*>> getMatchedList() const;
+    std::vector<Records*> getUnmatchedFreights() const;
+    std::vector<Records*> getUnmatchedCargos() const;
     FreightManager& getFreightManager();
     CargoManager& getCargoManager();
 
