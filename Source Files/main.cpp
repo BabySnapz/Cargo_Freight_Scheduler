@@ -42,7 +42,7 @@ int main()
 
             scheduler.loadFreights(freightFile);
             scheduler.loadCargos(cargoFile);
-            cout << "Data loaded successfully." << endl;
+            //cout << "Data loaded successfully." << endl;
             break;
         }
         case 2:

@@ -68,6 +68,10 @@ void RecordsManager::loadFromFile(const string& filename)
         }
         aFile.close();
     }
+    if (!aFile.is_open()) {
+        cerr << " Failed to open file: " << filename << "\n";
+        return;
+    }
 
 }
 
