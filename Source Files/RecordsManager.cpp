@@ -48,35 +48,38 @@ void RecordsManager::editRecord(const string& id, Records* updatedRecord)
 
 void RecordsManager::loadFromFile(const string& filename)
 {
-    fstream aFile;
-    string cleanFilename;
+    string cleanFilename = filename;
 
     if (!cleanFilename.empty() && cleanFilename.front() == '"' && cleanFilename.back() == '"') {
         cleanFilename = cleanFilename.substr(1, cleanFilename.length() - 2);
     }
-    
-    cout << "Loading records from " << cleanFilename << endl;
-        
-    aFile.open(filename, ios::in);
-    if (aFile.is_open()) {
-        string record_line;
-        while (getline(aFile, record_line)) {
-            string recId, recLocation, recTime;
-            istringstream iss(record_line);
 
-            getline(iss, recId, ',');
-            getline(iss, recLocation, ',');
-            getline(iss, recTime, ',');
-            
-            Records* rec = new Records(recId, recLocation, recTime);
-            addRecord(rec);
-        }
-        aFile.close();
-    }
+    cout << "Loading records from: " << cleanFilename << endl;
+
+    ifstream aFile(cleanFilename);
     if (!aFile.is_open()) {
-        cerr << " Failed to open file: " << filename << "\n";
+        cerr << "Failed to open file: " << cleanFilename << endl;
         return;
     }
+
+    string record_line;
+    while (getline(aFile, record_line)) {
+        string recId, recLocation, recTime;
+        istringstream iss(record_line);
+
+        if (!getline(iss, recId, ',') ||
+            !getline(iss, recLocation, ',') ||
+            !getline(iss, recTime, ',')) {
+            cerr << "Malformed line skipped: " << record_line << endl;
+            continue;
+        }
+
+        Records* rec = new Records(recId, recLocation, recTime);
+        addRecord(rec);
+    }
+
+    aFile.close();
+    cout << "Data loaded successfully." << endl;
 
 }
 
