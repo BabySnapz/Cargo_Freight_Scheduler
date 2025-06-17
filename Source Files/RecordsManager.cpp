@@ -62,10 +62,11 @@ void RecordsManager::loadFromFile(const string& filename)
             getline(iss, recId, ',');
             getline(iss, recLocation, ',');
             getline(iss, recTime, ',');
-
+            
             Records* rec = new Records(recId, recLocation, recTime);
             addRecord(rec);
         }
+        aFile.close();
     }
 
 }
