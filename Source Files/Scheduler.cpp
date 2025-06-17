@@ -145,7 +145,7 @@ void Scheduler::deleteCargo(const string& id)
 }
 
 std::vector<std::pair<Records*, Records*>> Scheduler::getMatchedList() const {
-    return {};
+    return matchedList;
 }
 
 std::vector<Records*> Scheduler::getUnmatchedFreights() const {
