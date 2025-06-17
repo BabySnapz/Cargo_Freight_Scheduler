@@ -49,9 +49,14 @@ void RecordsManager::editRecord(const string& id, Records* updatedRecord)
 void RecordsManager::loadFromFile(const string& filename)
 {
     fstream aFile;
+    string cleanFilename;
 
-    cout << "Loading records from " << filename << endl;
-
+    if (!cleanFilename.empty() && cleanFilename.front() == '"' && cleanFilename.back() == '"') {
+        cleanFilename = cleanFilename.substr(1, cleanFilename.length() - 2);
+    }
+    
+    cout << "Loading records from " << cleanFilename << endl;
+        
     aFile.open(filename, ios::in);
     if (aFile.is_open()) {
         string record_line;
