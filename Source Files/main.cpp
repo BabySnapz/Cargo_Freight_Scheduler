@@ -36,17 +36,12 @@ int main()
         {
         case 1:
         {
-            /*cout << "Enter path for freight data file: ";
-            getline(cin, freightFile);
-            cout << "Enter path for cargo data file: ";
-            getline(cin, cargoFile);*/
-
+           
             freightFile = "freight.txt";
             cargoFile = "cargo.txt";
 
             scheduler.loadFreights(freightFile);
             scheduler.loadCargos(cargoFile);
-            //cout << "Data loaded successfully." << endl;
             cout << "\n";
             break;
         }
@@ -80,9 +75,6 @@ int main()
         case 5:
         {
             string exportPath;
-
-            /*cout << "Enter path to export schedule: ";
-            getline(cin, exportPath);*/
 
             exportPath = "schedule.txt";
             scheduler.exportSchedule(exportPath);
