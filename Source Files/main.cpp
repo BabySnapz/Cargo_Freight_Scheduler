@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+
 #include "Scheduler.h"
 
 using namespace std;
@@ -30,7 +31,7 @@ int main()
         int choice;
         cin >> choice;
         cin.ignore();
-
+       
         switch (choice)
         {
         case 1:
@@ -42,7 +43,7 @@ int main()
 
             scheduler.loadFreights(freightFile);
             scheduler.loadCargos(cargoFile);
-            cout << "Data loaded successfully." << endl;
+            //cout << "Data loaded successfully." << endl;
             break;
         }
         case 2:

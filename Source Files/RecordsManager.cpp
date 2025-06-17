@@ -1,9 +1,14 @@
-#include "RecordsManager.h"
 #include <algorithm>
 #include <iostream>
 #include <fstream>
+#include <sstream>
+#include <vector>
+#include <string>
 
 using namespace std;
+
+#include "Records.h"
+#include "RecordsManager.h"
 
 RecordsManager::~RecordsManager()
 {
@@ -43,8 +48,39 @@ void RecordsManager::editRecord(const string& id, Records* updatedRecord)
 
 void RecordsManager::loadFromFile(const string& filename)
 {
-    // Placeholder: implement file loading here
-    cout << "Loading records from " << filename << endl;
+    string cleanFilename = filename;
+
+    if (!cleanFilename.empty() && cleanFilename.front() == '"' && cleanFilename.back() == '"') {
+        cleanFilename = cleanFilename.substr(1, cleanFilename.length() - 2);
+    }
+
+    cout << "Loading records from: " << cleanFilename << endl;
+
+    ifstream aFile(cleanFilename);
+    if (!aFile.is_open()) {
+        cerr << "Failed to open file: " << cleanFilename << endl;
+        return;
+    }
+
+    string record_line;
+    while (getline(aFile, record_line)) {
+        string recId, recLocation, recTime;
+        istringstream iss(record_line);
+
+        if (!getline(iss, recId, ',') ||
+            !getline(iss, recLocation, ',') ||
+            !getline(iss, recTime, ',')) {
+            cerr << "Malformed line skipped: " << record_line << endl;
+            continue;
+        }
+
+        Records* rec = new Records(recId, recLocation, recTime);
+        addRecord(rec);
+    }
+
+    aFile.close();
+    cout << "Data loaded successfully." << endl;
+
 }
 
 vector<Records*> RecordsManager::getAllRecords() const

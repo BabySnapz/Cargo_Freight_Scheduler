@@ -104,7 +104,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\cjzhe\OneDrive\Desktop\OOPG\Cargo_Freight_Scheduler\Header Files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>"C:\Users\USER\source\repos\BabySnapz\Cargo_Freight_Scheduler\Header Files";C:\Users\cjzhe\OneDrive\Desktop\OOPG\Cargo_Freight_Scheduler\Header Files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -119,7 +120,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\cjzhe\OneDrive\Desktop\OOPG\Cargo_Freight_Scheduler\Header Files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>"C:\Users\USER\source\repos\BabySnapz\Cargo_Freight_Scheduler\Header Files";C:\Users\cjzhe\OneDrive\Desktop\OOPG\Cargo_Freight_Scheduler\Header Files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,6 +131,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source Files\Cargo.cpp" />
+    <ClCompile Include="Source Files\CargoManager.cpp" />
+    <ClCompile Include="Source Files\Freight.cpp" />
+    <ClCompile Include="Source Files\FreightManager.cpp" />
+    <ClCompile Include="Source Files\main.cpp" />
+    <ClCompile Include="Source Files\Records.cpp" />
+    <ClCompile Include="Source Files\RecordsManager.cpp" />
+    <ClCompile Include="Source Files\Scheduler.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Resource Files\cargo.txt" />
+    <Text Include="Resource Files\freight.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="Header Files\Cargo.h" />
     <ClInclude Include="Header Files\CargoManager.h" />
     <ClInclude Include="Header Files\Freight.h" />
@@ -136,16 +152,6 @@
     <ClInclude Include="Header Files\Records.h" />
     <ClInclude Include="Header Files\RecordsManager.h" />
     <ClInclude Include="Header Files\Scheduler.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Source Files\Cargo.cpp" />
-    <ClCompile Include="Source Files\CargoManager.cpp" />
-    <ClCompile Include="Source Files\Freight.cpp" />
-    <ClCompile Include="Source Files\FreightManager.cpp" />
-    <ClCompile Include="Source Files\Records.cpp" />
-    <ClCompile Include="Source Files\RecordsManager.cpp" />
-    <ClCompile Include="Source Files\Scheduler.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
