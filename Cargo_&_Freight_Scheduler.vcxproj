@@ -104,6 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\cjzhe\OneDrive\Desktop\OOPG\Cargo_Freight_Scheduler\Header Files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -118,6 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\cjzhe\OneDrive\Desktop\OOPG\Cargo_Freight_Scheduler\Header Files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,22 +129,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Cargo.h" />
-    <ClInclude Include="CargoManager.h" />
-    <ClInclude Include="Freight.h" />
-    <ClInclude Include="FreightManager.h" />
-    <ClInclude Include="Records.h" />
-    <ClInclude Include="RecordsManager.h" />
-    <ClInclude Include="Scheduler.h" />
+    <ClInclude Include="Header Files\Cargo.h" />
+    <ClInclude Include="Header Files\CargoManager.h" />
+    <ClInclude Include="Header Files\Freight.h" />
+    <ClInclude Include="Header Files\FreightManager.h" />
+    <ClInclude Include="Header Files\Records.h" />
+    <ClInclude Include="Header Files\RecordsManager.h" />
+    <ClInclude Include="Header Files\Scheduler.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Cargo.cpp" />
-    <ClCompile Include="CargoManager.cpp" />
-    <ClCompile Include="Freight.cpp" />
-    <ClCompile Include="FreightManager.cpp" />
-    <ClCompile Include="Records.cpp" />
-    <ClCompile Include="RecordsManager.cpp" />
-    <ClCompile Include="Scheduler.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Source Files\Cargo.cpp" />
+    <ClCompile Include="Source Files\CargoManager.cpp" />
+    <ClCompile Include="Source Files\Freight.cpp" />
+    <ClCompile Include="Source Files\FreightManager.cpp" />
+    <ClCompile Include="Source Files\Records.cpp" />
+    <ClCompile Include="Source Files\RecordsManager.cpp" />
+    <ClCompile Include="Source Files\Scheduler.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

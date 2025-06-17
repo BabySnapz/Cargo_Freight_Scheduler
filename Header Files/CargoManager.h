@@ -1,7 +1,10 @@
 #pragma once
 #include "RecordsManager.h"
-class CargoManager :
-    public RecordsManager
-{
-};
+#include "Cargo.h"
 
+class CargoManager : public RecordsManager
+{
+public:
+    void addCargo(Cargo* cargo);
+
+};
