@@ -12,9 +12,9 @@ private:
 
 public:
     virtual ~RecordsManager();
-    void addRecord(Records* record);
-    void deleteRecord(const std::string& id);
-    void editRecord(const std::string& id, Records* updatedRecord);
+    bool addRecord(Records* record);
+    bool deleteRecord(const std::string& id);
+    bool editRecord(const std::string& id, Records* updatedRecord);
     void loadFromFile(const std::string& filename);
     std::vector<Records*> getAllRecords() const;
 };

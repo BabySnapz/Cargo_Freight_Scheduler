@@ -85,7 +85,63 @@ int main()
         }
         case 6:
         {
-            cout << "Add/Edit/Delete feature not implemented in this demo.\n" << endl;
+            cout << endl << "1. Add freight\n" << "2. Edit freight by ID\n" << "3. Delete freight by ID\n" 
+                << "4. Add cargo\n" << "5. Edit cargo by ID\n" << "6. Delete cargo by ID\n" << endl;
+            cout << "Select choice: ";
+
+            int subChoice;
+            cin >> subChoice;
+            cin.ignore();
+
+            switch (subChoice) {
+                case 1:{
+                    string newId, newLocation, newTime;
+
+                    cout << "\nEnter new freight ID, refuel stop and refuelling time: ";   
+                    cin >> newId >> newLocation >> newTime;
+
+                    scheduler.getFreightManager().addFreight(new Freight(newId, newLocation, newTime));
+
+                    cout << endl << "New freight added.\n\n";
+                    break;
+                }
+                case 2:{
+                    string currentId, newLocation, newTime;
+
+                    cout << "\nEnter freight ID: ";
+                    cin >> currentId;
+                    cout << endl << "Enter new refuel stop and refuelling time: ";
+                    cin >> newLocation >> newTime;
+
+                    Freight* updated = new Freight(currentId, newLocation, newTime);
+
+                    scheduler.getFreightManager().editRecord(currentId, updated);
+
+                    break;
+                }
+                case 3:{
+                    string oldId;
+
+                    cout << "\nEnter freight ID: ";
+                    cin >> oldId;
+
+                    scheduler.getFreightManager().deleteRecord(oldId);
+                    break;
+                }
+                case 4:{
+                
+                    break;
+                }
+                case 5:{
+                
+                    break;
+                }
+                case 6:{
+                
+                    break;
+                }
+            }
+          
             break;
         }
         case 0:

@@ -15,10 +15,13 @@ RecordsManager::~RecordsManager()
         delete record;  
 }  
 
-void RecordsManager::addRecord(Records* record)  
-{  
-    records.push_back(record);  
-}  
+bool RecordsManager::addRecord(Records* record)
+{
+    auto exists = any_of(records.begin(), records.end()), [&](Records* r) {
+            
+        }
+    records.push_back(record);
+}
 
 void RecordsManager::deleteRecord(const string& id)  
 {  
