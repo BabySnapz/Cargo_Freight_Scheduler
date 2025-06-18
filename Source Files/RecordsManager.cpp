@@ -1,10 +1,13 @@
-#include "RecordsManager.h"  
 #include <algorithm>  
 #include <iostream>  
 #include <fstream>  
 #include <sstream>
+#include <vector>
+#include <string>
 
-using namespace std;  
+using namespace std; 
+
+#include "RecordsManager.h" 
 
 RecordsManager::~RecordsManager()  
 {  
@@ -42,8 +45,6 @@ void RecordsManager::editRecord(const string& id, Records* updatedRecord)
     }  
 }  
 
-#include <sstream> // Add this include for istringstream
-
 void RecordsManager::loadFromFile(const string& filename_in)
 {
     string filename = filename_in; // make a local copy
@@ -75,11 +76,9 @@ void RecordsManager::loadFromFile(const string& filename_in)
         Records* rec = new Records(recId, recLocation, recTime);
         addRecord(rec);
     }
-
     aFile.close();
     cout << "Data loaded successfully." << endl;
 }
-
 
 vector<Records*> RecordsManager::getAllRecords() const  
 {  
