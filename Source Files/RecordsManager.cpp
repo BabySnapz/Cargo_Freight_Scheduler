@@ -1,63 +1,64 @@
-#include <algorithm>  
-#include <iostream>  
-#include <fstream>  
+#include <algorithm>
+#include <iostream>
+#include <fstream>
 #include <sstream>
 #include <vector>
 #include <string>
 
-using namespace std; 
+using namespace std;
 
-#include "RecordsManager.h" 
+#include "Records.h"
+#include "RecordsManager.h"
 
-RecordsManager::~RecordsManager()  
-{  
-    for (auto record : records)  
-        delete record;  
-}  
-
-void RecordsManager::addRecord(Records* record)  
-{  
-    records.push_back(record);  
-}  
-
-void RecordsManager::deleteRecord(const string& id)  
-{  
-    auto it = remove_if(records.begin(), records.end(),  
-        [&](Records* rec) { return rec->getID() == id; });  
-
-    if (it != records.end())  
-    {  
-        delete* it;  
-        records.erase(it, records.end());  
-    }  
-}  
-
-void RecordsManager::editRecord(const string& id, Records* updatedRecord)  
-{  
-    for (auto& rec : records)  
-    {  
-        if (rec->getID() == id)  
-        {  
-            delete rec;  
-            rec = updatedRecord;  
-            return;  
-        }  
-    }  
-}  
-
-void RecordsManager::loadFromFile(const string& filename_in)
+RecordsManager::~RecordsManager()
 {
-    string filename = filename_in; // make a local copy
+    for (auto record : records)
+        delete record;
+}
 
-    if (!filename.empty() && filename.front() == '"' && filename.back() == '"') {
-        filename = filename.substr(1, filename.length() - 2);
+void RecordsManager::addRecord(Records* record)
+{
+    records.push_back(record);
+}
+
+void RecordsManager::deleteRecord(const string& id)
+{
+    auto it = remove_if(records.begin(), records.end(),
+        [&](Records* rec) { return rec->getID() == id; });
+
+    if (it != records.end())
+    {
+        delete* it;
+        records.erase(it, records.end());
+    }
+}
+
+void RecordsManager::editRecord(const string& id, Records* updatedRecord)
+{
+    for (auto& rec : records)
+    {
+        if (rec->getID() == id)
+        {
+            delete rec;
+            rec = updatedRecord;
+            return;
+        }
+    }
+}
+
+void RecordsManager::loadFromFile(const string& filename)
+{
+    string cleanFilename = filename;
+
+    if (!cleanFilename.empty() && cleanFilename.front() == '"' && cleanFilename.back() == '"') {
+        cleanFilename = cleanFilename.substr(1, cleanFilename.length() - 2);
     }
 
-    cout << "Loading records from: " << filename << endl;
+    cout << "Loading records from: " << cleanFilename << endl;
 
-    ifstream aFile(filename);
+    ifstream aFile(cleanFilename);
     if (!aFile.is_open()) {
-        cerr << "Failed to open file: " << filename << endl;
+        cerr << "Failed to open file: " << cleanFilename << endl;
         return;
     }
 
@@ -76,11 +77,13 @@ void RecordsManager::loadFromFile(const string& filename_in)
         Records* rec = new Records(recId, recLocation, recTime);
         addRecord(rec);
     }
+
     aFile.close();
     cout << "Data loaded successfully." << endl;
+
 }
 
-vector<Records*> RecordsManager::getAllRecords() const  
-{  
-    return records;  
+vector<Records*> RecordsManager::getAllRecords() const
+{
+    return records;
 }

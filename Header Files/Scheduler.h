@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 #include <utility>
-#include <iomanip>
 #include "FreightManager.h"
 #include "CargoManager.h"
 #include "Freight.h"
@@ -14,10 +13,6 @@ class Scheduler
 private:
     FreightManager freightMgr;
     CargoManager cargoMgr;
-
-    std::vector<std::pair<Freight*, Cargo*>> matchedList;
-    std::vector<Freight*> unmatchedFreights;
-    std::vector<Cargo*> unmatchedCargos;
 
 public:
     void Start();
@@ -37,9 +32,8 @@ public:
     void editCargo(const std::string& id, const Cargo& updatedCargo);
     void deleteCargo(const std::string& id);
 
-    std::vector<std::pair<Freight*, Cargo*>> getMatchedList() const;
-    std::vector<Freight*> getUnmatchedFreights() const;
-    std::vector<Cargo*> getUnmatchedCargos() const;
+    std::vector<std::pair<Freight, Cargo>> getMatchedList() const;
+
     FreightManager& getFreightManager();
     CargoManager& getCargoManager();
 

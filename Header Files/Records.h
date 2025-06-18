@@ -14,7 +14,6 @@ private:
 
 public:
     Records(const std::string& id, const std::string& location, const std::string& time);
-    virtual ~Records() = default;
 
     const std::string& getID() const;
     void setID(const std::string& id);

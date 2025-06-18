@@ -1,10 +1,9 @@
 #include <iostream>
 #include <string>
-#include <fstream> 
-
-using namespace std;
 
 #include "Scheduler.h"
+
+using namespace std;
 
 void showMenu()
 {
