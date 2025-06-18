@@ -29,13 +29,13 @@ public:
 
     void exportSchedule(const std::string& filepath);
 
-    void addFreight(const Freight& freight);
-    void editFreight(const std::string& id, const Freight& updatedFreight);
-    void deleteFreight(const std::string& id);
+    bool addFreight(const Freight& freight);
+    bool editFreight(const std::string& id, const Freight& updatedFreight);
+    bool deleteFreight(const std::string& id);
 
-    void addCargo(const Cargo& cargo);
-    void editCargo(const std::string& id, const Cargo& updatedCargo);
-    void deleteCargo(const std::string& id);
+    bool addCargo(const Cargo& cargo);
+    bool editCargo(const std::string& id, const Cargo& updatedCargo);
+    bool deleteCargo(const std::string& id);
 
     std::vector<std::pair<Freight*, Cargo*>> getMatchedList() const;
     std::vector<Freight*> getUnmatchedFreights() const;

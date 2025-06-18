@@ -14,7 +14,7 @@ void showMenu()
     cout << "3. Show all Cargos" << endl;
     cout << "4. Run Scheduling" << endl;
     cout << "5. Export Schedule" << endl;
-    cout << "6. Add/Edit/Delete Freights and Cargos (Not implemented here)" << endl;
+    cout << "6. Add/Edit/Delete Freights and Cargos" << endl;
     cout << "0. Exit" << endl;
     cout << "Select option: ";
 }
@@ -48,7 +48,7 @@ int main()
         }
         case 2:
         {
-            cout << "Freights:" << endl;
+            cout << "\nFreights:" << endl;
             for (auto freightPtr : scheduler.getFreightManager().getAllRecords())
             {
                 freightPtr->showDetails();
@@ -58,7 +58,7 @@ int main()
         }
         case 3:
         {
-            cout << "Cargos:" << endl;
+            cout << "\nCargos:" << endl;
             for (auto cargoPtr : scheduler.getCargoManager().getAllRecords())
             {
                 cargoPtr->showDetails();
@@ -100,9 +100,9 @@ int main()
                     cout << "\nEnter new freight ID, refuel stop and refuelling time: ";   
                     cin >> newId >> newLocation >> newTime;
 
-                    Freight* f = new Freight(newId, newLocation, newTime);
+                    Freight f = Freight(newId, newLocation, newTime);
 
-                    if (scheduler.getFreightManager().addRecord(f)) {
+                    if (scheduler.addFreight(f)) {
                         cout << "\nFreight " << newId << " added successfully.\n\n";
                     }
                     else {
@@ -118,9 +118,9 @@ int main()
                     cout << endl << "Enter new refuel stop and refuelling time: ";
                     cin >> newLocation >> newTime;
 
-                    Freight* updated = new Freight(currentId, newLocation, newTime);
+                    Freight updated = Freight(currentId, newLocation, newTime);
 
-                    if (scheduler.getFreightManager().editRecord(currentId, updated)) {
+                    if (scheduler.editFreight(currentId, updated)) {
                         cout << "\nFreight with ID: " << currentId << " edited successfully.\n\n";
                     }
                     else {
@@ -134,7 +134,7 @@ int main()
                     cout << "\nEnter freight ID: ";
                     cin >> oldId;
 
-                    if (scheduler.getFreightManager().deleteRecord(oldId)) {
+                    if (scheduler.deleteFreight(oldId)) {
                         cout << "\nFreight with ID: " << oldId << " deleted successfully.\n\n";
                     }
                     else {
@@ -148,9 +148,9 @@ int main()
                     cout << "\nEnter new cargo ID, destination and arrival time: ";
                     cin >> newId >> newLocation >> newTime;
 
-                    Cargo* c = new Cargo(newId, newLocation, newTime);
+                    Cargo c = Cargo(newId, newLocation, newTime);
 
-                    if (scheduler.getCargoManager().addRecord(c)) {
+                    if (scheduler.addCargo(c)) {
                         cout << "\nCargo " << newId << " added successfully.\n\n";
                     }
                     else {
@@ -166,9 +166,9 @@ int main()
                     cout << endl << "Enter new destination and arrival time: ";
                     cin >> newLocation >> newTime;
 
-                    Cargo* updated = new Cargo(currentId, newLocation, newTime);
+                    Cargo updated =  Cargo(currentId, newLocation, newTime);
 
-                    if (scheduler.getCargoManager().editRecord(currentId, updated)) {
+                    if (scheduler.editCargo(currentId, updated)) {
                         cout << "\nCargo with ID: " << currentId << " edited successfully.\n\n";
                     }
                     else {
@@ -182,7 +182,7 @@ int main()
                     cout << "\nEnter cargo ID: ";
                     cin >> oldId;
 
-                    if (scheduler.getCargoManager().deleteRecord(oldId)) {
+                    if (scheduler.deleteCargo(oldId)) {
                         cout << "\nCargo with ID: " << oldId << " deleted successfully.\n\n";
                     }
                     else {

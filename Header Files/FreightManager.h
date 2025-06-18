@@ -8,7 +8,7 @@
 class FreightManager : public RecordsManager
 {
 public:
-    void addFreight(Freight* freight);
+    bool addFreight(Freight* freight);
 	void loadFromFile(const std::string& filename);
 
 };

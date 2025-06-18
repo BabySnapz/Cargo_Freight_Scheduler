@@ -5,9 +5,9 @@
 
 using namespace std;
 
-void FreightManager::addFreight(Freight* freight)
+bool FreightManager::addFreight(Freight* freight)
 {
-    addRecord(freight);
+  return addRecord(freight);
 }
 
 void FreightManager::loadFromFile(const string& filename_in)
