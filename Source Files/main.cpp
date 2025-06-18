@@ -14,7 +14,7 @@ void showMenu()
     cout << "3. Show all Cargos" << endl;
     cout << "4. Run Scheduling" << endl;
     cout << "5. Export Schedule" << endl;
-    cout << "6. Add/Edit/Delete Freights and Cargos (Not implemented here)" << endl;
+    cout << "6. Add/Edit/Delete Freights and Cargos" << endl;
     cout << "0. Exit" << endl;
     cout << "Select option: ";
 }
@@ -48,17 +48,17 @@ int main()
         }
         case 2:
         {
-            cout << "Freights:" << endl;
+            cout << "\nFreights:" << endl;
             for (auto freightPtr : scheduler.getFreightManager().getAllRecords())
             {
                 freightPtr->showDetails();
             }
-            cout << "\n";
+            cout << "\n";   
             break;
         }
         case 3:
         {
-            cout << "Cargos:" << endl;
+            cout << "\nCargos:" << endl;
             for (auto cargoPtr : scheduler.getCargoManager().getAllRecords())
             {
                 cargoPtr->showDetails();
@@ -85,7 +85,115 @@ int main()
         }
         case 6:
         {
-            cout << "Add/Edit/Delete feature not implemented in this demo.\n" << endl;
+            cout << endl << "1. Add freight\n" << "2. Edit freight by ID\n" << "3. Delete freight by ID\n" 
+                << "4. Add cargo\n" << "5. Edit cargo by ID\n" << "6. Delete cargo by ID\n" << "7. Go back to previous menu\n" << endl;
+            cout << "Select choice: ";
+
+            int subChoice;
+            cin >> subChoice;
+            cin.ignore();
+
+            switch (subChoice) {
+                case 1:{
+                    string newId, newLocation, newTime;
+
+                    cout << "\nEnter new freight ID, refuel stop and refuelling time: ";   
+                    cin >> newId >> newLocation >> newTime;
+
+                    Freight f = Freight(newId, newLocation, newTime);
+
+                    if (scheduler.addFreight(f)) {
+                        cout << "\nFreight " << newId << " added successfully.\n\n";
+                    }
+                    else {
+                        cout << "\nFreight " << newId << "already exists.\n\n";
+                    }
+                    break;
+                   }
+                case 2:{
+                    string currentId, newLocation, newTime;
+
+                    cout << "\nEnter freight ID: ";
+                    cin >> currentId;
+                    cout << endl << "Enter new refuel stop and refuelling time: ";
+                    cin >> newLocation >> newTime;
+
+                    Freight updated = Freight(currentId, newLocation, newTime);
+
+                    if (scheduler.editFreight(currentId, updated)) {
+                        cout << "\nFreight with ID: " << currentId << " edited successfully.\n\n";
+                    }
+                    else {
+                        cout << "\nNo freight with ID: " << currentId << " exists.\n\n";
+                    }
+                    break;
+                }
+                case 3:{
+                    string oldId;
+
+                    cout << "\nEnter freight ID: ";
+                    cin >> oldId;
+
+                    if (scheduler.deleteFreight(oldId)) {
+                        cout << "\nFreight with ID: " << oldId << " deleted successfully.\n\n";
+                    }
+                    else {
+                        cout << "\nNo freight with ID: " << oldId << " exists.\n\n";
+                    }
+                    break;
+                }
+                case 4:{
+                    string newId, newLocation, newTime;
+
+                    cout << "\nEnter new cargo ID, destination and arrival time: ";
+                    cin >> newId >> newLocation >> newTime;
+
+                    Cargo c = Cargo(newId, newLocation, newTime);
+
+                    if (scheduler.addCargo(c)) {
+                        cout << "\nCargo " << newId << " added successfully.\n\n";
+                    }
+                    else {
+                        cout << "\nCargo " << newId << "already exists.\n\n";
+                    }
+                    break;
+                }
+                case 5:{
+                    string currentId, newLocation, newTime;
+
+                    cout << "\nEnter cargo ID: ";
+                    cin >> currentId;
+                    cout << endl << "Enter new destination and arrival time: ";
+                    cin >> newLocation >> newTime;
+
+                    Cargo updated =  Cargo(currentId, newLocation, newTime);
+
+                    if (scheduler.editCargo(currentId, updated)) {
+                        cout << "\nCargo with ID: " << currentId << " edited successfully.\n\n";
+                    }
+                    else {
+                        cout << "\nNo cargo with ID: " << currentId << " exists.\n\n";
+                    }
+                    break;
+                }
+                case 6:{
+                    string oldId;
+
+                    cout << "\nEnter cargo ID: ";
+                    cin >> oldId;
+
+                    if (scheduler.deleteCargo(oldId)) {
+                        cout << "\nCargo with ID: " << oldId << " deleted successfully.\n\n";
+                    }
+                    else {
+                        cout << "\nNo Cargo with ID: " << oldId << " exists.\n\n";
+                    }
+                    break;
+                }
+                case 7: {
+                    break;
+                }
+            }
             break;
         }
         case 0:

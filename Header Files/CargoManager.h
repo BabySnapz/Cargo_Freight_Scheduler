@@ -5,6 +5,6 @@
 class CargoManager : public RecordsManager
 {
 public:
-    void addCargo(Cargo* cargo);
+    bool addCargo(Cargo* cargo);
     void loadFromFile(const std::string& filename); //void loadCargo
 };

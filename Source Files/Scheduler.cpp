@@ -178,34 +178,34 @@ void Scheduler::exportSchedule(const string& filepath)
     cout << "Exporting schedule to " << filepath << endl;
 }
 
-void Scheduler::addFreight(const Freight& freight)
+bool Scheduler::addFreight(const Freight& freight)
 {
-    freightMgr.addFreight(new Freight(freight));
+   return freightMgr.addFreight(new Freight(freight));
 }
 
-void Scheduler::editFreight(const string& id, const Freight& updatedFreight)
+bool Scheduler::editFreight(const string& id, const Freight& updatedFreight)
 {
-    freightMgr.editRecord(id, new Freight(updatedFreight));
+   return freightMgr.editRecord(id, new Freight(updatedFreight));
 }
 
-void Scheduler::deleteFreight(const string& id)
+bool Scheduler::deleteFreight(const string& id)
 {
-    freightMgr.deleteRecord(id);
+   return freightMgr.deleteRecord(id);
 }
 
-void Scheduler::addCargo(const Cargo& cargo)
+bool Scheduler::addCargo(const Cargo& cargo)
 {
-    cargoMgr.addCargo(new Cargo(cargo));
+    return cargoMgr.addCargo(new Cargo(cargo));
 }
 
-void Scheduler::editCargo(const string& id, const Cargo& updatedCargo)
+bool Scheduler::editCargo(const string& id, const Cargo& updatedCargo)
 {
-    cargoMgr.editRecord(id, new Cargo(updatedCargo));
+    return cargoMgr.editRecord(id, new Cargo(updatedCargo));
 }
 
-void Scheduler::deleteCargo(const string& id)
+bool Scheduler::deleteCargo(const string& id)
 {
-    cargoMgr.deleteRecord(id);
+    return cargoMgr.deleteRecord(id);
 }
 
 std::vector<std::pair<Freight*, Cargo*>> Scheduler::getMatchedList() const {
