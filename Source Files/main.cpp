@@ -86,7 +86,7 @@ int main()
         case 6:
         {
             cout << endl << "1. Add freight\n" << "2. Edit freight by ID\n" << "3. Delete freight by ID\n" 
-                << "4. Add cargo\n" << "5. Edit cargo by ID\n" << "6. Delete cargo by ID\n" << endl;
+                << "4. Add cargo\n" << "5. Edit cargo by ID\n" << "6. Delete cargo by ID\n" << "7. Go back to previous menu\n" << endl;
             cout << "Select choice: ";
 
             int subChoice;
@@ -188,6 +188,9 @@ int main()
                     else {
                         cout << "\nNo Cargo with ID: " << oldId << " exists.\n\n";
                     }
+                    break;
+                }
+                case 7: {
                     break;
                 }
             }
