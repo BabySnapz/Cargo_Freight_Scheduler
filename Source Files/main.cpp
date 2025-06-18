@@ -53,7 +53,7 @@ int main()
             {
                 freightPtr->showDetails();
             }
-            cout << "\n";
+            cout << "\n";   
             break;
         }
         case 3:
@@ -100,11 +100,16 @@ int main()
                     cout << "\nEnter new freight ID, refuel stop and refuelling time: ";   
                     cin >> newId >> newLocation >> newTime;
 
-                    scheduler.getFreightManager().addFreight(new Freight(newId, newLocation, newTime));
+                    Freight* f = new Freight(newId, newLocation, newTime);
 
-                    cout << endl << "New freight added.\n\n";
+                    if (scheduler.getFreightManager().addRecord(f)) {
+                        cout << "\nFreight " << newId << " added successfully.\n\n";
+                    }
+                    else {
+                        cout << "\nFreight " << newId << "already exists.\n\n";
+                    }
                     break;
-                }
+                   }
                 case 2:{
                     string currentId, newLocation, newTime;
 
@@ -115,8 +120,12 @@ int main()
 
                     Freight* updated = new Freight(currentId, newLocation, newTime);
 
-                    scheduler.getFreightManager().editRecord(currentId, updated);
-
+                    if (scheduler.getFreightManager().editRecord(currentId, updated)) {
+                        cout << "\nFreight with ID: " << currentId << " edited successfully.\n\n";
+                    }
+                    else {
+                        cout << "\nNo freight with ID: " << currentId << " exists.\n\n";
+                    }
                     break;
                 }
                 case 3:{
@@ -125,23 +134,63 @@ int main()
                     cout << "\nEnter freight ID: ";
                     cin >> oldId;
 
-                    scheduler.getFreightManager().deleteRecord(oldId);
+                    if (scheduler.getFreightManager().deleteRecord(oldId)) {
+                        cout << "\nFreight with ID: " << oldId << " deleted successfully.\n\n";
+                    }
+                    else {
+                        cout << "\nNo freight with ID: " << oldId << " exists.\n\n";
+                    }
                     break;
                 }
                 case 4:{
-                
+                    string newId, newLocation, newTime;
+
+                    cout << "\nEnter new cargo ID, destination and arrival time: ";
+                    cin >> newId >> newLocation >> newTime;
+
+                    Cargo* c = new Cargo(newId, newLocation, newTime);
+
+                    if (scheduler.getCargoManager().addRecord(c)) {
+                        cout << "\nCargo " << newId << " added successfully.\n\n";
+                    }
+                    else {
+                        cout << "\nCargo " << newId << "already exists.\n\n";
+                    }
                     break;
                 }
                 case 5:{
-                
+                    string currentId, newLocation, newTime;
+
+                    cout << "\nEnter cargo ID: ";
+                    cin >> currentId;
+                    cout << endl << "Enter new destination and arrival time: ";
+                    cin >> newLocation >> newTime;
+
+                    Cargo* updated = new Cargo(currentId, newLocation, newTime);
+
+                    if (scheduler.getCargoManager().editRecord(currentId, updated)) {
+                        cout << "\nCargo with ID: " << currentId << " edited successfully.\n\n";
+                    }
+                    else {
+                        cout << "\nNo cargo with ID: " << currentId << " exists.\n\n";
+                    }
                     break;
                 }
                 case 6:{
-                
+                    string oldId;
+
+                    cout << "\nEnter cargo ID: ";
+                    cin >> oldId;
+
+                    if (scheduler.getCargoManager().deleteRecord(oldId)) {
+                        cout << "\nCargo with ID: " << oldId << " deleted successfully.\n\n";
+                    }
+                    else {
+                        cout << "\nNo Cargo with ID: " << oldId << " exists.\n\n";
+                    }
                     break;
                 }
             }
-          
             break;
         }
         case 0:

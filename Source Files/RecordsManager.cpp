@@ -17,35 +17,47 @@ RecordsManager::~RecordsManager()
 
 bool RecordsManager::addRecord(Records* record)
 {
-    auto exists = any_of(records.begin(), records.end()), [&](Records* r) {
-            
+    bool existsFlag = false;
+
+    for (Records* r : records) {
+        if (r->getID() == record->getID()) {
+            existsFlag = true;
+            break;
         }
+    }
+
+    if (existsFlag) {
+        delete record;
+        return false;
+    }
+    
     records.push_back(record);
+    return true;
 }
 
-void RecordsManager::deleteRecord(const string& id)  
+bool RecordsManager::deleteRecord(const string& id)  
 {  
-    auto it = remove_if(records.begin(), records.end(),  
-        [&](Records* rec) { return rec->getID() == id; });  
-
-    if (it != records.end())  
-    {  
-        delete* it;  
-        records.erase(it, records.end());  
-    }  
+    for (auto it = records.begin(); it != records.end(); ++it) {
+        if ((*it)->getID() == id) {
+            delete *it;
+            records.erase(it);
+            return true;
+        }
+    } 
+    return false;
 }  
 
-void RecordsManager::editRecord(const string& id, Records* updatedRecord)  
+bool RecordsManager::editRecord(const string& id, Records* updatedRecord)  
 {  
-    for (auto& rec : records)  
-    {  
-        if (rec->getID() == id)  
-        {  
-            delete rec;  
-            rec = updatedRecord;  
-            return;  
-        }  
-    }  
+    for (auto it = records.begin(); it != records.end(); ++it) {
+        if ((*it)->getID() == id) {
+            delete* it;
+            *it = updatedRecord;
+            return true;
+        }
+    }
+    delete updatedRecord;
+    return false;
 }  
 
 void RecordsManager::loadFromFile(const string& filename_in)
