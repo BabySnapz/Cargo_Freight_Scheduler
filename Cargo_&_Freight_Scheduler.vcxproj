@@ -154,15 +154,6 @@
     <Text Include="Resource Files\cargo.txt" />
     <Text Include="Resource Files\freight.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Header Files\Cargo.h" />
-    <ClInclude Include="Header Files\CargoManager.h" />
-    <ClInclude Include="Header Files\Freight.h" />
-    <ClInclude Include="Header Files\FreightManager.h" />
-    <ClInclude Include="Header Files\Records.h" />
-    <ClInclude Include="Header Files\RecordsManager.h" />
-    <ClInclude Include="Header Files\Scheduler.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
