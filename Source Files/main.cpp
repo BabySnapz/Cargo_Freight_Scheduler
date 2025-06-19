@@ -22,7 +22,8 @@ void showMenu()
 int main()
 {
     Scheduler scheduler;
-    string freightFile, cargoFile, scheduleFile;
+    string freightFile, cargoFile, exportPath;
+ 
     bool running = true;
 
     while (running)
@@ -37,12 +38,17 @@ int main()
         {
         case 1:
         {
-           
-            freightFile = "freight.txt";
-            cargoFile = "cargo.txt";
-            scheduleFile = "Schedule.txt";
-
+    
+            cout << "Please enter your Freight file path: ";
+            getline(cin,freightFile);
+            
             scheduler.loadFreights(freightFile);
+
+            cout << "\nPlease enter your Cargo file path: ";
+            getline(cin,cargoFile);
+            
+
+          
             scheduler.loadCargos(cargoFile);
             cout << "\n";
             break;
@@ -76,9 +82,16 @@ int main()
         }
         case 5:
         {
+            cout << "Please state where you want to export your file to: ";
+            getline(cin, exportPath);
 
-            scheduler.exportSchedule(scheduleFile);
-            cout << "Schedule exported to " << scheduleFile << endl;
+            // Strip surrounding quotes if user used them
+            if (!exportPath.empty() && exportPath.front() == '"' && exportPath.back() == '"') {
+                exportPath = exportPath.substr(1, exportPath.size() - 2);
+            }
+
+            scheduler.exportSchedule(exportPath);
+            cout << "Schedule exported to " << exportPath << endl;
             cout << "\n";
             break;
         }

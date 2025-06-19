@@ -2,8 +2,11 @@
 
 #include <iostream>
 #include <fstream>
+#include <iomanip>
+#include <filesystem>
 
 using namespace std;
+namespace fs = std::filesystem;
 
 void Scheduler::Start()
 {
@@ -169,14 +172,35 @@ void Scheduler::runScheduling()
             << endl;
     }
 
-
     cout << "Scheduling completed.\n";
 }
 
 
 void Scheduler::exportSchedule(const string& filepath)
 {
-    ofstream outFile(filepath);
+    fs::path inputPath(filepath);
+
+    fs::path filePath;
+
+    // If the user included a filename (e.g., ends with .txt), use it directly
+    if (inputPath.has_filename() && inputPath.extension() == ".txt") {
+        filePath = inputPath;
+    }
+    else {
+        // Otherwise, treat it as a folder and append Schedule.txt
+        if (!fs::exists(inputPath)) {
+            try {
+                fs::create_directories(inputPath);
+            }
+            catch (const fs::filesystem_error& e) {
+                cerr << "❌ Failed to create directory: " << e.what() << endl;
+                return;
+            }
+        }
+        filePath = inputPath / "Schedule.txt";
+    }
+
+    ofstream outFile(filePath);
 
     if (!outFile.is_open()) {
         cerr << "Error: Unable to open file for writing: " << filepath << endl;

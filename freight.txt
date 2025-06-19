@@ -1,3 +1,0 @@
-F01, London, 0730
-F02, Paris, 0900
-F03, Tokyo, 1530
