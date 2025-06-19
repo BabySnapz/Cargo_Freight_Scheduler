@@ -1,5 +1,7 @@
 ﻿#include "Scheduler.h"
+
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -174,7 +176,74 @@ void Scheduler::runScheduling()
 
 void Scheduler::exportSchedule(const string& filepath)
 {
+    ofstream outFile(filepath);
 
+    if (!outFile.is_open()) {
+        cerr << "Error: Unable to open file for writing: " << filepath << endl;
+        return;
+    }
+
+    outFile << "--- Matched Freight and Cargo Records ---\n";
+    outFile << left
+        << setw(8) << "F_ID"
+        << setw(12) << "F_Location"
+        << setw(8) << "F_Time"
+        << " | "
+        << setw(8) << "C_ID"
+        << setw(12) << "C_Location"
+        << setw(8) << "C_Time"
+        << "\n";
+    outFile << string(65, '-') << "\n";
+
+    for (const auto& pair : matchedList) {
+        Freight* f = pair.first;
+        Cargo* c = pair.second;
+
+        outFile << left
+            << setw(8) << f->getID()
+            << setw(12) << f->getLocation()
+            << setw(8) << f->getTime()
+            << " | "
+            << setw(8) << c->getID()
+            << setw(12) << c->getLocation()
+            << setw(8) << c->getTime()
+            << "\n";
+    }
+
+    outFile << "\n--- Unmatched Freight Records ---\n";
+    outFile << left
+        << setw(8) << "F_ID"
+        << setw(12) << "F_Location"
+        << setw(8) << "F_Time"
+        << "\n";
+    outFile << string(30, '-') << "\n";
+
+    for (Freight* f : unmatchedFreights) {
+        outFile << left
+            << setw(8) << f->getID()
+            << setw(12) << f->getLocation()
+            << setw(8) << f->getTime()
+            << "\n";
+    }
+
+    outFile << "\n--- Unmatched Cargo Records ---\n";
+    outFile << left
+        << setw(8) << "C_ID"
+        << setw(12) << "C_Location"
+        << setw(8) << "C_Time"
+        << "\n";
+    outFile << string(30, '-') << "\n";
+
+    for (Cargo* c : unmatchedCargos) {
+        outFile << left
+            << setw(8) << c->getID()
+            << setw(12) << c->getLocation()
+            << setw(8) << c->getTime()
+            << "\n";
+    }
+
+    outFile << "Scheduling completed.\n";
+    outFile.close();
     cout << "Exporting schedule to " << filepath << endl;
 }
 
