@@ -23,8 +23,41 @@ void Scheduler::loadCargos(const string& filepath)
     cargoMgr.loadFromFile(filepath);
 }
 
-void Scheduler::runScheduling()
+void Scheduler::removeMatchesWithFreightID(const std::string& freightID)
 {
+    auto it = matchedList.begin();
+    while (it != matchedList.end()) {
+        if (it->first->getID() == freightID) {
+            cout << "Removing match: Freight " << it->first->getID()
+                << " with Cargo " << it->second->getID()
+                << " (freight was edited)" << endl;
+            it = matchedList.erase(it);
+        }
+        else {
+            ++it;
+        }
+    }
+}
+
+void Scheduler::removeMatchesWithCargoID(const std::string& cargoID)
+{
+    auto it = matchedList.begin();
+    while (it != matchedList.end()) {
+        if (it->second->getID() == cargoID) {
+            cout << "Removing match: Freight " << it->first->getID()
+                << " with Cargo " << it->second->getID()
+                << " (cargo was edited)" << endl;
+            it = matchedList.erase(it);
+        }
+        else {
+            ++it;
+        }
+    }
+}
+
+bool Scheduler::runScheduling()
+{
+    bool finished = false;
     auto trim = [](const std::string& str) -> std::string {
         size_t first = str.find_first_not_of(" \t\r\n");
         if (first == std::string::npos) return "";
@@ -159,8 +192,7 @@ void Scheduler::runScheduling()
             << setw(8) << c->getTime()
             << endl;
     }
-
-    cout << "Scheduling completed.\n";
+	return finished = true;
 }
 
 
@@ -181,7 +213,7 @@ void Scheduler::exportSchedule(const string& filepath)
                 fs::create_directories(inputPath);
             }
             catch (const fs::filesystem_error& e) {
-                cerr << "❌ Failed to create directory: " << e.what() << endl;
+                cerr << "Failed to create directory: " << e.what() << endl;
                 return;
             }
         }
@@ -254,24 +286,23 @@ void Scheduler::exportSchedule(const string& filepath)
             << "\n";
     }
 
-    outFile << "Scheduling completed.\n";
     outFile.close();
     cout << "Exporting schedule to " << filepath << endl;
 }
 
 bool Scheduler::addFreight(const Freight& freight)
 {
-   return freightMgr.addFreight(new Freight(freight));
+    return freightMgr.addFreight(new Freight(freight));
 }
 
 bool Scheduler::editFreight(const string& id, const Freight& updatedFreight)
 {
-   return freightMgr.editRecord(id, new Freight(updatedFreight));
+    return freightMgr.editRecord(id, new Freight(updatedFreight));
 }
 
 bool Scheduler::deleteFreight(const string& id)
 {
-   return freightMgr.deleteRecord(id);
+    return freightMgr.deleteRecord(id);
 }
 
 bool Scheduler::addCargo(const Cargo& cargo)
