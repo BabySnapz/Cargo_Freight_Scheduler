@@ -104,8 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>"C:\Users\YBQ\source\repos\Cargo_Freight_Scheduler\Header Files"</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories>C:\Users\jia kai\source\repos\Cargo_Flight_Scheduler\Header Files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Header Files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalUsingDirectories>C:\Users\jia kai\source\repos\Cargo_Flight_Scheduler\Resource Files;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
@@ -122,8 +121,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>"C:\Users\USER\source\repos\BabySnapz\Cargo_Freight_Scheduler\Header Files";C:\Users\cjzhe\OneDrive\Desktop\OOPG\Cargo_Freight_Scheduler\Header Files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)Header Files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -152,7 +151,12 @@
     <ClCompile Include="Source Files\Scheduler.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Resource Files\cargo.txt" />
+    <Text Include="Resource Files\cargo.txt">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </DeploymentContent>
+    </Text>
     <Text Include="Resource Files\freight.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
