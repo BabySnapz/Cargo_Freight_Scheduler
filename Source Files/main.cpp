@@ -70,8 +70,6 @@ int main()
         case 4:
         {
             scheduler.runScheduling();
-            cout << "Scheduling completed.\n" << endl;
-
             break;
         }
         case 5:
@@ -114,6 +112,7 @@ int main()
 
                     cout << "\nEnter freight ID: ";
                     cin >> currentId;
+                    scheduler.removeMatchesWithFreightID(currentId);
                     cout << endl << "Enter new refuel stop and refuelling time: ";
                     cin >> newLocation >> newTime;
 

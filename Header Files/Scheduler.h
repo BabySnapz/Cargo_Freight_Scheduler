@@ -19,11 +19,16 @@ private:
     std::vector<Freight*> unmatchedFreights;
     std::vector<Cargo*> unmatchedCargos;
 
+    
+
 public:
     void Start();
 
     void loadFreights(const std::string& filepath);
     void loadCargos(const std::string& filepath);
+
+    void removeMatchesWithFreightID(const std::string& freightID);
+    void removeMatchesWithCargoID(const std::string& cargoID);
 
     void runScheduling();
 

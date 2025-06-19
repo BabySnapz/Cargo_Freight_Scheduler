@@ -20,6 +20,40 @@ void Scheduler::loadCargos(const string& filepath)
     cargoMgr.loadFromFile(filepath);
 }
 
+// Helper function to remove matches involving a specific freight ID
+void Scheduler::removeMatchesWithFreightID(const std::string& freightID)
+{
+    auto it = matchedList.begin();
+    while (it != matchedList.end()) {
+        if (it->first->getID() == freightID) {
+            cout << "Removing match: Freight " << it->first->getID()
+                << " with Cargo " << it->second->getID()
+                << " (freight was edited)" << endl;
+            it = matchedList.erase(it);
+        }
+        else {
+            ++it;
+        }
+    }
+}
+
+// Helper function to remove matches involving a specific cargo ID
+void Scheduler::removeMatchesWithCargoID(const std::string& cargoID)
+{
+    auto it = matchedList.begin();
+    while (it != matchedList.end()) {
+        if (it->second->getID() == cargoID) {
+            cout << "Removing match: Freight " << it->first->getID()
+                << " with Cargo " << it->second->getID()
+                << " (cargo was edited)" << endl;
+            it = matchedList.erase(it);
+        }
+        else {
+            ++it;
+        }
+    }
+}
+
 void Scheduler::runScheduling()
 {
     auto trim = [](const std::string& str) -> std::string {
@@ -164,7 +198,29 @@ void Scheduler::runScheduling()
 
 void Scheduler::exportSchedule(const string& filepath)
 {
-    ofstream outFile(filepath);
+    fs::path inputPath(filepath);
+
+    fs::path filePath;
+
+    // If the user included a filename (e.g., ends with .txt), use it directly
+    if (inputPath.has_filename() && inputPath.extension() == ".txt") {
+        filePath = inputPath;
+    }
+    else {
+        // Otherwise, treat it as a folder and append Schedule.txt
+        if (!fs::exists(inputPath)) {
+            try {
+                fs::create_directories(inputPath);
+            }
+            catch (const fs::filesystem_error& e) {
+                cerr << "Failed to create directory: " << e.what() << endl;
+                return;
+            }
+        }
+        filePath = inputPath / "Schedule.txt";
+    }
+
+    ofstream outFile(filePath);
 
     if (!outFile.is_open()) {
         cerr << "Error: Unable to open file for writing: " << filepath << endl;
