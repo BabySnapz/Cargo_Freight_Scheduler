@@ -25,28 +25,16 @@ void Scheduler::loadCargos(const string& filepath)
 
 void Scheduler::runScheduling()
 {
+    auto trim = [](const std::string& str) -> std::string {
+        size_t first = str.find_first_not_of(" \t\r\n");
+        if (first == std::string::npos) return "";
+
+        size_t last = str.find_last_not_of(" \t\r\n");
+        return str.substr(first, (last - first + 1));
+        };
+
     vector<Records*> freights = freightMgr.getAllRecords();
     vector<Records*> cargos = cargoMgr.getAllRecords();
-    
-	/*  THis part is used for debugging purposes, to print the records loaded
-    cout << "\n--- Freight Records ---\n";
-    for (Records* fRec : freights) {
-        if (!fRec) {
-            cerr << "Warning: Null freight record pointer skipped.\n";
-            continue;
-        }
-        cout << fRec->getID() << " | " << fRec->getLocation() << " | " << fRec->getTime() << endl;
-    }
-
-    cout << "\n--- Cargo Records ---\n";
-    for (Records* cRec : cargos) {
-        if (!cRec) {
-            cerr << "Warning: Null cargo record pointer skipped.\n";
-            continue;
-        }
-        cout << cRec->getID() << " | " << cRec->getLocation() << " | " << cRec->getTime() << endl;
-    }*/
-    
 
     cout << "\nRunning scheduling algorithm...\n";
 
@@ -59,25 +47,27 @@ void Scheduler::runScheduling()
             if (fRec->getLocation() == cRec->getLocation() &&
                 cRec->getTime() < fRec->getTime()) {
 
-                cout << "Match found: Freight " << fRec->getID()
-                    << " paired with Cargo " << cRec->getID() << endl;
-
                 Freight* freight = dynamic_cast<Freight*>(fRec);
                 Cargo* cargo = dynamic_cast<Cargo*>(cRec);
 
-                if (!freight) {
-                    cout << "  [Debug] Failed to cast fRec to Freight*\n";
+                if (!freight || !cargo) continue;
+
+                bool alreadyMatched = false;
+                for (const auto& pair : matchedList) {
+                    if (pair.first == freight && pair.second == cargo) {
+                        alreadyMatched = true;
+                        break;
+                    }
                 }
-                if (!cargo) {
-                    cout << "  [Debug] Failed to cast cRec to Cargo*\n";
-                }
-                if (freight && cargo) {
+
+                if (!alreadyMatched) {
                     matchedList.emplace_back(freight, cargo);
+                    cout << "Match found: Freight " << freight->getID()
+                        << " paired with Cargo " << cargo->getID() << endl;
                 }
 
-                break; 
+                break;
             }
-
         }
     }
 
@@ -86,6 +76,7 @@ void Scheduler::runScheduling()
         cout << " Matched Freight " << pair.first->getID()
             << " with Cargo " << pair.second->getID() << endl;
     }
+
     cout << "\n--- Matched Freight and Cargo Records ---\n";
     cout << left
         << setw(8) << "F_ID" << setw(12) << "F_Location" << setw(8) << "F_Time" << " | "
@@ -105,39 +96,36 @@ void Scheduler::runScheduling()
             << setw(8) << c->getTime() << endl;
     }
 
+    // Rebuild unmatchedFreights and unmatchedCargos based on new matches
+    unmatchedFreights.clear();
+    unmatchedCargos.clear();
 
     for (Records* fRec : freights) {
-        bool found = false;
+        Freight* freight = dynamic_cast<Freight*>(fRec);
+        if (!freight) continue;
+
+        bool matched = false;
         for (const auto& pair : matchedList) {
-            if (pair.first == fRec) {
-                found = true;
+            if (pair.first == freight) {
+                matched = true;
                 break;
             }
         }
-        if (!found) {
-            Freight* freight = dynamic_cast<Freight*>(fRec);
-            if (freight) {
-                unmatchedFreights.push_back(freight);
-            }
-
-        }
+        if (!matched) unmatchedFreights.push_back(freight);
     }
 
     for (Records* cRec : cargos) {
-        bool found = false;
+        Cargo* cargo = dynamic_cast<Cargo*>(cRec);
+        if (!cargo) continue;
+
+        bool matched = false;
         for (const auto& pair : matchedList) {
-            if (pair.second == cRec) {
-                found = true;
+            if (pair.second == cargo) {
+                matched = true;
                 break;
             }
         }
-        if (!found) {
-            Cargo* cargo = dynamic_cast<Cargo*>(cRec);
-            if (cargo) {
-                unmatchedCargos.push_back(cargo);
-            }
-
-        }
+        if (!matched) unmatchedCargos.push_back(cargo);
     }
 
     cout << "\n--- Unmatched Freight Records ---\n";
