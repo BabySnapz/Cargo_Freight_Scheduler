@@ -22,7 +22,7 @@ void showMenu()
 int main()
 {
     Scheduler scheduler;
-    string freightFile, cargoFile;
+    string freightFile, cargoFile, scheduleFile;
     bool running = true;
 
     while (running)
@@ -40,6 +40,7 @@ int main()
            
             freightFile = "freight.txt";
             cargoFile = "cargo.txt";
+            scheduleFile = "Schedule.txt";
 
             scheduler.loadFreights(freightFile);
             scheduler.loadCargos(cargoFile);
@@ -75,11 +76,9 @@ int main()
         }
         case 5:
         {
-            string exportPath;
 
-            exportPath = "schedule.txt";
-            scheduler.exportSchedule(exportPath);
-            cout << "Schedule exported to " << exportPath << endl;
+            scheduler.exportSchedule(scheduleFile);
+            cout << "Schedule exported to " << scheduleFile << endl;
             cout << "\n";
             break;
         }
@@ -158,7 +157,7 @@ int main()
                     }
                     break;
                 }
-                case 5:{
+                case 5:{ 
                     string currentId, newLocation, newTime;
 
                     cout << "\nEnter cargo ID: ";

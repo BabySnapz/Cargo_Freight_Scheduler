@@ -105,8 +105,9 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>"C:\Users\YBQ\source\repos\Cargo_Freight_Scheduler\Header Files"</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories>"C:\Users\USER\source\repos\BabySnapz\Cargo_Freight_Scheduler\Header Files";C:\Users\cjzhe\OneDrive\Desktop\OOPG\Cargo_Freight_Scheduler\Header Files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\jia kai\source\repos\Cargo_Flight_Scheduler\Header Files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalUsingDirectories>C:\Users\jia kai\source\repos\Cargo_Flight_Scheduler\Resource Files;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
