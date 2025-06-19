@@ -57,6 +57,7 @@ void Scheduler::removeMatchesWithCargoID(const std::string& cargoID)
 
 bool Scheduler::runScheduling()
 {
+    bool finished = false;
     auto trim = [](const std::string& str) -> std::string {
         size_t first = str.find_first_not_of(" \t\r\n");
         if (first == std::string::npos) return "";

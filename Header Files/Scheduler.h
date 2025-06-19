@@ -12,7 +12,6 @@
 class Scheduler
 {
 private:
-	bool finished = false;
     FreightManager freightMgr;
     CargoManager cargoMgr;
 
