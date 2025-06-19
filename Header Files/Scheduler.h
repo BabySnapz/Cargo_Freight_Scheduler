@@ -12,6 +12,7 @@
 class Scheduler
 {
 private:
+	bool finished = false;
     FreightManager freightMgr;
     CargoManager cargoMgr;
 
@@ -30,7 +31,7 @@ public:
     void removeMatchesWithFreightID(const std::string& freightID);
     void removeMatchesWithCargoID(const std::string& cargoID);
 
-    void runScheduling();
+    bool runScheduling();
 
     void exportSchedule(const std::string& filepath);
 

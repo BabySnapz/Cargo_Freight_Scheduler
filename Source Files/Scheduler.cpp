@@ -2,8 +2,11 @@
 
 #include <iostream>
 #include <fstream>
+#include <iomanip>
+#include <filesystem>
 
 using namespace std;
+namespace fs = std::filesystem;
 
 void Scheduler::Start()
 {
@@ -20,7 +23,6 @@ void Scheduler::loadCargos(const string& filepath)
     cargoMgr.loadFromFile(filepath);
 }
 
-// Helper function to remove matches involving a specific freight ID
 void Scheduler::removeMatchesWithFreightID(const std::string& freightID)
 {
     auto it = matchedList.begin();
@@ -37,7 +39,6 @@ void Scheduler::removeMatchesWithFreightID(const std::string& freightID)
     }
 }
 
-// Helper function to remove matches involving a specific cargo ID
 void Scheduler::removeMatchesWithCargoID(const std::string& cargoID)
 {
     auto it = matchedList.begin();
@@ -54,7 +55,7 @@ void Scheduler::removeMatchesWithCargoID(const std::string& cargoID)
     }
 }
 
-void Scheduler::runScheduling()
+bool Scheduler::runScheduling()
 {
     auto trim = [](const std::string& str) -> std::string {
         size_t first = str.find_first_not_of(" \t\r\n");
@@ -66,7 +67,7 @@ void Scheduler::runScheduling()
 
     vector<Records*> freights = freightMgr.getAllRecords();
     vector<Records*> cargos = cargoMgr.getAllRecords();
-    
+
     cout << "\nRunning scheduling algorithm...\n";
 
     for (Records* fRec : freights) {
@@ -190,10 +191,8 @@ void Scheduler::runScheduling()
             << setw(8) << c->getTime()
             << endl;
     }
-
-    cout << "Scheduling completed.\n";
+	return finished = true;
 }
-
 
 
 void Scheduler::exportSchedule(const string& filepath)
@@ -286,24 +285,23 @@ void Scheduler::exportSchedule(const string& filepath)
             << "\n";
     }
 
-    outFile << "Scheduling completed.\n";
     outFile.close();
     cout << "Exporting schedule to " << filepath << endl;
 }
 
 bool Scheduler::addFreight(const Freight& freight)
 {
-   return freightMgr.addFreight(new Freight(freight));
+    return freightMgr.addFreight(new Freight(freight));
 }
 
 bool Scheduler::editFreight(const string& id, const Freight& updatedFreight)
 {
-   return freightMgr.editRecord(id, new Freight(updatedFreight));
+    return freightMgr.editRecord(id, new Freight(updatedFreight));
 }
 
 bool Scheduler::deleteFreight(const string& id)
 {
-   return freightMgr.deleteRecord(id);
+    return freightMgr.deleteRecord(id);
 }
 
 bool Scheduler::addCargo(const Cargo& cargo)
