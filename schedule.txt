@@ -3,15 +3,15 @@ F_ID    F_Location  F_Time   | C_ID    C_Location  C_Time
 -----------------------------------------------------------------
 F01      London      0730    | C01      London      0700   
 F03      Tokyo       1530    | C03      Tokyo       1500   
+F01      London      0730    | C01      London      0700   
+F03      Tokyo       1530    | C03      Tokyo       1500   
 
 --- Unmatched Freight Records ---
 F_ID    F_Location  F_Time  
 ------------------------------
 F02      Paris       0900   
-F04     Argentina   0900    
+F02      Paris       0900   
 
 --- Unmatched Cargo Records ---
 C_ID    C_Location  C_Time  
 ------------------------------
-C02      Paris       1720   
-Scheduling completed.
