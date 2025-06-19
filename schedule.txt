@@ -8,6 +8,7 @@ F03      Tokyo       1530    | C03      Tokyo       1500
 F_ID    F_Location  F_Time  
 ------------------------------
 F02      Paris       0900   
+F04     Argentina   0900    
 
 --- Unmatched Cargo Records ---
 C_ID    C_Location  C_Time  
