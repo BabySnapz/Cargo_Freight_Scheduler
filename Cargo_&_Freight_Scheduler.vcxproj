@@ -106,7 +106,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)Header Files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalUsingDirectories>C:\Users\jia kai\source\repos\Cargo_Flight_Scheduler\Resource Files;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
