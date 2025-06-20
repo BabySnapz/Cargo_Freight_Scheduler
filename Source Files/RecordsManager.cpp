@@ -82,7 +82,7 @@ void RecordsManager::loadFromFile(const string& filename_in)
         if (!getline(iss, recId, ',') ||
             !getline(iss, recLocation, ',') ||
             !getline(iss, recTime, ',')) {
-            cerr << "Malformed line skipped: " << record_line << endl;
+            //cerr << "Malformed line skipped: " << record_line << endl; For debugging
             continue;
         }
 
