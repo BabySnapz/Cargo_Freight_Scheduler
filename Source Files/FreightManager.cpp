@@ -1,47 +1,16 @@
-#include "FreightManager.h"
-#include <fstream>
-#include <iostream>
-#include <sstream>
+#include <string>
+#include <vector>
 
 using namespace std;
 
-bool FreightManager::addFreight(Freight* freight)
-{
-  return addRecord(freight);
+#include "FreightManager.h"
+
+Records* FreightManager::makeRecord(const string& id, const string& destination, const string& arrivalTime) {
+	return new Freight(id, destination, arrivalTime);
 }
 
-void FreightManager::loadFromFile(const string& filename_in)
+bool FreightManager::addFreight(Freight* freight)
 {
-    string filename = filename_in;
-    if (!filename.empty() && filename.front() == '"' && filename.back() == '"') {
-        filename = filename.substr(1, filename.length() - 2);
-    }
-
-    cout << "Loading freight records from: " << filename << endl;
-
-    ifstream aFile(filename);
-    if (!aFile.is_open()) {
-        cerr << "Failed to open file: " << filename << endl;
-        return;
-    }
-
-    string record_line;
-    while (getline(aFile, record_line)) {
-        string recId, recLocation, recTime;
-        istringstream iss(record_line);
-
-        if (!getline(iss, recId, ',') ||
-            !getline(iss, recLocation, ',') ||
-            !getline(iss, recTime, ',')) {
-            cerr << "Malformed line skipped: " << record_line << endl;
-            continue;
-        }
-
-        Freight* freight = new Freight(recId, recLocation, recTime);
-        addFreight(freight);  // uses existing function
-    }
-
-    aFile.close();
-    cout << "Freight data loaded successfully." << endl;
+  return addRecordToVector(freight);
 }
 

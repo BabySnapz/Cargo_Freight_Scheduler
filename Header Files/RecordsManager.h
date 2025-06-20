@@ -12,10 +12,11 @@ private:
 
 public:
     virtual ~RecordsManager();
-    bool addRecord(Records* record);
+    virtual Records* makeRecord(const std::string& id, const std::string& location, const std::string& time) = 0;
+    bool addRecordToVector(Records* record);
     bool deleteRecord(const std::string& id);
     bool editRecord(const std::string& id, Records* updatedRecord);
     void loadFromFile(const std::string& filename);
-    std::vector<Records*> getAllRecords() const;
+    const std::vector<Records*>& getAllRecords() const;
 };
 
