@@ -7,9 +7,6 @@
 
 class CargoManager : public RecordsManager
 {
-private:
-    std::vector<Cargo*> cargos;
-
 public:
     Records* makeRecord(const std::string& id, const std::string& refuelStop, const std::string& refuelTime) override;
     bool addCargo(Cargo* cargo);
