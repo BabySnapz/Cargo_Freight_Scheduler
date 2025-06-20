@@ -96,7 +96,7 @@ int main()
         case 6:
         {
             cout << endl << "1. Add freight\n" << "2. Edit freight by ID\n" << "3. Delete freight by ID\n"
-                << "4. Add cargo\n" << "5. Edit cargo by ID\n" << "6. Delete cargo by ID\n" << "Press any key to back to previous menu\n" << endl;
+                << "4. Add cargo\n" << "5. Edit cargo by ID\n" << "6. Delete cargo by ID\n" << "Press any key and then enter to go back to the previous menu\n" << endl;
             cout << "Select choice: ";
 
             char subChoice;
