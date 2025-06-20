@@ -12,7 +12,5 @@ private:
 
 public:
     Records* makeRecord(const std::string& id, const std::string& refuelStop, const std::string& refuelTime) override;
-    bool addRecordToVector(Records* record) override;
     bool addCargo(Cargo* cargo);
-    const std::vector<Cargo*>& getAllCargos() const;
 };

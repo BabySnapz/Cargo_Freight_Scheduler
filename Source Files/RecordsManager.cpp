@@ -15,6 +15,24 @@ RecordsManager::~RecordsManager()
         delete record;  
 }  
 
+bool RecordsManager::addRecordToVector(Records* record) {
+    bool existsFlag = false;
+
+    for (Records* r : records) {
+        if (r->getID() == record->getID()) {
+            existsFlag = true;
+            break;
+        }
+    }
+    if (existsFlag) {
+        delete record;
+        return false;
+    }
+
+    records.push_back(record);
+    return true;
+}
+
 bool RecordsManager::deleteRecord(const string& id)  
 {  
     for (auto it = records.begin(); it != records.end(); ++it) {
