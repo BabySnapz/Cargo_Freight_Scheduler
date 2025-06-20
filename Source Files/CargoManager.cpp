@@ -5,42 +5,21 @@
 
 using namespace std;
 
-bool CargoManager::addCargo(Cargo* cargo)
-{
-    return addRecord(cargo);
+Records* CargoManager::makeRecord(const string& id, const string& refuelStop, const string& refuelTime) {
+    return new Cargo(id, refuelStop, refuelTime);
 }
 
-void CargoManager::loadFromFile(const string& filename_in)
+bool CargoManager::addRecordToVector(Records* record) {
+    auto c = static_cast<Cargo*>(record);
+    cargos.push_back(c);
+    return true;
+}
+
+bool CargoManager::addCargo(Cargo* cargo)
 {
-    string filename = filename_in;
-    if (!filename.empty() && filename.front() == '"' && filename.back() == '"') {
-        filename = filename.substr(1, filename.length() - 2);
-    }
+    return addRecordToVector(cargo);
+}
 
-    cout << "Loading cargo records from: " << filename << endl;
-
-    ifstream aFile(filename);
-    if (!aFile.is_open()) {
-        cerr << "Failed to open file: " << filename << endl;
-        return;
-    }
-
-    string record_line;
-    while (getline(aFile, record_line)) {
-        string recId, recLocation, recTime;
-        istringstream iss(record_line);
-
-        if (!getline(iss, recId, ',') ||
-            !getline(iss, recLocation, ',') ||
-            !getline(iss, recTime, ',')) {
-            cerr << "Malformed line skipped: " << record_line << endl;
-            continue;
-        }
-
-        Cargo* cargo = new Cargo(recId, recLocation, recTime);
-        addCargo(cargo);
-    }
-
-    aFile.close();
-    cout << "Cargo data loaded successfully." << endl;
+const vector<Cargo*>& CargoManager::getAllCargos() const {
+    return cargos;
 }

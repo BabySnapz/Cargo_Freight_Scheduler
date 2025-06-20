@@ -53,7 +53,7 @@ int main()
         case 2:
         {
             cout << "\nFreights:" << endl;
-            for (auto freightPtr : scheduler.getFreightManager().getAllRecords())
+            for (auto freightPtr : scheduler.getFreightManager().getAllFreights())
             {
                 freightPtr->showDetails();
             }
@@ -63,7 +63,7 @@ int main()
         case 3:
         {
             cout << "\nCargos:" << endl;
-            for (auto cargoPtr : scheduler.getCargoManager().getAllRecords())
+            for (auto cargoPtr : scheduler.getCargoManager().getAllCargos())
             {
                 cargoPtr->showDetails();
             }

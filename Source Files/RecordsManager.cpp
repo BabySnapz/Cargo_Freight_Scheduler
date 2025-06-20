@@ -15,26 +15,6 @@ RecordsManager::~RecordsManager()
         delete record;  
 }  
 
-bool RecordsManager::addRecord(Records* record)
-{
-    bool existsFlag = false;
-
-    for (Records* r : records) {
-        if (r->getID() == record->getID()) {
-            existsFlag = true;
-            break;
-        }
-    }
-
-    if (existsFlag) {
-        delete record;
-        return false;
-    }
-    
-    records.push_back(record);
-    return true;
-}
-
 bool RecordsManager::deleteRecord(const string& id)  
 {  
     for (auto it = records.begin(); it != records.end(); ++it) {
@@ -88,14 +68,14 @@ void RecordsManager::loadFromFile(const string& filename_in)
             continue;
         }
 
-        Records* rec = new Records(recId, recLocation, recTime);
-        addRecord(rec);
+        Records* rec = makeRecord(recId, recLocation, recTime);
+        addRecordToVector(rec);
     }
     aFile.close();
     cout << "Data loaded successfully." << endl;
 }
 
-vector<Records*> RecordsManager::getAllRecords() const  
+const vector<Records*>& RecordsManager::getAllRecords() const  
 {  
     return records;  
 }

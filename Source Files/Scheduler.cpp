@@ -66,8 +66,8 @@ bool Scheduler::runScheduling()
         return str.substr(first, (last - first + 1));
         };
 
-    vector<Records*> freights = freightMgr.getAllRecords();
-    vector<Records*> cargos = cargoMgr.getAllRecords();
+    vector<Freight*> freights = freightMgr.getAllFreights();
+    vector<Cargo*> cargos = cargoMgr.getAllCargos();
 
     cout << "\nRunning scheduling algorithm...\n";
 
