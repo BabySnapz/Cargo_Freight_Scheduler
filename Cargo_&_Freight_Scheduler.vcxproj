@@ -131,21 +131,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Header Files\Cargo.h" />
-    <ClInclude Include="Header Files\CargoManager.h" />
-    <ClInclude Include="Header Files\Freight.h" />
-    <ClInclude Include="Header Files\FreightManager.h" />
-    <ClInclude Include="Header Files\Records.h" />
-    <ClInclude Include="Header Files\RecordsManager.h" />
-    <ClInclude Include="Header Files\Scheduler.h" />
-  </ItemGroup>
-  <ItemGroup>
+    <ClCompile Include="cargoFactory.cpp" />
+    <ClCompile Include="CargoParams.cpp" />
+    <ClCompile Include="FileHandler.cpp" />
+    <ClCompile Include="FreightFactory.cpp" />
+    <ClCompile Include="FreightParams.cpp" />
     <ClCompile Include="Source Files\Cargo.cpp" />
     <ClCompile Include="Source Files\CargoManager.cpp" />
     <ClCompile Include="Source Files\Freight.cpp" />
     <ClCompile Include="Source Files\FreightManager.cpp" />
-    <ClCompile Include="Source Files\main.cpp" />
-    <ClCompile Include="Source Files\Records.cpp" />
+    <ClCompile Include="Source Files\main.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Source Files\RecordsManager.cpp" />
     <ClCompile Include="Source Files\Scheduler.cpp" />
   </ItemGroup>
@@ -157,6 +155,24 @@
       </DeploymentContent>
     </Text>
     <Text Include="Resource Files\freight.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Header Files\Cargo.h" />
+    <ClInclude Include="Header Files\CargoFactory.h" />
+    <ClInclude Include="Header Files\CargoManager.h" />
+    <ClInclude Include="Header Files\CargoParams.h" />
+    <ClInclude Include="Header Files\FileHandler.h" />
+    <ClInclude Include="Header Files\Freight.h" />
+    <ClInclude Include="Header Files\FreightFactory.h" />
+    <ClInclude Include="Header Files\FreightManager.h" />
+    <ClInclude Include="Header Files\FreightParams.h" />
+    <ClInclude Include="Header Files\FreightType.h" />
+    <ClInclude Include="Header Files\iCargoManager.h" />
+    <ClInclude Include="Header Files\iFreightManager.h" />
+    <ClInclude Include="Header Files\iRecord.h" />
+    <ClInclude Include="Header Files\iRecordFactory.h" />
+    <ClInclude Include="Header Files\iRecordParams.h" />
+    <ClInclude Include="Header Files\Scheduler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
