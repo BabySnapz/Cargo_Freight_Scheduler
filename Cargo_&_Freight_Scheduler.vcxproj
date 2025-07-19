@@ -131,29 +131,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="cargoFactory.cpp" />
-    <ClCompile Include="CargoParams.cpp" />
-    <ClCompile Include="FileHandler.cpp" />
-    <ClCompile Include="FreightFactory.cpp" />
-    <ClCompile Include="FreightParams.cpp" />
-    <ClCompile Include="iSchedulerManager.cpp" />
-    <ClCompile Include="SchedulerManager.cpp" />
-    <ClCompile Include="SchedulerPairVerifier.cpp" />
-    <ClCompile Include="SortAlgorithms.cpp" />
-    <ClCompile Include="Source Files\Cargo.cpp" />
-    <ClCompile Include="Source Files\CargoManager.cpp" />
-    <ClCompile Include="Source Files\Freight.cpp" />
-    <ClCompile Include="Source Files\FreightManager.cpp" />
-    <ClCompile Include="Source Files\main.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="Source Files\RecordsManager.cpp" />
-    <ClCompile Include="Source Files\Scheduler.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="Resource Files\cargo.txt">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </DeploymentContent>
@@ -178,13 +155,29 @@
     <ClInclude Include="Header Files\iRecord.h" />
     <ClInclude Include="Header Files\iRecordFactory.h" />
     <ClInclude Include="Header Files\iRecordParams.h" />
-    <ClInclude Include="Header Files\Scheduler.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="iSchedulerManager.h" />
-    <ClInclude Include="SchedulerManager.h" />
-    <ClInclude Include="SchedulerPairVerifier.h" />
-    <ClInclude Include="SortAlgorithms.h" />
+    <ClInclude Include="Header Files\iSchedulerManager.h" />
+    <ClInclude Include="Header Files\Scheduler.h" />
+    <ClInclude Include="Header Files\SchedulerManager.h" />
+    <ClInclude Include="Header Files\SchedulerPairVerifier.h" />
+    <ClInclude Include="Header Files\SortAlgorithms.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source Files\Cargo.cpp" />
+    <ClCompile Include="Source Files\cargoFactory.cpp" />
+    <ClCompile Include="Source Files\CargoManager.cpp" />
+    <ClCompile Include="Source Files\CargoParams.cpp" />
+    <ClCompile Include="Source Files\FileHandler.cpp" />
+    <ClCompile Include="Source Files\Freight.cpp" />
+    <ClCompile Include="Source Files\FreightFactory.cpp" />
+    <ClCompile Include="Source Files\FreightManager.cpp" />
+    <ClCompile Include="Source Files\FreightParams.cpp" />
+    <ClCompile Include="Source Files\iSchedulerManager.cpp" />
+    <ClCompile Include="Source Files\main.cpp" />
+    <ClCompile Include="Source Files\RecordsManager.cpp" />
+    <ClCompile Include="Source Files\Scheduler.cpp" />
+    <ClCompile Include="Source Files\SchedulerManager.cpp" />
+    <ClCompile Include="Source Files\SchedulerPairVerifier.cpp" />
+    <ClCompile Include="Source Files\SortAlgorithms.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
