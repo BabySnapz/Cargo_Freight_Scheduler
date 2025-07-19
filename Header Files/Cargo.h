@@ -9,14 +9,15 @@ private:
     int cargoGrouping;
 
 public:
-    Cargo(const std::string& id_, const std::string& location_, const std::string& time_, int cargoGrouping_);
+    Cargo(const std::string& id_, const std::string& location_, 
+        const std::string& time_, int cargoGrouping_);
     ~Cargo() override = default;
-    std::string& getID() const override;
+    const std::string& getID() const override;
     void showDetails() const override;
     void edit(const iRecord& editedRecord) override;
 
-    std::string& getLocation() const;
-    std::string& getTime() const;
+    const std::string& getLocation() const;
+    const std::string& getTime() const;
     int getCargoGrouping() const;
 };
 
