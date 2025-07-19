@@ -21,9 +21,9 @@ void Cargo::showDetails() const {
 
 void Cargo::edit(const iRecord& editedCargo) {
 	const Cargo& tempCargo = static_cast<const Cargo&>(editedCargo);
-	location = tempCargo.location;
-	time = tempCargo.time;
-	cargoGrouping = tempCargo.cargoGrouping;
+	location = tempCargo.getLocation();
+	time = tempCargo.getTime();
+	cargoGrouping = tempCargo.getCargoGrouping();
 }
 
 const string& Cargo::getLocation() const {

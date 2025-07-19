@@ -11,7 +11,6 @@ inline constexpr const char* freightTypeToString(FreightType t){
 		return "CargoCruiser";
 	case FreightType::MegaCarrier:
 		return "MegaCarrier";
-	default:
-		"Unknown freight type";
 	}
+	return "Unknown";
 }
