@@ -1,11 +1,29 @@
 #pragma once
-#include "Records.h"
+#include <string>
+#include "iRecord.h"
+#include "FreightType.h"
 
-class Freight : public Records
+
+class Freight : public iRecord
 {
+private:
+    std::string id, location, time;
+    FreightType freightType; 
+    int maxCapacity, remainingCapacity;
+
 public:
-    Freight(const std::string& id_, const std::string& location_, const std::string& time_)
-        : Records(id_, location_, time_)
-    {
-    }
+    Freight(const std::string& id_, const std::string& location_, 
+        const std::string& time_, FreightType freightType_);
+    ~Freight() override = default;
+    std::string& getID() const override;
+    void showDetails() const override;
+    void edit(const iRecord& editedRecord) override;
+
+    std::string& getLocation() const;
+    std::string& getTime() const;
+    FreightType getFreightType() const;
+    static int computeCapacity(FreightType t);
+    int getMaxCapacity() const;
+    int getRemainingCapacity() const;
+    bool useCapacity(int amount);
 };

@@ -1,13 +1,21 @@
 #pragma once
-#include <string>
-#include <vector>
 
-#include "Cargo.h"
-#include "RecordsManager.h"
+#include "iCargoManager.h"
+#include "CargoFactory.h"
 
-class CargoManager : public RecordsManager
+class CargoManager : public iCargoManager
 {
+private:
+	std::vector<std::unique_ptr<Cargo>> cargos;
+	CargoFactory c_Factory;
 public:
-    Records* makeRecord(const std::string& id, const std::string& refuelStop, const std::string& refuelTime) override;
-    bool addCargo(Cargo* cargo);
+	~CargoManager() override = default;
+	bool loadFromFile(const std::string& filepath) override;
+	bool addCargo(std::unique_ptr<Cargo> cargo);
+	bool createCargo(const std::string& id, const std::string& location,
+		const std::string& time, int cargoGrouping);
+	bool editCargo(const std::string& id,
+		const CargoParams& params);
+	bool removeCargo(const std::string& id);
+	std::vector<Cargo*> getAllCargos() const override;
 };
