@@ -3,7 +3,6 @@
 
 class iRecord
 {
-    //friend std::ostream& operator<<(std::ostream& out, const Records& aRecord);
 public:
     virtual ~iRecord() = default;
     virtual const std::string& getID() const = 0;
