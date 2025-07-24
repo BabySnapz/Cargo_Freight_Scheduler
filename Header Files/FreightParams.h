@@ -22,9 +22,9 @@ public:
     FreightParams& setTime(const std::string& time_);
     FreightParams& setFreightType(const FreightType& freightType_);
 
-    std::string& getID() const;
-    std::string& getLocation() const;
-    std::string& getTime() const;
-    FreightType getFreightType() const;
+    const std::string& getID() const;
+    const std::string& getLocation() const;
+    const std::string& getTime() const;
+    const FreightType getFreightType() const;
 };
 
