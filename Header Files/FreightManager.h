@@ -12,12 +12,19 @@ private:
 
 public:
 	~FreightManager() override = default;
+
 	bool loadFromFile(const std::string& filepath) override;
-	bool addFreight(std::unique_ptr<Freight> freight);
+
+	bool addFreight(std::unique_ptr<Freight> freight) override;
+
 	bool createFreight(const std::string& id, const std::string& location,
-		const std::string& time, const FreightType& freightType);
-	bool editFreight(const std::string& id,
-		const iRecordParams& params);
-	bool removeFreight(const std::string& id);
+		const std::string& time, const FreightType& freightType) override;
+
+	bool editFreight(const std::string& id, const iRecordParams& params) override;
+
+	bool removeFreight(const std::string& id) override;
+
 	std::vector<Freight*> getAllFreights() const override;
+
+	std::vector<std::string> tokenize(const std::string& str);
 };

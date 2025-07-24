@@ -12,7 +12,7 @@ private:
     std::string time;
     int cargoGrouping;
 public:
-    CargoParams() = default;
+    CargoParams() : cargoGrouping(0) {}
     ~CargoParams() override = default;
     void fieldsFromFile(const std::vector<std::string>& tokens) override;
 
