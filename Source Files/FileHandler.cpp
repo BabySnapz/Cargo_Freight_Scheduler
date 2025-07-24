@@ -4,6 +4,7 @@
 #include "StringTools.h"
 
 using namespace std;
+using namespace StringTools;
 
 vector<unique_ptr<iRecord>> FileHandler::load(const string& filePath, 
 	const iRecordFactory& factory) const {

@@ -3,6 +3,7 @@
 #include "StringTools.h"
 
 using namespace std;
+using namespace StringTools;
 
 void CargoParams::fieldsFromFile(const vector<string>& tokens) {
 	if (tokens.size() != 4) {
