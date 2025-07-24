@@ -5,6 +5,8 @@ class iRecord
 {
 public:
     virtual ~iRecord() = default;
-    virtual const std::string& getID() const = 0;
     virtual void edit(const iRecord& editedRecord) = 0;
+    virtual const std::string& getID() const = 0;
+    virtual const std::string& getLocation() const = 0;
+    virtual const std::string& getTime() const = 0;
 };

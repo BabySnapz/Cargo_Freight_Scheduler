@@ -150,7 +150,9 @@
     <ClInclude Include="Header Files\FreightManager.h" />
     <ClInclude Include="Header Files\FreightParams.h" />
     <ClInclude Include="Header Files\FreightType.h" />
+    <ClInclude Include="Header Files\iCargo.h" />
     <ClInclude Include="Header Files\iCargoManager.h" />
+    <ClInclude Include="Header Files\iFreight.h" />
     <ClInclude Include="Header Files\iFreightManager.h" />
     <ClInclude Include="Header Files\iRecord.h" />
     <ClInclude Include="Header Files\iRecordFactory.h" />

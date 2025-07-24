@@ -33,7 +33,7 @@ int Cargo::getCargoGrouping() const {
 }
 
 ostream& operator<<(ostream& out, const Cargo& aCargo) {
-	cout << aCargo.getID() << ", " << aCargo.getLocation() << ", " << aCargo.getTime() << ", "
+	out << aCargo.getID() << ", " << aCargo.getLocation() << ", " << aCargo.getTime() << ", "
 		<< aCargo.getCargoGrouping() << endl;
 	return out;
 }
