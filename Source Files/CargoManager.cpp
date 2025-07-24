@@ -13,19 +13,7 @@ using namespace std;
 //    return new Cargo(id, refuelStop, refuelTime);
 //}
 
-std::vector<std::string> CargoManager::tokenize(const std::string& str)
-{
-    std::vector<std::string> tokens;
-    std::string token;
-    std::istringstream tokenStream(str);
 
-    while (std::getline(tokenStream, token, ','))  // CSV format: comma-separated values
-    {
-        tokens.push_back(token);
-    }
-
-    return tokens;
-}
 
 bool CargoManager::addCargo(std::unique_ptr<Cargo> cargo)
 {
@@ -92,37 +80,4 @@ std::vector<Cargo*> CargoManager::getAllCargos() const
         result.push_back(cargo.get()); // Get the raw pointer from unique_ptr
     }
     return result;
-}
-
-bool CargoManager::loadFromFile(const std::string& filepath)
-{
-    std::ifstream file(filepath);
-
-    if (!file.is_open())
-    {
-        std::cerr << "Failed to open file: " << filepath << std::endl;
-        return false;
-    }
-
-    std::string line;
-    while (std::getline(file, line))
-    {
-        std::vector<std::string> tokens = tokenize(line);
-
-        try
-        {
-            auto cargoParams = std::make_unique<CargoParams>();
-            cargoParams->fieldsFromFile(tokens);
-
-            auto cargo = std::unique_ptr<Cargo>(static_cast<Cargo*>(c_Factory.create(*cargoParams).release()));
-            addCargo(std::move(cargo));
-        }
-        catch (const std::exception& e)
-        {
-            std::cerr << "Error loading cargo from file: " << e.what() << std::endl;
-            continue;
-        }
-    }
-
-    return true;
 }
