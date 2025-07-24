@@ -15,7 +15,7 @@ public:
 	bool createCargo(const std::string& id, const std::string& location,
 		const std::string& time, int cargoGrouping);
 	bool editCargo(const std::string& id,
-		const CargoParams& params);
+		const iRecordParams& params);
 	bool removeCargo(const std::string& id);
 	std::vector<Cargo*> getAllCargos() const override;
 };

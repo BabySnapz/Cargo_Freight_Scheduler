@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void CargoParams::fieldsFromFile(vector<string>& tokens) {
+void CargoParams::fieldsFromFile(const vector<string>& tokens) {
 	if (tokens.size() != 4) {
 		throw runtime_error("Expected 4 fields for a cargo entry, received \"" + to_string(tokens.size()) + "\" fields.");
 	}

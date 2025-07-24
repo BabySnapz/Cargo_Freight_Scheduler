@@ -14,7 +14,7 @@ private:
 public:
     CargoParams() = default;
     ~CargoParams() override = default;
-    void fieldsFromFile(std::vector<std::string>& tokens) override;
+    void fieldsFromFile(const std::vector<std::string>& tokens) override;
 
     CargoParams& setID(const std::string& id_);
     CargoParams& setLocation(const std::string& location_);

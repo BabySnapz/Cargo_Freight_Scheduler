@@ -15,7 +15,7 @@ public:
 	virtual bool createCargo(const std::string& id, const std::string& location,
 		const std::string& time, int cargoGrouping) = 0;
 	virtual bool editCargo(const std::string& id,
-		const CargoParams& params) = 0;
+		const iRecordParams& params) = 0;
 	virtual bool removeCargo(const std::string& id) = 0;
 	virtual std::vector<Cargo*> getAllCargos() const = 0;
 };
