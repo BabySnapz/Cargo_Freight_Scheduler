@@ -160,11 +160,12 @@
     <ClInclude Include="Header Files\SchedulerManager.h" />
     <ClInclude Include="Header Files\SchedulerPairVerifier.h" />
     <ClInclude Include="Header Files\SortAlgorithms.h" />
+    <ClInclude Include="Header Files\StringTools.h" />
     <ClInclude Include="TUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source Files\Cargo.cpp" />
-    <ClCompile Include="Source Files\cargoFactory.cpp" />
+    <ClCompile Include="Source Files\CargoFactory.cpp" />
     <ClCompile Include="Source Files\CargoManager.cpp" />
     <ClCompile Include="Source Files\CargoParams.cpp" />
     <ClCompile Include="Source Files\FileHandler.cpp" />

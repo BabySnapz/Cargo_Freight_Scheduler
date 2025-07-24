@@ -6,7 +6,7 @@
 #include "FreightParams.h"
 #include "FreightType.h"
 
-class iFreightManager 
+class iFreightManager
 {
 public:
 	virtual ~iFreightManager() = default;
@@ -15,7 +15,7 @@ public:
 	virtual bool createFreight(const std::string& id, const std::string& location,
 		const std::string& time, FreightType freightType) = 0;
 	virtual bool editFreight(const std::string& id,
-	const FreightParams& params) = 0;
+		const FreightParams& params) = 0;
 	virtual bool removeFreight(const std::string& id) = 0;
 	virtual std::vector<Freight*> getAllFreights() const = 0;
 };

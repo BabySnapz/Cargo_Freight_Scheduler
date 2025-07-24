@@ -21,9 +21,8 @@ public:
     CargoParams& setTime(const std::string& time_);
     CargoParams& setCargoGrouping(int cargoGrouping_);
 
-    std::string& getID() const;
-    std::string& getLocation() const;
-    std::string& getTime() const;
+    const std::string& getID() const;
+    const std::string& getLocation() const;
+    const std::string& getTime() const;
     int getCargoGrouping() const;
 };
-

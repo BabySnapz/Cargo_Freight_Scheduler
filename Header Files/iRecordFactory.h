@@ -5,7 +5,7 @@
 #include "iRecordParams.h"	
 #include "iRecord.h"
 
-class iRecordFactory 
+class iRecordFactory
 {
 public:
 	virtual ~iRecordFactory() = default;
