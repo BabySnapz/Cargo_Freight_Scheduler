@@ -1,8 +1,11 @@
 #pragma once
 #include <string>
+#include <string_view>
+#include <stdexcept>
+
 enum class FreightType { MiniMover, CargoCruiser, MegaCarrier };
 
-inline constexpr const char* freightTypeToString(FreightType t){
+inline constexpr const char* freightTypeToString(FreightType t) {
 	switch (t)
 	{
 	case FreightType::MiniMover:
@@ -13,4 +16,14 @@ inline constexpr const char* freightTypeToString(FreightType t){
 		return "MegaCarrier";
 	}
 	return "Unknown";
+}
+
+inline const FreightType stringToFreightType(const std::string_view aString) {
+	if (aString == "MiniMover")
+		return FreightType::MiniMover;
+	else if (aString == "CargoCruiser")
+		return FreightType::CargoCruiser;
+	else if (aString == "MegaCarrier")
+		return FreightType::MegaCarrier;
+	throw std::invalid_argument("Unknown FreighType: " + std::string(aString));
 }

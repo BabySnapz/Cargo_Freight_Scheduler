@@ -10,4 +10,3 @@ public:
     std::unique_ptr<iRecordParams> makeParams() const override;
     std::unique_ptr<iRecord> create(const iRecordParams& params) const override;
 };
-

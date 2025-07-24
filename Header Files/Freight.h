@@ -8,11 +8,11 @@ class Freight : public iRecord
 {
 private:
     std::string id, location, time;
-    FreightType freightType; 
+    FreightType freightType;
     int maxCapacity, remainingCapacity;
 
 public:
-    Freight(const std::string& id_, const std::string& location_, 
+    Freight(const std::string& id_, const std::string& location_,
         const std::string& time_, FreightType freightType_);
     ~Freight() override = default;
     const std::string& getID() const override;
