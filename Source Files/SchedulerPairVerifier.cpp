@@ -1,13 +1,14 @@
 #include "SchedulerPairVerifier.h"
 
 
-
-bool SchedulerPairVerifier::isMatched(const Cargo& cargo, const Freight& freight)
+bool SchedulerPairVerifier::isMatched(const iCargo& cargo, const iFreight& freight)
 {
-    if (cargo.getLocation() != freight.getLocation())
+    if (cargo.getLocation() != freight.getLocation()) {
+        std::cout << "[DEBUG] Location mismatch: " << cargo.getLocation()
+            << " != " << freight.getLocation() << "\n";
         return false;
+    }
 
-    // Parse 12-hour time with AM/PM
     std::tm cargoTm = {}, freightTm = {};
     std::istringstream cargoStream(cargo.getTime());
     std::istringstream freightStream(freight.getTime());
@@ -15,17 +16,19 @@ bool SchedulerPairVerifier::isMatched(const Cargo& cargo, const Freight& freight
     cargoStream >> std::get_time(&cargoTm, "%I:%M %p");
     freightStream >> std::get_time(&freightTm, "%I:%M %p");
 
-    if (cargoStream.fail() || freightStream.fail()) 
-    {
-        std::cerr << "Time parsing failed. Make sure time format is HH:MM AM/PM.\n";
+    if (cargoStream.fail() || freightStream.fail()) {
+        std::cerr << "[DEBUG] Time parsing failed for Cargo: " << cargo.getTime()
+            << ", Freight: " << freight.getTime() << "\n";
         return false;
     }
 
-    // Convert to time_t for arithmetic
     std::time_t cargoTime = std::mktime(&cargoTm);
     std::time_t freightTime = std::mktime(&freightTm);
-
-    // Compare: is cargo arrival time within 15 mins of freight time?
     double diffInSeconds = std::difftime(cargoTime, freightTime);
-    return std::abs(diffInSeconds) <= 15 * 60; // 15 minutes = 900 seconds
+
+    std::cout << "[DEBUG] Time diff: " << std::abs(diffInSeconds)
+        << " seconds between Cargo: " << cargo.getID()
+        << " and Freight: " << freight.getID() << "\n";
+
+    return std::abs(diffInSeconds) <= 15 * 60;
 }

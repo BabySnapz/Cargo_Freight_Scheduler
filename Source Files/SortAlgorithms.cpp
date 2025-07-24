@@ -1,49 +1,32 @@
-
 #include "SortAlgorithms.h"
-#include "SchedulerManager.h"
+#include "SchedulerPairVerifier.h"
 
+#include <algorithm>
+#include <cmath>
+#include <ctime>
+#include <sstream>
+#include <iostream>
+#include <iomanip>
 
-// Helper function to group freights by type and their capacity
-std::unordered_map<int, std::vector<Freight>> groupFreightsByType(const std::vector<Freight>& freights) 
+std::vector<std::pair<const iFreight&, const iCargo&>> SortByTime::sortList(
+    const std::vector<const iFreight*>& freights,
+    const std::vector<const iCargo*>& cargos)
 {
-    std::unordered_map<int, std::vector<Freight>> grouped;
-    for (const auto& freight : freights) 
-    {
-        grouped[freight.getMaxCapacity()].push_back(freight);
-    }
-    return grouped;
-}
+    std::vector<std::pair<const iFreight&, const iCargo&>> matched;
 
-// Sort by Time: Assign cargos to available freights based on their earliest arrival time
-
-std::vector<std::pair<const Freight&, const Cargo&>> SortByTime::sortList(
-    const std::vector<Freight>& freights,
-    const std::vector<Cargo>& cargos)
-{
-    std::vector<std::pair<const Freight&, const Cargo&>> matched;
-
-    // Sort cargos by their arrival time (ascending)
-    std::vector<Cargo> sortedCargos = cargos;
-    std::sort(sortedCargos.begin(), sortedCargos.end(),
-        [](const Cargo& a, const Cargo& b) {
-            return a.getTime() < b.getTime();
+    std::vector<const iCargo*> sortedCargos = cargos;
+    std::sort(sortedCargos.begin(), sortedCargos.end(), [](const iCargo* a, const iCargo* b) {
+        return a->getTime() < b->getTime();
         });
 
-    // Create a shallow copy of the freights list (they remain constant)
-    std::vector<Freight> availableFreights = freights;
+    std::vector<const iFreight*> availableFreights = freights;
 
-    // Loop through each cargo and assign to the first available matching freight
-    for (auto& cargo : sortedCargos) {
-        for (auto& freight : availableFreights) {
-
-            if (SchedulerPairVerifier::isMatched(cargo, freight)) {
-                matched.emplace_back(freight, cargo);  // Add to matched list
-
-                // Remove assigned freight so it won't be reused
-                availableFreights.erase(
-                    std::remove(availableFreights.begin(), availableFreights.end(), freight),
-                    availableFreights.end());
-                break;  // Move to next cargo
+    for (const auto* cargo : sortedCargos) {
+        for (auto it = availableFreights.begin(); it != availableFreights.end(); ++it) {
+            if (SchedulerPairVerifier::isMatched(*cargo, **it)) {
+                matched.emplace_back(**it, *cargo);
+                availableFreights.erase(it);
+                break;
             }
         }
     }
@@ -51,42 +34,29 @@ std::vector<std::pair<const Freight&, const Cargo&>> SortByTime::sortList(
     return matched;
 }
 
-
-// Sort by Capacity: Assign cargos to freights sorted in descending order of capacity
-
-std::vector<std::pair<const Freight&, const Cargo&>> SortByCapacity::sortList(
-    const std::vector<Freight>& freights,
-    const std::vector<Cargo>& cargos)
+std::vector<std::pair<const iFreight&, const iCargo&>> SortByCapacity::sortList(
+    const std::vector<const iFreight*>& freights,
+    const std::vector<const iCargo*>& cargos)
 {
-    std::vector<std::pair<const Freight&, const Cargo&>> matched;
+    std::vector<std::pair<const iFreight&, const iCargo&>> matched;
 
-    // Sort freights by descending capacity
-    std::vector<Freight> sortedFreights = freights;
-    std::sort(sortedFreights.begin(), sortedFreights.end(),
-        [](const Freight& a, const Freight& b) {
-            return a.getMaxCapacity() > b.getMaxCapacity();
+    std::vector<const iFreight*> sortedFreights = freights;
+    std::sort(sortedFreights.begin(), sortedFreights.end(), [](const iFreight* a, const iFreight* b) {
+        return a->getMaxCapacity() > b->getMaxCapacity();
         });
 
-    // Make a list of cargos that are yet to be assigned
-    std::vector<Cargo> unassignedCargos = cargos;
+    std::vector<const iCargo*> unassignedCargos = cargos;
 
-    // Loop through sorted freights (largest first)
-    for (auto& freight : sortedFreights) 
-    {
+    for (const auto* freight : sortedFreights) {
         auto it = unassignedCargos.begin();
-
-        while (it != unassignedCargos.end()) 
-        {
-            // Check if the cargo matches the freight (location + time window)
-            if (SchedulerPairVerifier::isMatched(*it, freight)) 
-            {
-                matched.emplace_back(freight, *it);      // Assign cargo to freight
-                it = unassignedCargos.erase(it);         // Remove assigned cargo
-                break;                                    // One cargo per freight, move to next freight
+        while (it != unassignedCargos.end()) {
+            if (SchedulerPairVerifier::isMatched(**it, *freight)) {
+                matched.emplace_back(*freight, **it);
+                it = unassignedCargos.erase(it);
+                break;
             }
-            else 
-            {
-                ++it; // Move to next cargo
+            else {
+                ++it;
             }
         }
     }
