@@ -26,4 +26,3 @@ public:
     const std::string& getTime() const;
     int getCargoGrouping() const;
 };
-

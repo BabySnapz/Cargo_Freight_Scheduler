@@ -2,8 +2,8 @@
 
 using namespace std;
 
-Cargo::Cargo(const std::string& id_, const std::string& location_, 
-	const std::string& time_, int cargoGrouping_) : id(id_),location(location_),
+Cargo::Cargo(const std::string& id_, const std::string& location_,
+	const std::string& time_, int cargoGrouping_) : id(id_), location(location_),
 	time(time_), cargoGrouping(cargoGrouping_)
 {
 

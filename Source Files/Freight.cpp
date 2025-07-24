@@ -4,10 +4,10 @@ using namespace std;
 
 Freight::Freight(const std::string& id_, const std::string& location_,
     const std::string& time_, FreightType freightType_) : id(id_),
-    location(location_), time(time_), freightType(freightType_), 
+    location(location_), time(time_), freightType(freightType_),
     maxCapacity(computeCapacity(freightType_)), remainingCapacity(maxCapacity)
 {
-    
+
 }
 
 const string& Freight::getID() const {

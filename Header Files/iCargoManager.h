@@ -6,7 +6,7 @@
 #include "Cargo.h"
 #include "CargoParams.h"
 
-class iCargoManager 
+class iCargoManager
 {
 public:
 	virtual ~iCargoManager() = default;
@@ -19,6 +19,3 @@ public:
 	virtual bool removeCargo(const std::string& id) = 0;
 	virtual std::vector<Cargo*> getAllCargos() const = 0;
 };
-
-
-

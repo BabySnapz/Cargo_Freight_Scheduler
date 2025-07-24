@@ -10,7 +10,7 @@ private:
 	std::vector<std::unique_ptr<Freight>> freights;
 	FreightFactory f_Factory;
 
-public: 	
+public:
 	~FreightManager() override = default;
 	bool loadFromFile(const std::string& filepath) override;
 	bool addFreight(std::unique_ptr<Freight> freight);

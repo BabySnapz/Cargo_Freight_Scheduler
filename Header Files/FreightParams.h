@@ -10,7 +10,7 @@ private:
     std::string id;
     std::string location;
     std::string time;
-    FreightType freightType{FreightType::MiniMover};
+    FreightType freightType{ FreightType::MiniMover };
 
 public:
     FreightParams() = default;
@@ -27,4 +27,3 @@ public:
     const std::string& getTime() const;
     FreightType getFreightType() const;
 };
-
