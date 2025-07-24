@@ -13,14 +13,13 @@ class SchedulerManager : public iSchedulerManager, SchedulerPairVerifier
 {
 private:
     std::vector<std::pair<const iFreight&, const iCargo&>> matchedList;
-    SortAlgorithms* sortStrategy;
+    SortAlgorithms* sortStrategy = nullptr;
 
 public:
     void setStrategy(SortAlgorithms* strategy) override;
     void exportSchedule(const std::string& filepath) override;
     std::vector<std::pair<const iFreight&, const iCargo&>> getMatchedList() override;
-
     std::vector<std::pair<const iFreight&, const iCargo&>> createMatchedList(
         const std::vector<const iFreight*>& freights,
-        const std::vector<const iCargo*>& cargos);
+        const std::vector<const iCargo*>& cargos) override;
 };

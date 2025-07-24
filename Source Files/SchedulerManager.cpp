@@ -9,7 +9,9 @@ namespace fs = std::filesystem;
 
 void SchedulerManager::setStrategy(SortAlgorithms* strategy)
 {
-    sortStrategy = strategy;
+    this->sortStrategy = strategy;
+
+
 }
 
 void SchedulerManager::exportSchedule(const std::string& filepath)
@@ -49,27 +51,16 @@ std::vector<std::pair<const iFreight&, const iCargo&>> SchedulerManager::createM
     const std::vector<const iFreight*>& freights,
     const std::vector<const iCargo*>& cargos)
 {
-    matchedList.clear();
-
-    // Make a local copy so we can erase matched cargos
-    std::vector<const iCargo*> unmatchedCargos = cargos;
-
-    for (const auto* freight : freights) {
-        auto it = unmatchedCargos.begin();
-        while (it != unmatchedCargos.end()) {
-            if (SchedulerPairVerifier::isMatched(**it, *freight)) {
-                matchedList.emplace_back(*freight, **it);
-                it = unmatchedCargos.erase(it);  // OK now — not const
-                break;  // Move to next freight
-            }
-            else {
-                ++it;
-            }
-        }
+    if (!sortStrategy) {
+        std::cout << "[DEBUG] Sort strategy not set!\n";
+        return {};
     }
 
+    matchedList = sortStrategy->sortList(freights, cargos);
     return matchedList;
 }
+
+
 
 
 //void SchedulerManager::exportSchedule(const std::string& filepath)

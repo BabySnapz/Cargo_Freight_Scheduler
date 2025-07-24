@@ -5,57 +5,49 @@
 using namespace std;
 
 #include "SchedulerManager.h"
-#include "SortAlgorithms.h"
-#include "Freight.h"
-#include "Cargo.h"
+#include "FreightManager.h"
+#include "CargoManager.h"
 
 
-int main() 
+
+int main()
 {
-    // Sample freights with different times and capacities
-    std::vector<Freight> testFreights = 
-    {
-        Freight("F001", "SG", "10:00PM", FreightType::MegaCarrier),    // Lower capacity, earlier
-        Freight("F002", "SG", "09:30AM", FreightType::MiniMover)   // Higher capacity, later
+    // Sample freights
+    std::vector<Freight> testFreights = {
+        Freight("F001", "SG", "09:30AM", FreightType::MiniMover),
+        Freight("F002", "SG", "10:00PM", FreightType::MegaCarrier),
+        Freight("F003", "SG", "9:10AM", FreightType::CargoCruiser)
     };
 
-    // Sample cargos with varying times to test matching logic
-    std::vector<Cargo> testCargos = 
-    {
-        Cargo("C001", "SG", "08:10AM", 1),  // Close to F001
-        Cargo("C002", "SG", "09:25PM", 1),  // Close to F002
-        Cargo("C003", "SG", "08:05AM", 1),  // Very early, should match F001 if by time
+    // Sample cargos
+    std::vector<Cargo> testCargos = {
+        Cargo("C001", "SG", "09:15AM", 1),
+        Cargo("C002", "SG", "09:45PM", 1),
+        Cargo("C003", "SG", "09:05AM", 1)
     };
 
-    // Convert to vectors of pointers to interfaces
+    // Convert to interface pointers
     std::vector<const iFreight*> freightPtrs;
     std::vector<const iCargo*> cargoPtrs;
-
     for (const auto& f : testFreights) freightPtrs.push_back(&f);
     for (const auto& c : testCargos) cargoPtrs.push_back(&c);
 
-    // Use the implementation
+    // Create SchedulerManager and select strategy
     iSchedulerManager* scheduler = new SchedulerManager();
 
-    // Toggle between SortByTime or SortByCapacity
-    SortByCapacity sorter;       // Try replacing with SortByCapacity sorter; to see differences
+    // Choose sorting strategy here
+    SortByCapacity sorter;           // Use SortByCapacity sorter; to switch
     scheduler->setStrategy(&sorter);
 
-    std::cout << "===== Matching Attempts =====\n";
-    for (const auto* freight : freightPtrs)
-    {
-        for (const auto* cargo : cargoPtrs) 
-        {
-            std::cout << "Trying Freight " << freight->getID() << " (" << freight->getTime()
-                << ") with Cargo " << cargo->getID() << " (" << cargo->getTime() << ") ...\n";
-        }
-    }
+    std::cout << "===== Matching Attempts (Sorted) =====\n";
 
+    // Run matching process
     auto matched = scheduler->createMatchedList(freightPtrs, cargoPtrs);
 
+    // Display results
     for (const auto& pair : matched) {
-        std::cout << "Freight: " << pair.first.getID()
-            << ", Cargo: " << pair.second.getID() << std::endl;
+        std::cout << "Freight: " << pair.first.getID() << " (" << pair.first.getTime() << ")"
+            << " matched with Cargo: " << pair.second.getID() << " (" << pair.second.getTime() << ")\n";
     }
 
     delete scheduler;
