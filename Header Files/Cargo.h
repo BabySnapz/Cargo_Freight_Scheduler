@@ -1,9 +1,9 @@
 #pragma once
 #include <string>
 #include <iostream>
-#include "iRecord.h"
+#include "iCargo.h"
 
-class Cargo : public iRecord
+class Cargo : public iCargo
 {
 private:
     std::string id, location, time;
@@ -16,9 +16,9 @@ public:
     const std::string& getID() const override;
     void edit(const iRecord& editedRecord) override;
 
-    const std::string& getLocation() const;
-    const std::string& getTime() const;
-    int getCargoGrouping() const;
+    const std::string& getLocation() const override;
+    const std::string& getTime() const override;
+    int getCargoGrouping() const override;
     friend std::ostream& operator<<(std::ostream& out, const Cargo& aFreight);
 };
 

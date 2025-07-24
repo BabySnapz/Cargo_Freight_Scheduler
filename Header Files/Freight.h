@@ -1,11 +1,11 @@
 #pragma once
 #include <string>
 #include <iostream>
-#include "iRecord.h"
+#include "iFreight.h"
 #include "FreightType.h"
 
 
-class Freight : public iRecord
+class Freight : public iFreight
 {
 private:
     std::string id, location, time;
@@ -19,13 +19,13 @@ public:
     const std::string& getID() const override;
     void edit(const iRecord& editedRecord) override;
 
-    const std::string& getLocation() const;
-    const std::string& getTime() const;
-    FreightType getFreightType() const;
+    const std::string& getLocation() const override;
+    const std::string& getTime() const override;
+    FreightType getFreightType() const override;
     static int computeCapacity(FreightType t);
-    int getMaxCapacity() const;
-    int getRemainingCapacity() const;
-    bool useCapacity(int amount);
+    int getMaxCapacity() const override;
+    int getRemainingCapacity() const override;
+    bool useCapacity(int amount) override;
 
     friend std::ostream& operator<<(std::ostream& out, const Freight& aFreight);
 };
