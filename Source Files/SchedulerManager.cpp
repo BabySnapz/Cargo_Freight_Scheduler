@@ -41,7 +41,7 @@ void SchedulerManager::exportSchedule(const std::string& filepath)
         filePath = inputPath / "Schedule.txt";
     }
 
-    ofstream outFile(filePath);
+    //ofstream outFile(filePath);
 
     /*if (!outFile.is_open())  //printing the details of the exporting document
     {
@@ -109,7 +109,7 @@ void SchedulerManager::exportSchedule(const std::string& filepath)
     }
 
     outFile.close();*/
-    cout << "Exporting schedule to " << filepath << endl;
+    //cout << "Exporting schedule to " << filepath << endl;
 }
 
 std::vector<std::pair<const Freight&, const Cargo&>> SchedulerManager::getMatchedList() 
@@ -117,9 +117,9 @@ std::vector<std::pair<const Freight&, const Cargo&>> SchedulerManager::getMatche
     return matchedList;
 }
 
-std::vector<std::pair<const Freight&, const Cargo&>> SchedulerManager::createMatchedList(const Freight & freights, const Cargo & cargos) 
+std::vector<std::pair<const Freight&, const Cargo&>> SchedulerManager::createMatchedList(const std::vector<Freight>& freights, const std::vector<Cargo>& cargos)
 {
-    if (sortStrategy) 
+    if (sortStrategy)
     {
         matchedList = sortStrategy->sortList(freights, cargos);
     }

@@ -4,11 +4,10 @@
 #include <string>
 #include <utility>
 #include "iSchedulerManager.h"
-#include "Freight.h"
-#include "Cargo.h"
+#include "SchedulerPairVerifier.h"
 #include "SortAlgorithms.h"
 
-class SchedulerManager
+class SchedulerManager : public iSchedulerManager, SchedulerPairVerifier
 {
 private:
     std::vector<std::pair<const Freight&, const Cargo&>> matchedList;
@@ -19,6 +18,6 @@ public:
     void exportSchedule(const std::string& filepath) override;
     std::vector<std::pair<const Freight&, const Cargo&>> getMatchedList() override;
 
-    virtual std::vector<std::pair<const Freight&, const Cargo&>> createMatchedList(const Freight& freights, const Cargo& cargos);
+    std::vector<std::pair<const Freight&, const Cargo&>> createMatchedList(const std::vector<Freight>& freights, const std::vector<Cargo>& cargos);
 };
 
