@@ -6,5 +6,5 @@ class iRecordParams
 {
 public:
 	virtual ~iRecordParams() = default;
-	virtual void fieldsFromFile(std::vector<std::string>& tokens) = 0;
+	virtual void fieldsFromFile(const std::vector<std::string>& tokens) = 0;
 };

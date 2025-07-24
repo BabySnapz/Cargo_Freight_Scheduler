@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Freight.h"
 
 using namespace std;
@@ -13,11 +12,6 @@ Freight::Freight(const std::string& id_, const std::string& location_,
 
 const string& Freight::getID() const {
     return id;
-}
-
-void Freight::showDetails() const{
-    cout << getID() << ", " << getLocation() << ", " << getTime() << ", "
-        << freightTypeToString(getFreightType()) << endl;
 }
 
 void Freight::edit(const iRecord& editedFreight) {
@@ -68,5 +62,11 @@ bool Freight::useCapacity(int amount) {
         return true;
     }
     return false;
+}
+
+ostream& operator<<(ostream& out, const Freight& aFreight) {
+    cout << aFreight.getID() << ", " << aFreight.getLocation() << ", " << aFreight.getTime() << ", "
+               << freightTypeToString(aFreight.getFreightType()) << endl;
+    return out;
 }
 

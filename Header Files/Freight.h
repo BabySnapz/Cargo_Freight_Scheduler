@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <iostream>
 #include "iRecord.h"
 #include "FreightType.h"
 
@@ -16,7 +17,6 @@ public:
         const std::string& time_, FreightType freightType_);
     ~Freight() override = default;
     const std::string& getID() const override;
-    void showDetails() const override;
     void edit(const iRecord& editedRecord) override;
 
     const std::string& getLocation() const;
@@ -26,4 +26,6 @@ public:
     int getMaxCapacity() const;
     int getRemainingCapacity() const;
     bool useCapacity(int amount);
+
+    friend std::ostream& operator<<(std::ostream& out, const Freight& aFreight);
 };

@@ -4,7 +4,7 @@
 #include <cctype>
 
 // removes whitespace from front and back of a string 
-inline const std::string& trimWhitespace(const std::string& aString) {
+inline  std::string trimWhitespace(const std::string& aString) {
 	auto front = aString.begin(), back = aString.end();
 
 	while (front != back && std::isspace(*front))

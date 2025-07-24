@@ -15,7 +15,7 @@ private:
 public:
     FreightParams() = default;
     ~FreightParams() override = default;
-    void fieldsFromFile(std::vector<std::string>& tokens) override;
+    void fieldsFromFile(const std::vector<std::string>& tokens) override;
 
     FreightParams& setID(const std::string& id_);
     FreightParams& setLocation(const std::string& location_);
@@ -25,6 +25,6 @@ public:
     const std::string& getID() const;
     const std::string& getLocation() const;
     const std::string& getTime() const;
-    const FreightType getFreightType() const;
+    FreightType getFreightType() const;
 };
 

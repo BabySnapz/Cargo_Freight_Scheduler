@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Cargo.h"
 
 using namespace std;
@@ -12,11 +11,6 @@ Cargo::Cargo(const std::string& id_, const std::string& location_,
 
 const string& Cargo::getID() const {
 	return id;
-}
-
-void Cargo::showDetails() const {
-	cout << getID() << ", " << getLocation() << ", " << getTime() << ", " 
-		<< getCargoGrouping() << endl;
 }
 
 void Cargo::edit(const iRecord& editedCargo) {
@@ -37,3 +31,10 @@ const string& Cargo::getTime() const {
 int Cargo::getCargoGrouping() const {
 	return cargoGrouping;
 }
+
+ostream& operator<<(ostream& out, const Cargo& aCargo) {
+	cout << aCargo.getID() << ", " << aCargo.getLocation() << ", " << aCargo.getTime() << ", "
+		<< aCargo.getCargoGrouping() << endl;
+	return out;
+}
+

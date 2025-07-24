@@ -17,7 +17,7 @@ public:
 	bool createFreight(const std::string& id, const std::string& location,
 		const std::string& time, const FreightType& freightType);
 	bool editFreight(const std::string& id,
-		const FreightParams& params);
+		const iRecordParams& params);
 	bool removeFreight(const std::string& id);
 	std::vector<Freight*> getAllFreights() const override;
 };
