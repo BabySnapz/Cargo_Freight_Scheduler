@@ -19,6 +19,46 @@ void showMenu()
     cout << "Select option: ";
 }
 
+
+//int main() {
+//    // Create concrete manager instances
+//    FreightManager freightManager;
+//    CargoManager cargoManager;
+//    SchedulerManager schedulerManager;
+//
+//    // Create TUI object with the managers
+//    TUI tui(&freightManager, &cargoManager, &schedulerManager);
+//
+//    // Show welcome and run menu
+//    tui.welcome();
+//    tui.run();
+//
+//    return 0;
+//    cout << "=========================\n";
+//}
+//
+//int getValidatedChoice()
+//{
+//    int choice;
+//    while (true)
+//    {
+//        cout << "Enter your choice: ";
+//        cin >> choice;
+//        if (cin.fail() || choice < 0 || choice > 3)
+//        {
+//            cin.clear(); // clear the error flag
+//            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input
+//            cout << "Invalid input. Please enter a number between 0 and 3.\n";
+//        }
+//        else
+//        {
+//            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear newline
+//            return choice;
+//        }
+//    }
+//
+//};
+
 int main()
 {
     Scheduler scheduler;
