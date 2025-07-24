@@ -160,6 +160,7 @@
     <ClInclude Include="Header Files\SchedulerManager.h" />
     <ClInclude Include="Header Files\SchedulerPairVerifier.h" />
     <ClInclude Include="Header Files\SortAlgorithms.h" />
+    <ClInclude Include="TUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source Files\Cargo.cpp" />
@@ -178,6 +179,7 @@
     <ClCompile Include="Source Files\SchedulerManager.cpp" />
     <ClCompile Include="Source Files\SchedulerPairVerifier.cpp" />
     <ClCompile Include="Source Files\SortAlgorithms.cpp" />
+    <ClCompile Include="TUI.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
