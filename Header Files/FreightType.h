@@ -27,3 +27,16 @@ inline const FreightType stringToFreightType(const std::string_view aString) {
 		return FreightType::MegaCarrier;
 	throw std::invalid_argument("Unknown FreighType: " + std::string(aString));
 }
+
+inline int computeCapacity(FreightType t) {
+	switch (t)
+	{
+	case FreightType::MiniMover:
+		return 2;
+	case FreightType::CargoCruiser:
+		return 6;
+	case FreightType::MegaCarrier:
+		return 12;
+	}
+	return 0;
+}

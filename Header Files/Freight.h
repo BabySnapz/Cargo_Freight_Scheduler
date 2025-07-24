@@ -22,7 +22,6 @@ public:
     const std::string& getLocation() const override;
     const std::string& getTime() const override;
     FreightType getFreightType() const override;
-    static int computeCapacity(FreightType t);
     int getMaxCapacity() const override;
     int getRemainingCapacity() const override;
     bool useCapacity(int amount) override;

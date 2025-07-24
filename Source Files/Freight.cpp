@@ -35,19 +35,6 @@ FreightType Freight::getFreightType() const {
     return freightType;
 }
 
-int Freight::computeCapacity(FreightType t) {
-    switch (t)
-    {
-    case FreightType::MiniMover:
-        return 2;
-    case FreightType::CargoCruiser:
-        return 6;
-    case FreightType::MegaCarrier:
-        return 12;
-    }
-    return 0;
-}
-
 int Freight::getMaxCapacity() const {
     return maxCapacity;
 }
