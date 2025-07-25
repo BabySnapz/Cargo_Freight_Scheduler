@@ -1,4 +1,4 @@
-C01,London,07:00 AM, 5
-C02,Paris,05:20 AM, 6
-C03,Tokyo,03:00 PM, 10
+C01,London,07:00AM, 5
+C02,Paris,05:20AM, 6
+C03,Tokyo,03:00PM, 10
 

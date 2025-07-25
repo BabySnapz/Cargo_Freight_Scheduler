@@ -10,7 +10,14 @@ using namespace StringTools;
 
 vector<unique_ptr<iRecord>> FileHandler::load(const string& filePath, 
 	const iRecordFactory& factory) const {
-	ifstream in(filePath);
+
+	string copyFilePath = filePath;
+
+	if (!copyFilePath.empty() && copyFilePath.front() == '"' && copyFilePath.back() == '"') {
+		copyFilePath = copyFilePath.substr(1, copyFilePath.length() - 2);
+	}
+
+	ifstream in(copyFilePath);
 
 	if (!in) throw std::runtime_error("Cannot open " + filePath);
 
@@ -20,6 +27,11 @@ vector<unique_ptr<iRecord>> FileHandler::load(const string& filePath,
 	while (getline(in, line)) {
 		if (line.empty())
 			continue;
+
+		// in FileHandler::load, right before split(line, ','):
+		while (!line.empty() && (line.back() == '\r' || line.back() == '\n')) {
+			line.pop_back();
+		}
 
 		auto tokens = split(line, ',');
 
