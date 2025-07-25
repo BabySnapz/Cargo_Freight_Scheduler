@@ -158,9 +158,6 @@
     <ClInclude Include="Header Files\iRecordFactory.h" />
     <ClInclude Include="Header Files\iRecordParams.h" />
     <ClInclude Include="Header Files\iSchedulerManager.h" />
-    <ClInclude Include="Header Files\Scheduler.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="Header Files\SchedulerManager.h" />
     <ClInclude Include="Header Files\SchedulerPairVerifier.h" />
     <ClInclude Include="Header Files\SortAlgorithms.h" />
@@ -179,17 +176,11 @@
     <ClCompile Include="Source Files\FreightParams.cpp" />
     <ClCompile Include="Source Files\iSchedulerManager.cpp" />
     <ClCompile Include="Source Files\main.cpp" />
-    <ClCompile Include="Source Files\RecordsManager.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="Source Files\Scheduler.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="Source Files\SchedulerManager.cpp" />
     <ClCompile Include="Source Files\SchedulerPairVerifier.cpp" />
     <ClCompile Include="Source Files\SortAlgorithms.cpp" />
     <ClCompile Include="Source Files\TUI.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

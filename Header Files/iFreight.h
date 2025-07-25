@@ -10,4 +10,6 @@ public:
 	virtual int getMaxCapacity() const = 0;
 	virtual int getRemainingCapacity() const = 0;
 	virtual bool useCapacity(int amount) = 0;
+
+	friend std::ostream& operator<<(std::ostream& out, const iFreight& aFreight);
 };

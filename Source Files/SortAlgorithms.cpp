@@ -1,6 +1,5 @@
 ﻿#include "SortAlgorithms.h"
 #include "SchedulerPairVerifier.h"
-
 #include <algorithm>
 #include <cmath>
 #include <ctime>
@@ -9,21 +8,21 @@
 #include <iomanip>
 
 std::vector<std::pair<const iFreight&, const iCargo&>> SortByTime::sortList(
-    const std::vector<const iFreight*>& freights,
-    const std::vector<const iCargo*>& cargos)
+    const std::vector< iFreight*>& freights,
+    const std::vector< iCargo*>& cargos)
 {
     std::vector<std::pair<const iFreight&, const iCargo&>> matched;
     std::vector<bool> cargoAssigned(cargos.size(), false);  // Track used cargos
 
     // Step 1: Sort cargos by time
-    std::vector<const iCargo*> sortedCargos = cargos;
-    std::sort(sortedCargos.begin(), sortedCargos.end(), [](const iCargo* a, const iCargo* b) {
+    std::vector< iCargo*> sortedCargos = cargos;
+    std::sort(sortedCargos.begin(), sortedCargos.end(), []( iCargo* a,  iCargo* b) {
         return a->getTime() < b->getTime();
         });
 
     // Step 2: Sort freights by time
-    std::vector<const iFreight*> sortedFreights = freights;
-    std::sort(sortedFreights.begin(), sortedFreights.end(), [](const iFreight* a, const iFreight* b) {
+    std::vector< iFreight*> sortedFreights = freights;
+    std::sort(sortedFreights.begin(), sortedFreights.end(), []( iFreight* a,  iFreight* b) {
         return a->getTime() < b->getTime();
         });
 
@@ -95,20 +94,20 @@ std::vector<std::pair<const iFreight&, const iCargo&>> SortByTime::sortList(
 
 
 std::vector<std::pair<const iFreight&, const iCargo&>> SortByCapacity::sortList(
-    const std::vector<const iFreight*>& freights,
-    const std::vector<const iCargo*>& cargos)
+    const std::vector< iFreight*>& freights,
+    const std::vector< iCargo*>& cargos)
 {
     std::vector<std::pair<const iFreight&, const iCargo&>> matched;
 
     // Step 1: Sort freights by descending max capacity
-    std::vector<const iFreight*> sortedFreights = freights;
-    std::sort(sortedFreights.begin(), sortedFreights.end(), [](const iFreight* a, const iFreight* b) {
+    std::vector< iFreight*> sortedFreights = freights;
+    std::sort(sortedFreights.begin(), sortedFreights.end(), []( iFreight* a,  iFreight* b) {
         return a->getMaxCapacity() > b->getMaxCapacity(); // Bigger capacity first
         });
 
     // Step 2: Sort cargos by arrival time
-    std::vector<const iCargo*> sortedCargos = cargos;
-    std::sort(sortedCargos.begin(), sortedCargos.end(), [](const iCargo* a, const iCargo* b) {
+    std::vector< iCargo*> sortedCargos = cargos;
+    std::sort(sortedCargos.begin(), sortedCargos.end(), []( iCargo* a,  iCargo* b) {
         return a->getTime() < b->getTime(); // Earlier arrival first
         });
 

@@ -53,8 +53,8 @@ std::vector<std::pair<const iFreight&, const iCargo&>> SchedulerManager::getMatc
 }
 
 std::vector<std::pair<const iFreight&, const iCargo&>> SchedulerManager::createMatchedList(
-    const std::vector<const iFreight*>& freights,
-    const std::vector<const iCargo*>& cargos)
+    const std::vector< iFreight*>& freights,
+    const std::vector< iCargo*>& cargos)
 {
     if (!sortStrategy) {
         std::cout << "[DEBUG] Sort strategy not set!\n";

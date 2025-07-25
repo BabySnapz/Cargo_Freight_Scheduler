@@ -19,6 +19,5 @@ public:
     const std::string& getLocation() const override;
     const std::string& getTime() const override;
     int getCargoGrouping() const override;
-    friend std::ostream& operator<<(std::ostream& out, const iCargo& aFreight);
 };
 

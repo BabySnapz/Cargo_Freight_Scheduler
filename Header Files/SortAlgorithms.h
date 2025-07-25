@@ -9,8 +9,8 @@ class SortAlgorithms
 {
 public:
     virtual std::vector<std::pair<const iFreight&, const iCargo&>> sortList(
-        const std::vector<const iFreight*>& freights,
-        const std::vector<const iCargo*>& cargos) = 0;
+        const std::vector< iFreight*>& freights,
+        const std::vector< iCargo*>& cargos) = 0;
 
     virtual ~SortAlgorithms() = default;
 };
@@ -19,14 +19,14 @@ class SortByTime : public SortAlgorithms
 {
 public:
     std::vector<std::pair<const iFreight&, const iCargo&>> sortList(
-        const std::vector<const iFreight*>& freights,
-        const std::vector<const iCargo*>& cargos) override;
+        const std::vector< iFreight*>& freights,
+        const std::vector< iCargo*>& cargos) override;
 };
 
 class SortByCapacity : public SortAlgorithms
 {
 public:
     std::vector<std::pair<const iFreight&, const iCargo&>> sortList(
-        const std::vector<const iFreight*>& freights,
-        const std::vector<const iCargo*>& cargos) override;
+        const std::vector< iFreight*>& freights,
+        const std::vector< iCargo*>& cargos) override;
 };
