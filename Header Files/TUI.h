@@ -4,9 +4,9 @@
 #include <iostream>
 #include <limits> // For input validation
 
-class iFreightManager;
-class iCargoManager;
-class iSchedulerManager;
+#include "FreightManager.h"
+#include "CargoManager.h"
+#include "SchedulerManager.h"
 
 using namespace std;
 
@@ -15,19 +15,18 @@ private:
     iFreightManager* freightmgr;
     iCargoManager* cargomgr;
     iSchedulerManager* schedulermgr;
-
-public:
-    TUI(iFreightManager* f, iCargoManager* c, iSchedulerManager* s)
-        : freightmgr(f), cargomgr(c), schedulermgr(s) {}
-    void welcome();
-    void run();
-
-private:
     void displayMenu();
     int getValidatedChoice();
     void showFreightOptions();
     void showCargoOptions();
     void showScheduleOptions();
+
+public:
+    TUI(iFreightManager* f, iCargoManager* c, iSchedulerManager* s);
+    void welcome();
+    void run();
+
+    
 };
 
 #endif // TUI_H

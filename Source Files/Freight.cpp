@@ -51,7 +51,7 @@ bool Freight::useCapacity(int amount) {
     return false;
 }
 
-ostream& operator<<(ostream& out, const Freight& aFreight) {
+ostream& operator<<(ostream& out, const iFreight& aFreight) {
     out << aFreight.getID() << ", " << aFreight.getLocation() << ", " << aFreight.getTime() << ", "
                << freightTypeToString(aFreight.getFreightType()) << endl;
     return out;

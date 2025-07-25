@@ -32,7 +32,15 @@ int Cargo::getCargoGrouping() const {
 	return cargoGrouping;
 }
 
-ostream& operator<<(ostream& out, const Cargo& aCargo) {
+bool Cargo::useCargoGrouping(int amount) {
+	if (amount <= cargoGrouping) {
+		cargoGrouping -= amount;
+		return true;
+	}
+	return false;
+}
+
+ostream& operator<<(ostream& out, const iCargo& aCargo) {
 	out << aCargo.getID() << ", " << aCargo.getLocation() << ", " << aCargo.getTime() << ", "
 		<< aCargo.getCargoGrouping() << endl;
 	return out;

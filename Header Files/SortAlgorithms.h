@@ -1,30 +1,26 @@
 #pragma once
 
-#include <unordered_map>
 #include <vector>
-#include <string>
 #include <utility>
-#include <algorithm>
-
-#include "Freight.h"
-#include "Cargo.h"
-
+#include "iFreight.h"
+#include "iCargo.h"
 
 class SortAlgorithms
 {
 public:
-    virtual std::vector<std::pair<const Freight&, const Cargo&>> sortList(const std::vector<Freight>& freights, const std::vector<Cargo>& cargos) = 0;
+    // Sorts the vectors in-place
+    virtual void sort(std::vector<iFreight*>& freights, std::vector<iCargo*>& cargos) = 0;
     virtual ~SortAlgorithms() = default;
 };
 
-class SortByTime : public SortAlgorithms 
+class SortByTime : public SortAlgorithms
 {
 public:
-    std::vector<std::pair<const Freight&, const Cargo&>> sortList(const std::vector<Freight>& freights, const std::vector<Cargo>& cargos) override;
+    void sort(std::vector<iFreight*>& freights, std::vector<iCargo*>& cargos) override;
 };
 
-class SortByCapacity : public SortAlgorithms 
+class SortByCapacity : public SortAlgorithms
 {
 public:
-    std::vector<std::pair<const Freight&, const Cargo&>> sortList(const std::vector<Freight>& freights, const std::vector<Cargo>& cargos) override;
+    void sort(std::vector<iFreight*>& freights, std::vector<iCargo*>& cargos) override;
 };

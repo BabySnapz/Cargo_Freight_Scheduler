@@ -1,31 +1,53 @@
 #include "SchedulerPairVerifier.h"
 
 
-
-bool SchedulerPairVerifier::isMatched(const Cargo& cargo, const Freight& freight)
+bool SchedulerPairVerifier::isMatched(const iCargo& cargo, const iFreight& freight)
 {
-    if (cargo.getLocation() != freight.getLocation())
+    if (cargo.getLocation() != freight.getLocation()) {
+        std::cout << "[DEBUG] Location mismatch: " << cargo.getLocation()
+            << " != " << freight.getLocation() << "\n";
         return false;
+    }
 
-    // Parse 12-hour time with AM/PM
     std::tm cargoTm = {}, freightTm = {};
     std::istringstream cargoStream(cargo.getTime());
     std::istringstream freightStream(freight.getTime());
 
-    cargoStream >> std::get_time(&cargoTm, "%I:%M %p");
-    freightStream >> std::get_time(&freightTm, "%I:%M %p");
+    // Assume time is in format: "hh:mmAM" or "hh:mmPM"
+    cargoStream >> std::get_time(&cargoTm, "%I:%M%p");
+    freightStream >> std::get_time(&freightTm, "%I:%M%p");
 
-    if (cargoStream.fail() || freightStream.fail()) 
-    {
-        std::cerr << "Time parsing failed. Make sure time format is HH:MM AM/PM.\n";
+    if (cargoStream.fail() || freightStream.fail()) {
+        std::cerr << "[DEBUG] Failed to parse time - Cargo: " << cargo.getTime()
+            << ", Freight: " << freight.getTime() << "\n";
         return false;
     }
 
-    // Convert to time_t for arithmetic
+    // Set dummy date to avoid mktime returning 0
+    cargoTm.tm_year = freightTm.tm_year = 124;  // Year 2024
+    cargoTm.tm_mon = freightTm.tm_mon = 0;    // January
+    cargoTm.tm_mday = freightTm.tm_mday = 1;    // 1st
+
     std::time_t cargoTime = std::mktime(&cargoTm);
     std::time_t freightTime = std::mktime(&freightTm);
 
-    // Compare: is cargo arrival time within 15 mins of freight time?
-    double diffInSeconds = std::difftime(cargoTime, freightTime);
-    return std::abs(diffInSeconds) <= 15 * 60; // 15 minutes = 900 seconds
+    if (cargoTime == -1 || freightTime == -1) {
+        std::cerr << "[DEBUG] mktime failed\n";
+        return false;
+    }
+
+    if (freightTime < cargoTime) {
+        return false;
+    }
+
+    double diffInSeconds = std::difftime(freightTime, cargoTime);
+    int absSeconds = static_cast<int>(std::abs(diffInSeconds));
+    int hours = absSeconds / 3600;
+    int minutes = (absSeconds % 3600) / 60;
+
+    std::cout << "[DEBUG] Time diff: " << hours << "h " << minutes << "m"
+        << " between Cargo: " << cargo.getID()
+        << " and Freight: " << freight.getID() << "\n";
+
+    return std::abs(diffInSeconds) <= 15 * 60;
 }
