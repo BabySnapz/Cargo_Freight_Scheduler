@@ -66,10 +66,11 @@ std::vector<std::tuple<const iFreight&, const iCargo&, int, int>> SchedulerManag
     std::vector<iCargo*> sortedCargos = cargos;
     sortStrategy->sort(sortedFreights, sortedCargos);
 
-    matchedList.clear();
+    matchedList.clear();  // clear the member variable
     std::vector<bool> cargoMatched(sortedCargos.size(), false);
 
-    std::vector<std::tuple<const iFreight&, const iCargo&, int, int>> matchedList;
+    std::vector<std::string> freightsToRemove;
+
     for (auto* freight : sortedFreights) {
         int remainingCapacity = freight->getRemainingCapacity();
         for (size_t i = 0; i < sortedCargos.size(); ++i) {
@@ -93,6 +94,9 @@ std::vector<std::tuple<const iFreight&, const iCargo&, int, int>> SchedulerManag
                 matchedList.emplace_back(*freight, *cargo, freight->getRemainingCapacity(), remainingCapacity);
                 remainingCapacity = freight->getRemainingCapacity();
                 if (remainingCapacity == 0) break;
+                if (freight->getRemainingCapacity() == 0) {
+                    freightsToRemove.push_back(freight->getID());
+                }
             }
         }
     }

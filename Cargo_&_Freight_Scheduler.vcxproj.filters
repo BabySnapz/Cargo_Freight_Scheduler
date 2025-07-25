@@ -121,9 +121,6 @@
     <ClCompile Include="Source Files\FreightParams.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\iSchedulerManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source Files\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
