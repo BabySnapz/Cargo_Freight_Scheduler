@@ -15,16 +15,18 @@ private:
     iFreightManager* freightmgr;
     iCargoManager* cargomgr;
     iSchedulerManager* schedulermgr;
-
-public:
-    TUI(iFreightManager* f, iCargoManager* c, iSchedulerManager* s);
-    void welcome();
-    void run();
     void displayMenu();
     int getValidatedChoice();
     void showFreightOptions();
     void showCargoOptions();
     void showScheduleOptions();
+
+public:
+    TUI(iFreightManager* f, iCargoManager* c, iSchedulerManager* s);
+    void welcome();
+    void run();
+
+    
 };
 
 #endif // TUI_H
