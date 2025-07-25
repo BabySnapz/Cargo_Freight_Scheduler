@@ -6,6 +6,7 @@
 #include "CargoManager.h"
 #include "SchedulerManager.h"
 #include "FileHandler.h"
+
 using namespace std;
 
 
@@ -101,13 +102,14 @@ void TUI::showFreightOptions() {
             std::cout << "\n=== Load Freight Data from File ===\n";
             std::cout << "Enter file path: ";
             std::getline(std::cin, filepath);
+            std::cin.ignore();
 
             if (freightmgr->loadFromFile(filepath)) {
-                std::cout << "\n? File loaded successfully!\n";
+                std::cout << "\n File loaded successfully!\n";
                 std::vector<Freight*> freights = freightmgr->getAllFreights();
 
                 if (freights.empty()) {
-                    std::cout << "\n? No freight records loaded from the file.\n";
+                    std::cout << "\n No freight records loaded from the file.\n";
                 }
                 else {
                     std::cout << "\n=== Loaded Freight Records (" << freights.size() << " items) ===\n";
@@ -311,6 +313,8 @@ void TUI::showCargoOptions() {
     bool exitMenu = false;
 
     while (!exitMenu) {
+        system("CLS"); // Clear the console for better readability
+
         cout << "\n--- Cargo Menu ---\n";
         cout << "1. Load Cargo data from file\n";
         cout << "2. Add Cargo\n";
@@ -320,7 +324,7 @@ void TUI::showCargoOptions() {
         cout << "6. View All Cargos\n";
         cout << "0. Back to Main Menu\n";
 
-        system("CLS"); // Clear the console for better readability
+        
         choice = getValidatedChoice();
 
         switch (choice)
@@ -666,8 +670,14 @@ void TUI::showScheduleOptions() {
             std::cout << "\n=== Current Schedule ===\n";
 
             try {
-                std::vector<std::pair<const iFreight&, const iCargo&>> matchedList =
+                std::vector<std::tuple<const iFreight&, const iCargo&, int, int>> matchedTuples =
                     schedulermgr->getMatchedList();
+
+                std::vector<std::pair<const iFreight&, const iCargo&>> matchedList;
+                matchedList.reserve(matchedTuples.size());
+                for (const auto& t : matchedTuples) {
+                    matchedList.emplace_back(std::get<0>(t), std::get<1>(t));
+                }
 
                 if (matchedList.empty())
                 {

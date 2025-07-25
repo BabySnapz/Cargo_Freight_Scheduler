@@ -16,8 +16,8 @@ bool CargoManager::loadFromFile(const std::string& filepath)
         list = fileHandler.loadTyped<Cargo>(filepath, c_Factory);
     }
     catch (const std::exception& e) {
-        std::cerr << "Failed to load cargos from “"
-            << filepath << "”: " << e.what() << "\n";
+        std::cerr << "Failed to load cargos from ?"
+            << filepath << "? " << e.what() << "\n";
         return false;
     }
     for (auto& c : list) {

@@ -16,8 +16,8 @@ bool FreightManager::loadFromFile(const string& filepath) {
         list = aFileHandler.loadTyped<Freight>(filepath, f_Factory);
     }
     catch (const exception& e) {
-        cerr << "Failed to load freights from “"
-            << filepath << "”: " << e.what() << "\n";
+        cerr << "Failed to load freights from ?"
+            << filepath << "? " << e.what() << "\n";
         return false;
     }
 

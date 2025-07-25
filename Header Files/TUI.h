@@ -7,6 +7,8 @@
 #include "FreightManager.h"
 #include "CargoManager.h"
 #include "SchedulerManager.h"
+#include "FreightFactory.h"
+#include "CargoFactory.h"
 
 using namespace std;
 
