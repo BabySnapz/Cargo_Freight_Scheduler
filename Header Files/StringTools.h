@@ -7,7 +7,7 @@
 namespace StringTools {
 	// removes whitespace from front and back of a string 
 	inline  std::string trimWhitespace(const std::string& aString) {
-		auto first = aString.begin(), last = aString.end() - 1;
+		auto first = aString.begin(), last = aString.end();
 
 		while (first != last && std::isspace(static_cast<unsigned char>(*first))) { //static cast to guard against signed char 
 			++first;
