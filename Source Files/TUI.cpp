@@ -101,8 +101,8 @@ void TUI::showFreightOptions() {
             std::string filepath;
             std::cout << "\n=== Load Freight Data from File ===\n";
             std::cout << "Enter file path: ";
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::getline(std::cin, filepath);
-            std::cin.ignore();
 
             if (freightmgr->loadFromFile(filepath)) {
                 std::cout << "\n File loaded successfully!\n";
@@ -334,6 +334,7 @@ void TUI::showCargoOptions() {
             std::string filepath;
             std::cout << "\n=== Load Cargo Data from File ===\n";
             std::cout << "Enter file path: ";
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::getline(std::cin, filepath);
 
             if (cargomgr->loadFromFile(filepath))
