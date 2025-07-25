@@ -11,8 +11,6 @@ private:
 public:
 	~CargoManager() override = default;
 
-	bool loadFromFile(const std::string& filepath) override;
-
 	bool addCargo(std::unique_ptr<Cargo> cargo) override;
 
 	bool createCargo(const std::string& id, const std::string& location,
@@ -24,5 +22,4 @@ public:
 	bool removeCargo(const std::string& id) override;
 
 	std::vector<Cargo*> getAllCargos() const override;
-	std::vector<std::string> tokenize(const std::string& str);
 };

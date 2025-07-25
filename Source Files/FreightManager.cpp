@@ -18,48 +18,6 @@ using namespace std;
 //  return addRecordToVector(freight);
 //}
 
-std::vector<std::string> FreightManager::tokenize(const std::string& str)
-{
-    std::vector<std::string> tokens;
-    std::string token;
-    std::istringstream tokenStream(str);
-
-    while (std::getline(tokenStream, token, ','))  // CSV format: comma-separated values
-    {
-        tokens.push_back(token);
-    }
-
-    return tokens;
-}
-
-bool FreightManager::loadFromFile(const std::string& filepath)
-{
-    std::ifstream file(filepath);
-    std::string line;
-
-    while (std::getline(file, line))
-    {
-        std::vector<std::string> tokens = tokenize(line);
-
-        try
-        {
-            auto freightParams = std::make_unique<FreightParams>();
-            freightParams->fieldsFromFile(tokens);
-
-            auto freight = std::unique_ptr<Freight>(static_cast<Freight*>(f_Factory.create(*freightParams).release()));
-
-            addFreight(std::move(freight));
-        }
-        catch (const std::exception& e)
-        {
-            std::cerr << "Error loading freight from file: " << e.what() << std::endl;
-            continue; // Skip invalid lines
-        }
-    }
-
-    return true;
-}
-
 bool FreightManager::addFreight(std::unique_ptr<Freight> freight)
 {
     freights.push_back(std::move(freight));
@@ -102,8 +60,6 @@ bool FreightManager::editFreight(const std::string& id, const iRecordParams& par
     return false;
 }
 
-
-
 bool FreightManager::removeFreight(const std::string& id)
 {
     auto it = std::find_if(freights.begin(), freights.end(),
@@ -126,7 +82,8 @@ std::vector<Freight*> FreightManager::getAllFreights() const
     std::vector<Freight*> result;
     for (const auto& freight : freights)
     {
-        result.push_back(freight.get()); // Get the raw pointer
+        result.push_back(freight.get()); 
     }
     return result;
 }
+
