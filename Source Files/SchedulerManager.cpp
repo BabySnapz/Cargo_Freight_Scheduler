@@ -44,6 +44,11 @@ void SchedulerManager::exportSchedule(const std::string& filepath)
 
 std::vector<std::pair<const iFreight&, const iCargo&>> SchedulerManager::getMatchedList()
 {
+	if (matchedList.empty()) 
+    {
+		std::cout << "[DEBUG] Matched list is empty!\n";
+		return {};
+	}
     return matchedList;
 }
 

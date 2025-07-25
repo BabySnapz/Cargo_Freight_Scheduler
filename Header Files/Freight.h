@@ -26,5 +26,5 @@ public:
     int getRemainingCapacity() const override;
     bool useCapacity(int amount) override;
 
-    friend std::ostream& operator<<(std::ostream& out, const Freight& aFreight);
+    friend std::ostream& operator<<(std::ostream& out, const iFreight& aFreight);
 };
