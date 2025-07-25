@@ -1,3 +1,3 @@
-F01,London,07:00AM, MiniMover
-F02,Paris,05:20AM, MegaCarrier
-F03,Tokyo,03:00PM, CargoCruiser
+F001,SG,09:20AM,  MiniMover
+F002,SG,09:25AM, MegaCarrier
+F003,SG,09:30AM, CargoCruiser
