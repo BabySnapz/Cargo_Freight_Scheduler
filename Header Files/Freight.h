@@ -26,5 +26,4 @@ public:
     int getRemainingCapacity() const override;
     bool useCapacity(int amount) override;
 
-    
 };

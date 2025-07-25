@@ -19,5 +19,6 @@ public:
     const std::string& getLocation() const override;
     const std::string& getTime() const override;
     int getCargoGrouping() const override;
+    bool useCargoGrouping(int amount) override;
 };
 

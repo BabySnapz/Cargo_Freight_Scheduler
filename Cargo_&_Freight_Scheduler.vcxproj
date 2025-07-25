@@ -162,9 +162,14 @@
     <ClInclude Include="Header Files\SchedulerPairVerifier.h" />
     <ClInclude Include="Header Files\SortAlgorithms.h" />
     <ClInclude Include="Header Files\StringTools.h" />
-    <ClInclude Include="Header Files\TUI.h" />
+    <ClInclude Include="Header Files\TUI.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="checking.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Source Files\Cargo.cpp" />
     <ClCompile Include="Source Files\CargoFactory.cpp" />
     <ClCompile Include="Source Files\CargoManager.cpp" />
@@ -180,7 +185,7 @@
     <ClCompile Include="Source Files\SchedulerPairVerifier.cpp" />
     <ClCompile Include="Source Files\SortAlgorithms.cpp" />
     <ClCompile Include="Source Files\TUI.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
