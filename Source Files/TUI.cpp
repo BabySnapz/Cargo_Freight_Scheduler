@@ -606,23 +606,23 @@ void TUI::showScheduleOptions() {
         switch (choice) {
         case 1: {
             std::cout << "\n=== Set Scheduling Strategy ===\n";
-			std::cout << "Available Strategies:\n";
-			std::cout << "1. sortByTime\n";
-			std::cout << "2. sortByCapacity\n";
+            std::cout << "Available Strategies:\n";
+            std::cout << "1. sortByTime\n";
+            std::cout << "2. sortByCapacity\n";
 
-            try 
+            try
             {
-				std::cin >> strategyOption;
-				std::cin.ignore(); // Clear newline character from input buffer
+                std::cin >> strategyOption;
+                std::cin.ignore(); // Clear newline character from input buffer
                 switch (strategyOption)
                 {
-                case 1: 
+                case 1:
                 {
                     SortByTime sorter;
                     schedulermgr->setStrategy(&sorter);
                     break;
                 }
-                case 2: 
+                case 2:
                 {
                     SortByCapacity sorter;
                     schedulermgr->setStrategy(&sorter);
@@ -631,7 +631,7 @@ void TUI::showScheduleOptions() {
                 default: std::cout << "Please enter an valid input" << std::endl;
                 }
 
-                
+
                 std::cout << "\nScheduling strategy set successfully!\n";
             }
             catch (const std::exception& e) {
@@ -669,7 +669,7 @@ void TUI::showScheduleOptions() {
                 std::vector<std::pair<const iFreight&, const iCargo&>> matchedList =
                     schedulermgr->getMatchedList();
 
-                if (matchedList.empty()) 
+                if (matchedList.empty())
                 {
                     std::cout << "\nNo freight-cargo matches scheduled.\n";
                 }
@@ -682,7 +682,7 @@ void TUI::showScheduleOptions() {
                         std::cout << "\n[Match " << (i + 1) << "]\n";
                         std::cout << "Freight: " << matchedList[i].first << "\n";
                         std::cout << "Cargo:   " << matchedList[i].second << "\n";
-    
+
                         if ((i + 1) % 3 == 0 && i < matchedList.size() - 1) {
                             std::cout << std::string(80, '-') << "\n";
                         }

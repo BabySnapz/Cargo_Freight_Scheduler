@@ -20,8 +20,6 @@ public:
     TUI(iFreightManager* f, iCargoManager* c, iSchedulerManager* s);
     void welcome();
     void run();
-
-private:
     void displayMenu();
     int getValidatedChoice();
     void showFreightOptions();
