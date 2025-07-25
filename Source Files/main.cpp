@@ -4,9 +4,6 @@
 #include <vector>
 //#include <memory> // Add this include at the top
 using namespace std;
-#include "FreightManager.h"
-#include "CargoManager.h"
-#include "SchedulerManager.h"
 
 #include "TUI.h"
 
@@ -28,15 +25,21 @@ using namespace std;
 
 int main() {
     // Create smart pointers for the manager interfaces
-    std::unique_ptr<iFreightManager> freightManager = std::make_unique<FreightManager>();
-    std::unique_ptr<iCargoManager> cargoManager = std::make_unique<CargoManager>();
+    FileHandler fileHandler;
+    FreightFactory freightFactory;
+    CargoFactory cargoFactory;
+
+    std::unique_ptr<iFreightManager> freightManager =
+        std::make_unique<FreightManager>(fileHandler, freightFactory);
+
+    std::unique_ptr<iCargoManager> cargoManager =
+        std::make_unique<CargoManager>(fileHandler, cargoFactory);
     std::unique_ptr<iSchedulerManager> schedulerManager = std::make_unique<SchedulerManager>();
 
     // Pass raw pointers to TUI (if TUI expects raw pointers)
     TUI tui(freightManager.get(), cargoManager.get(), schedulerManager.get());
 
     // Show welcome and run menu
-    tui.welcome();
     tui.run();
 
     return 0;

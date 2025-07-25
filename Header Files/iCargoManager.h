@@ -10,7 +10,7 @@ class iCargoManager
 public:
 	virtual ~iCargoManager() = default;
 
-	//virtual bool loadFromFile(const std::string& filepath) = 0;
+	virtual bool loadFromFile(const std::string& filepath) = 0;
 
 	virtual bool addCargo(std::unique_ptr<Cargo> cargo) = 0;
 

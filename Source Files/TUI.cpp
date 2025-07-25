@@ -6,6 +6,7 @@
 #include "CargoManager.h"
 #include "SchedulerManager.h"
 #include "FileHandler.h"
+
 using namespace std;
 
 
@@ -101,13 +102,14 @@ void TUI::showFreightOptions() {
             std::cout << "\n=== Load Freight Data from File ===\n";
             std::cout << "Enter file path: ";
             std::getline(std::cin, filepath);
+            std::cin.ignore();
 
-            if (false) {//freightmgr->loadFromFile(filepath)
-                std::cout << "\n? File loaded successfully!\n";
+            if (freightmgr->loadFromFile(filepath)) {
+                std::cout << "\n File loaded successfully!\n";
                 std::vector<Freight*> freights = freightmgr->getAllFreights();
 
                 if (freights.empty()) {
-                    std::cout << "\n? No freight records loaded from the file.\n";
+                    std::cout << "\n No freight records loaded from the file.\n";
                 }
                 else {
                     std::cout << "\n=== Loaded Freight Records (" << freights.size() << " items) ===\n";
@@ -334,7 +336,7 @@ void TUI::showCargoOptions() {
             std::cout << "Enter file path: ";
             std::getline(std::cin, filepath);
 
-            if (false)//cargomgr->loadFromFile(filepath)
+            if (cargomgr->loadFromFile(filepath))
             {
                 std::cout << "\n? File loaded successfully!\n";
                 std::vector<Cargo*> cargos = cargomgr->getAllCargos();
