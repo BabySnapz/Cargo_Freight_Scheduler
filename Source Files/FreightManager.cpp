@@ -51,26 +51,34 @@ bool FreightManager::createFreight(const std::string& id, const std::string& loc
     return addFreight(std::move(freight));
 }
 
-bool FreightManager::editFreight(const std::string& id, const iRecordParams& params)
+bool FreightManager::editFreight(const std::string& id,
+    const iRecordParams& params)
 {
-    // Find the Freight by ID
+    // 1) Locate the freight
     auto it = std::find_if(freights.begin(), freights.end(),
-        [&id](const std::unique_ptr<Freight>& freight) {
-            return freight->getID() == id;
+        [&](const std::unique_ptr<Freight>& f) 
+        {
+            return f->getID() == id;
         });
 
-    if (it != freights.end())
+    if (it == freights.end()) 
     {
-        // Cast the iRecordParams to FreightParams
-        const FreightParams& freightParams = dynamic_cast<const FreightParams&>(params);
-
-        // Call edit with the correct params
-        (*it)->edit(*dynamic_cast<const Freight*>(&params));
-        return true;
+        std::cerr << "Freight with ID " << id << " not found.\n";
+        return false;
     }
 
-    std::cerr << "Freight with ID " << id << " not found." << std::endl;
-    return false;
+    // 2) Use the factory to build a brand?new Freight from params
+    std::unique_ptr<iRecord> newRec = f_Factory.create(params);
+    auto* newFreight = dynamic_cast<Freight*>(newRec.get());
+    if (!newFreight) 
+    {
+        std::cerr << "Factory did not produce a Freight instance.\n";
+        return false;
+    }
+
+    // 3) Delegate all field?copying logic to Freight::edit()
+    (*it)->edit(*newFreight);
+    return true;
 }
 
 bool FreightManager::removeFreight(const std::string& id)
