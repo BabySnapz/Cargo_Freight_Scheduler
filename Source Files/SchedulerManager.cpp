@@ -14,32 +14,44 @@ void SchedulerManager::setStrategy(SortAlgorithms* strategy)
 
 }
 
-void SchedulerManager::exportSchedule(const std::string& filepath)
-{
-    fs::path inputPath(filepath);
-    fs::path filePath;
-
-    if (inputPath.has_filename() && inputPath.extension() == ".txt")
-    {
-        filePath = inputPath;
+void SchedulerManager::exportSchedule(const std::string& filepath) {
+    // --- 1. Resolve path ---
+    fs::path p(filepath);
+    fs::path out;
+    if (p.has_filename() && p.extension() == ".txt") {
+        out = p;
     }
-    else
-    {
-        if (!fs::exists(inputPath)) {
-            try
-            {
-                fs::create_directories(inputPath);
-            }
-            catch (const fs::filesystem_error& e)
-            {
-                cerr << "Failed to create directory: " << e.what() << endl;
-                return;
-            }
+    else {
+        if (!fs::exists(p)) fs::create_directories(p);
+        out = p / "Schedule.txt";
+    }
+
+    // --- 2. Open file ---
+    std::ofstream ofs(out);
+    if (!ofs) {
+        std::cerr << "Failed to open " << out << "\n";
+        return;
+    }
+
+    // --- 3. Write header (optional) ---
+    ofs << "=== Freight???Cargo Schedule ===\n";
+
+    // --- 4. Stream each match exactly as viewSchedule() does ---
+    auto list = getMatchedList();
+    if (list.empty()) {
+        ofs << "No matches found.\n";
+    }
+    else {
+        for (size_t i = 0; i < list.size(); ++i) {
+            const auto& [freight, cargo, used, remain] = list[i];
+            ofs << "Match " << (i + 1) << ":\n"
+                << "  Freight: " << freight << "\n"
+                << "  Cargo:   " << cargo << "\n"
+                << "  Used:    " << used << "\n"
+                << "  Remain:  " << remain << "\n\n";
         }
-        filePath = inputPath / "Schedule.txt";
     }
-
-    // Export logic would go here (if needed)
+    ofs.close();
 }
 
 std::vector<std::tuple<const iFreight&, const iCargo&, int, int>> SchedulerManager::getMatchedList()
@@ -67,34 +79,44 @@ std::vector<std::tuple<const iFreight&, const iCargo&, int, int>> SchedulerManag
     sortStrategy->sort(sortedFreights, sortedCargos);
 
     matchedList.clear();
+   
+    // 1) Track which cargos are already consumed
     std::vector<bool> cargoMatched(sortedCargos.size(), false);
 
-    std::vector<std::tuple<const iFreight&, const iCargo&, int, int>> matchedList;
     for (auto* freight : sortedFreights) {
-        int remainingCapacity = freight->getRemainingCapacity();
+        int remaining = freight->getRemainingCapacity();
+
         for (size_t i = 0; i < sortedCargos.size(); ++i) {
-            if (cargoMatched[i]) continue;
-            iCargo* cargo = sortedCargos[i];
-            int cargoGrouping = cargo->getCargoGrouping();
+            if (cargoMatched[i])
+                continue;                     // skip already matched
 
-            if (!SchedulerPairVerifier::isMatched(*cargo, *freight)) continue;
+            auto* cargo = sortedCargos[i];
+            if (!SchedulerPairVerifier::isMatched(*cargo, *freight))
+                continue;
 
-            if (cargoGrouping <= remainingCapacity) {
-                freight->useCapacity(cargoGrouping);
-                cargo->useCargoGrouping(cargoGrouping);
-                cargoMatched[i] = true;
-                matchedList.emplace_back(*freight, *cargo, freight->getRemainingCapacity(), cargoGrouping);
-                remainingCapacity = freight->getRemainingCapacity();
-                if (remainingCapacity == 0) break;
-            }
-            else if (cargoGrouping > remainingCapacity) {
-                freight->useCapacity(remainingCapacity);
-                cargo->useCargoGrouping(remainingCapacity);
-                matchedList.emplace_back(*freight, *cargo, freight->getRemainingCapacity(), remainingCapacity);
-                remainingCapacity = freight->getRemainingCapacity();
-                if (remainingCapacity == 0) break;
-            }
+            int grouping = cargo->getCargoGrouping();
+            // 3) Decide how much to assign this time
+            int toUse = std::min(remaining, grouping);
+
+            // 4) Apply it
+            freight->useCapacity(toUse);
+            cargo->useCargoGrouping(toUse);
+            cargoMatched[i] = true;          // mark this cargo as done
+
+            // 5) Record exactly the same fields you show in viewSchedule()
+            matchedList.emplace_back(
+                *freight,
+                *cargo,
+                toUse,
+                freight->getRemainingCapacity()
+            );
+
+            // 6) Stop if this freight is now full
+            remaining = freight->getRemainingCapacity();
+            if (remaining == 0)
+                break;
         }
     }
-    return matchedList;
+
+    return matchedList;  // now your member is properly populated
 }
