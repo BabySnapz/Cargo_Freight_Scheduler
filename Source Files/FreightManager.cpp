@@ -90,9 +90,9 @@ bool FreightManager::removeFreight(const std::string& id)
     return false;
 }
 
-std::vector<Freight*> FreightManager::getAllFreights() const
+std::vector<iFreight*> FreightManager::getAllFreights() const
 {
-    std::vector<Freight*> result;
+    std::vector<iFreight*> result;
     for (const auto& freight : freights)
     {
         result.push_back(freight.get()); 

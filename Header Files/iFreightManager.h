@@ -16,5 +16,5 @@ public:
         const std::string& time, const FreightType& freightType) = 0;
     virtual bool editFreight(const std::string& id, const iRecordParams& params) = 0;
     virtual bool removeFreight(const std::string& id) = 0;
-    virtual std::vector<Freight*> getAllFreights() const = 0;
+    virtual std::vector<iFreight*> getAllFreights() const = 0;
 };

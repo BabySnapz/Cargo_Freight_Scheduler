@@ -32,5 +32,5 @@ public:
 
 	bool removeFreight(const std::string& id) override;
 
-	std::vector<Freight*> getAllFreights() const override;
+	std::vector<iFreight*> getAllFreights() const override;
 };
