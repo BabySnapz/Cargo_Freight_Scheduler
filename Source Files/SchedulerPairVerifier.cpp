@@ -3,17 +3,6 @@
 
 bool SchedulerPairVerifier::isMatched(const iCargo& cargo, const iFreight& freight)
 {
-    std::cout << "Cargo location type: " << typeid(cargo.getLocation()).name()
-        << ", value: " << cargo.getLocation() << "\n";
-    std::cout << "Freight location type: " << typeid(freight.getLocation()).name()
-        << ", value: " << freight.getLocation() << "\n";
-
-    if (cargo.getLocation() != freight.getLocation()) {
-        std::cout << "[DEBUG] Location mismatch: " << cargo.getLocation()
-            << " != " << freight.getLocation() << "\n";
-        return false;
-    }
-
     std::tm cargoTm = {}, freightTm = {};
     std::istringstream cargoStream(cargo.getTime());
     std::istringstream freightStream(freight.getTime());
