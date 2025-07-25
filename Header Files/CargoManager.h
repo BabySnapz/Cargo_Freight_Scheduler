@@ -30,5 +30,5 @@ public:
 
 	bool removeCargo(const std::string& id) override;
 
-	std::vector<Cargo*> getAllCargos() const override;
+	std::vector<iCargo*> getAllCargos() const override;
 };

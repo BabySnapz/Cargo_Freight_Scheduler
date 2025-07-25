@@ -101,12 +101,17 @@ void TUI::showFreightOptions() {
             std::string filepath;
             std::cout << "\n=== Load Freight Data from File ===\n";
             std::cout << "Enter file path: ";
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.ignore();
             std::getline(std::cin, filepath);
+            
+
+            if (!filepath.empty() && filepath.front() == '"' && filepath.back() == '"') {
+                filepath = filepath.substr(1, filepath.length() - 2);
+            }
 
             if (freightmgr->loadFromFile(filepath)) {
                 std::cout << "\n File loaded successfully!\n";
-                std::vector<Freight*> freights = freightmgr->getAllFreights();
+                std::vector<iFreight*> freights = freightmgr->getAllFreights();
 
                 if (freights.empty()) {
                     std::cout << "\n No freight records loaded from the file.\n";
@@ -259,7 +264,7 @@ void TUI::showFreightOptions() {
             std::cout << "\n=== All Freight Records ===\n";
 
             try {
-                std::vector<Freight*> freights = freightmgr->getAllFreights();
+                std::vector<iFreight*> freights = freightmgr->getAllFreights();
 
                 if (freights.empty()) {
                     std::cout << "\n? No freight records available.\n";
@@ -311,9 +316,9 @@ void TUI::showFreightOptions() {
 void TUI::showCargoOptions() {
     int choice;
     bool exitMenu = false;
-
+    system("CLS"); // Clear the console for better readability
     while (!exitMenu) {
-        system("CLS"); // Clear the console for better readability
+        
 
         cout << "\n--- Cargo Menu ---\n";
         cout << "1. Load Cargo data from file\n";
@@ -334,13 +339,18 @@ void TUI::showCargoOptions() {
             std::string filepath;
             std::cout << "\n=== Load Cargo Data from File ===\n";
             std::cout << "Enter file path: ";
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.ignore();
             std::getline(std::cin, filepath);
+           
+
+            if (!filepath.empty() && filepath.front() == '"' && filepath.back() == '"') {
+                filepath = filepath.substr(1, filepath.length() - 2);
+            }
 
             if (cargomgr->loadFromFile(filepath))
             {
-                std::cout << "\n? File loaded successfully!\n";
-                std::vector<Cargo*> cargos = cargomgr->getAllCargos();
+                std::cout << "\n File loaded successfully!\n";
+                std::vector<iCargo*> cargos = cargomgr->getAllCargos();
 
                 if (cargos.empty())
                 {
@@ -456,9 +466,9 @@ void TUI::showCargoOptions() {
             std::cout << "\n=== Edit Cargo ===\n";
 
             // First, check if cargo exists and display current values
-            std::vector<Cargo*> allCargos = cargomgr->getAllCargos();
+            std::vector<iCargo*> allCargos = cargomgr->getAllCargos();
             auto cargoIt = std::find_if(allCargos.begin(), allCargos.end(),
-                [](Cargo* cargo) { return false; }); // Will be replaced with actual ID check
+                [](iCargo* cargo) { return false; }); // Will be replaced with actual ID check
 
             std::cout << "Enter ID of cargo to edit: ";
             std::getline(std::cin, id);
@@ -549,7 +559,7 @@ void TUI::showCargoOptions() {
             std::cout << "\n=== All Cargo Records ===\n";
 
             try {
-                std::vector<Cargo*> cargos = cargomgr->getAllCargos();
+                std::vector<iCargo*> cargos = cargomgr->getAllCargos();
 
                 if (cargos.empty())
                 {
@@ -596,9 +606,10 @@ void TUI::showCargoOptions() {
 void TUI::showScheduleOptions() {
     int choice, strategyOption;
     bool exitMenu = false;
+    system("CLS");
 
     while (!exitMenu) {
-        system("CLS");
+        
         std::cout << "\n=== Scheduler Management System ===\n";
         std::cout << "1. Set Scheduling Strategy\n";
         std::cout << "2. Export Schedule to File\n";
@@ -614,6 +625,7 @@ void TUI::showScheduleOptions() {
             std::cout << "Available Strategies:\n";
             std::cout << "1. sortByTime\n";
             std::cout << "2. sortByCapacity\n";
+            std::unique_ptr<SortAlgorithms> strategy;
 
             try
             {
@@ -622,19 +634,31 @@ void TUI::showScheduleOptions() {
                 switch (strategyOption)
                 {
                 case 1:
-                {
-                    SortByTime sorter;
-                    schedulermgr->setStrategy(&sorter);
+                    strategy = std::make_unique<SortByTime>();
                     break;
-                }
                 case 2:
-                {
-                    SortByCapacity sorter;
-                    schedulermgr->setStrategy(&sorter);
+                    strategy = std::make_unique<SortByCapacity>();
                     break;
+                default:
+                    std::cout << "Please enter a valid input" << std::endl;
+                    return;
                 }
-                default: std::cout << "Please enter an valid input" << std::endl;
+
+                schedulermgr->setStrategy(strategy.get());
+                auto matched = schedulermgr->createMatchedList(freightmgr->getAllFreights(), cargomgr->getAllCargos());
+
+                if (matched.empty()) {
+                    std::cout << "No matches found.\n";
                 }
+                else {
+                    for (const auto& [freight, cargo, remaining, used] : matched) {
+                        std::cout << "Matched Freight " << freight.getID()
+                            << " with Cargo " << cargo.getID()
+                            << " | Used Capacity: " << used
+                            << " | Remaining Freight Capacity: " << remaining << "\n";
+                    }
+                }
+
 
 
                 std::cout << "\nScheduling strategy set successfully!\n";
@@ -674,36 +698,40 @@ void TUI::showScheduleOptions() {
                 std::vector<std::tuple<const iFreight&, const iCargo&, int, int>> matchedTuples =
                     schedulermgr->getMatchedList();
 
-                std::vector<std::pair<const iFreight&, const iCargo&>> matchedList;
-                matchedList.reserve(matchedTuples.size());
-                for (const auto& t : matchedTuples) {
-                    matchedList.emplace_back(std::get<0>(t), std::get<1>(t));
-                }
-
-                if (matchedList.empty())
-                {
+                if (matchedTuples.empty()) {
                     std::cout << "\nNo freight-cargo matches scheduled.\n";
                 }
                 else {
                     std::cout << std::string(80, '-') << "\n";
-                    std::cout << "Total Matches: " << matchedList.size() << "\n";
+                    std::cout << "Total Matches: " << matchedTuples.size() << "\n";
                     std::cout << std::string(80, '-') << "\n";
 
-                    for (size_t i = 0; i < matchedList.size(); ++i) {
-                        std::cout << "\n[Match " << (i + 1) << "]\n";
-                        std::cout << "Freight: " << matchedList[i].first << "\n";
-                        std::cout << "Cargo:   " << matchedList[i].second << "\n";
+                    for (size_t i = 0; i < matchedTuples.size(); ++i) {
+                        const auto& freight = std::get<0>(matchedTuples[i]);
+                        const auto& cargo = std::get<1>(matchedTuples[i]);
+                        int capacityLeft = std::get<2>(matchedTuples[i]);
+                        int cargoCount = std::get<3>(matchedTuples[i]);
 
-                        if ((i + 1) % 3 == 0 && i < matchedList.size() - 1) {
+                        std::cout << "\n[Match " << (i + 1) << "]\n";
+                        std::cout << "Freight: " << freight.getID()
+                            << " (" << freight.getTime() << ") "
+                            << "[Capacity left: " << capacityLeft
+                            << ", Cargos assigned: " << cargoCount << "]\n";
+                        std::cout << "Cargo:   " << cargo.getID()
+                            << " (" << cargo.getTime() << ")\n";
+
+                        if ((i + 1) % 3 == 0 && i < matchedTuples.size() - 1) {
                             std::cout << std::string(80, '-') << "\n";
                         }
                     }
+
                     std::cout << std::string(80, '-') << "\n";
                 }
             }
             catch (const std::exception& e) {
                 std::cout << "\nFailed to retrieve schedule: " << e.what() << "\n";
             }
+
 
             std::cout << "\nPress Enter to continue...";
             std::cin.get();

@@ -12,7 +12,10 @@ vector<unique_ptr<iRecord>> FileHandler::load(const string& filePath,
 	const iRecordFactory& factory) const {
 	ifstream in(filePath);
 
+
+
 	if (!in) throw std::runtime_error("Cannot open " + filePath);
+
 
 	vector<unique_ptr<iRecord>> newRecord;
 	string line;
@@ -23,10 +26,18 @@ vector<unique_ptr<iRecord>> FileHandler::load(const string& filePath,
 
 		auto tokens = split(line, ',');
 
+		std::cout << "DEBUG: tokens after split:";
+		for (const auto& t : tokens)
+			std::cout << " [" << t << "]";
+		std::cout << "\n";
+
+
 		auto params = factory.makeEmptyParams();
 		try
 		{
-			params->fieldsFromFile(tokens);		
+			params->fieldsFromFile(tokens);	
+			;
+
 		}
 		catch (const std::exception& e)
 		{

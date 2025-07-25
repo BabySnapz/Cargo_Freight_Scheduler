@@ -17,7 +17,7 @@ void FreightParams::fieldsFromFile(const vector<string>& tokens) {
 	}
 	string freightTypeToken = trimWhitespace(tokens[3]);
 	if (freightTypeToken.empty()) {
-		throw runtime_error("Missing cargo grouping.");
+		throw runtime_error("Missing Freight Type.");
 	}
 	freightType = stringToFreightType(freightTypeToken);
 }

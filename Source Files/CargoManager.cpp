@@ -86,9 +86,9 @@ bool CargoManager::removeCargo(const std::string& id)
     return false; // Cargo not found
 }
 
-std::vector<Cargo*> CargoManager::getAllCargos() const
+std::vector<iCargo*> CargoManager::getAllCargos() const
 {
-    std::vector<Cargo*> result;
+    std::vector<iCargo*> result;
     for (const auto& cargo : cargos)
     {
         result.push_back(cargo.get()); // Get the raw pointer from unique_ptr
