@@ -163,7 +163,7 @@
     <ClInclude Include="Header Files\SortAlgorithms.h" />
     <ClInclude Include="Header Files\StringTools.h" />
     <ClInclude Include="Header Files\TUI.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -181,7 +181,7 @@
     <ClCompile Include="Source Files\SchedulerPairVerifier.cpp" />
     <ClCompile Include="Source Files\SortAlgorithms.cpp" />
     <ClCompile Include="Source Files\TUI.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

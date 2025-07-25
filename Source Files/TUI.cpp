@@ -102,7 +102,7 @@ void TUI::showFreightOptions() {
             std::cout << "Enter file path: ";
             std::getline(std::cin, filepath);
 
-            if (freightmgr->loadFromFile(filepath)) {
+            if (false) {//freightmgr->loadFromFile(filepath)
                 std::cout << "\n? File loaded successfully!\n";
                 std::vector<Freight*> freights = freightmgr->getAllFreights();
 
@@ -311,6 +311,8 @@ void TUI::showCargoOptions() {
     bool exitMenu = false;
 
     while (!exitMenu) {
+        system("CLS"); // Clear the console for better readability
+
         cout << "\n--- Cargo Menu ---\n";
         cout << "1. Load Cargo data from file\n";
         cout << "2. Add Cargo\n";
@@ -320,7 +322,7 @@ void TUI::showCargoOptions() {
         cout << "6. View All Cargos\n";
         cout << "0. Back to Main Menu\n";
 
-        system("CLS"); // Clear the console for better readability
+        
         choice = getValidatedChoice();
 
         switch (choice)
@@ -332,7 +334,7 @@ void TUI::showCargoOptions() {
             std::cout << "Enter file path: ";
             std::getline(std::cin, filepath);
 
-            if (cargomgr->loadFromFile(filepath))
+            if (false)//cargomgr->loadFromFile(filepath)
             {
                 std::cout << "\n? File loaded successfully!\n";
                 std::vector<Cargo*> cargos = cargomgr->getAllCargos();
@@ -666,8 +668,14 @@ void TUI::showScheduleOptions() {
             std::cout << "\n=== Current Schedule ===\n";
 
             try {
-                std::vector<std::pair<const iFreight&, const iCargo&>> matchedList =
+                std::vector<std::tuple<const iFreight&, const iCargo&, int, int>> matchedTuples =
                     schedulermgr->getMatchedList();
+
+                std::vector<std::pair<const iFreight&, const iCargo&>> matchedList;
+                matchedList.reserve(matchedTuples.size());
+                for (const auto& t : matchedTuples) {
+                    matchedList.emplace_back(std::get<0>(t), std::get<1>(t));
+                }
 
                 if (matchedList.empty())
                 {
