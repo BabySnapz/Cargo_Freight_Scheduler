@@ -54,19 +54,31 @@ bool CargoManager::createCargo(const std::string& id, const std::string& locatio
 
 bool CargoManager::editCargo(const std::string& id, const iRecordParams& params)
 {
+    // 1) Find the existing Cargo by ID
     auto it = std::find_if(cargos.begin(), cargos.end(),
-        [&id](const std::unique_ptr<Cargo>& cargo) {
-            return cargo->getID() == id;
+        [&](const std::unique_ptr<Cargo>& c) 
+        {
+            return c->getID() == id;
         });
 
-    if (it != cargos.end())
+    if (it == cargos.end())
     {
-        (*it)->edit(*dynamic_cast<const Cargo*>(&params));
-        return true;
+        std::cerr << "Cargo with ID " << id << " not found.\n";
+        return false;
     }
 
-    std::cerr << "Cargo with ID " << id << " not found." << std::endl;
-    return false; // Cargo not found
+    // 2) Use the factory to build a fresh Cargo from params
+    std::unique_ptr<iRecord> newRec = c_Factory.create(params);
+    auto* newCargo = dynamic_cast<Cargo*>(newRec.get());
+    if (!newCargo)
+    {
+        std::cerr << "Factory did not produce a Cargo instance.\n";
+        return false;
+    }
+
+    // 3) Delegate all field?copying to Cargo::edit()
+    (*it)->edit(*newCargo);
+    return true;
 }
 
 bool CargoManager::removeCargo(const std::string& id)

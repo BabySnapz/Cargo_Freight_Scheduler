@@ -17,10 +17,18 @@ const string& Freight::getID() const {
 void Freight::edit(const iRecord& editedFreight) {
     const Freight& tempFreight = static_cast<const Freight&>(editedFreight);
     location = tempFreight.getLocation();
-    time = tempFreight.getTime();
-    freightType = tempFreight.getFreightType();
-    maxCapacity = computeCapacity(tempFreight.getFreightType());
-    remainingCapacity = tempFreight.getRemainingCapacity();
+
+    // Debug
+    const Freight* tempFreightPtr = dynamic_cast<const Freight*>(&editedFreight);
+    if (!tempFreightPtr)
+    {
+        throw std::invalid_argument("Invalid type for editedFreight in edit.");
+    }
+
+    time = tempFreightPtr->getTime();
+    freightType = tempFreightPtr->getFreightType();
+    maxCapacity = computeCapacity(tempFreightPtr->getFreightType());
+    remainingCapacity = tempFreightPtr->getRemainingCapacity();
 }
 
 const string& Freight::getLocation() const {
