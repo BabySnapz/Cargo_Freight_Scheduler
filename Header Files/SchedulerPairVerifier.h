@@ -3,18 +3,14 @@
 #include <sstream>
 #include <iomanip>
 #include <ctime>
-#include <cmath> // for std::abs
+#include <cmath>
 
-#include "Cargo.h"
-#include "Freight.h"
+#include "iCargo.h"
+#include "iFreight.h"
 
 class SchedulerPairVerifier
 {
-private:
-	Cargo cargo;
-	Freight freight;
 public:
-	static bool isMatched(const Cargo& cargo, const Freight& freight);
-
+    static bool isMatched(const iCargo& cargo, const iFreight& freight);
 };
 
