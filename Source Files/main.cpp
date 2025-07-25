@@ -91,7 +91,7 @@ int main()
     iSchedulerManager* scheduler = new SchedulerManager();
 
     // Choose sorting strategy here
-    SortByTime sorter;           // Use SortByCapacity sorter; to switch
+    SortByCapacity sorter;           // Use SortByCapacity sorter; to switch
     scheduler->setStrategy(&sorter);
 
     std::cout << "===== Matching Attempts (Sorted) =====\n";

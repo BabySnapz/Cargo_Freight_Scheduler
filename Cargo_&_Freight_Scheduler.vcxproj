@@ -167,9 +167,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="checking.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="Source Files\Cargo.cpp" />
     <ClCompile Include="Source Files\CargoFactory.cpp" />
     <ClCompile Include="Source Files\CargoManager.cpp" />
@@ -179,7 +176,6 @@
     <ClCompile Include="Source Files\FreightFactory.cpp" />
     <ClCompile Include="Source Files\FreightManager.cpp" />
     <ClCompile Include="Source Files\FreightParams.cpp" />
-    <ClCompile Include="Source Files\iSchedulerManager.cpp" />
     <ClCompile Include="Source Files\main.cpp" />
     <ClCompile Include="Source Files\SchedulerManager.cpp" />
     <ClCompile Include="Source Files\SchedulerPairVerifier.cpp" />
