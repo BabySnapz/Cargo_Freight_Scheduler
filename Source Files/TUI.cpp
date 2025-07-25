@@ -54,14 +54,13 @@ void TUI::displayMenu()
     cout << "2. Cargo Management\n";
     cout << "3. Scheduler Management\n";
     cout << "0. Exit\n";
-    cout << "Enter your choice: ";
 }
 
 void TUI::welcome() {
     system("CLS");
-    cout << "===========================================\n";
-    cout << "**       Welcome to Freight System       **\n";
-    cout << "===========================================\n";
+    cout << "==============================================================\n";
+    cout << "**       Welcome to Freight & Cargo Scheduling System       **\n";
+    cout << "==============================================================\n";
     system("pause");
 }
 int TUI::getValidatedChoice() {
@@ -647,19 +646,7 @@ void TUI::showScheduleOptions() {
                 schedulermgr->setStrategy(strategy.get());
                 auto matched = schedulermgr->createMatchedList(freightmgr->getAllFreights(), cargomgr->getAllCargos());
 
-                if (matched.empty()) {
-                    std::cout << "No matches found.\n";
-                }
-                else {
-                    for (const auto& [freight, cargo, remaining, used] : matched) {
-                        std::cout << "Matched Freight " << freight.getID()
-                            << " with Cargo " << cargo.getID()
-                            << " | Used Capacity: " << used
-                            << " | Remaining Freight Capacity: " << remaining << "\n";
-                    }
-                }
-
-
+             
 
                 std::cout << "\nScheduling strategy set successfully!\n";
             }

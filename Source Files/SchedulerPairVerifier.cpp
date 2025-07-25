@@ -39,9 +39,6 @@ bool SchedulerPairVerifier::isMatched(const iCargo& cargo, const iFreight& freig
     int hours = absSeconds / 3600;
     int minutes = (absSeconds % 3600) / 60;
 
-    std::cout << "[DEBUG] Time diff: " << hours << "h " << minutes << "m"
-        << " between Cargo: " << cargo.getID()
-        << " and Freight: " << freight.getID() << "\n";
 
     return std::abs(diffInSeconds) <= 15 * 60;
 }

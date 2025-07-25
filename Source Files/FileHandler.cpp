@@ -26,11 +26,6 @@ vector<unique_ptr<iRecord>> FileHandler::load(const string& filePath,
 
 		auto tokens = split(line, ',');
 
-		std::cout << "DEBUG: tokens after split:";
-		for (const auto& t : tokens)
-			std::cout << " [" << t << "]";
-		std::cout << "\n";
-
 
 		auto params = factory.makeEmptyParams();
 		try
