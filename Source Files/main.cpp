@@ -100,9 +100,13 @@ int main()
     auto matched = scheduler->createMatchedList(freightPtrs, cargoPtrs);
 
     // Display results
-    for (const auto& pair : matched) {
-        std::cout << "Freight: " << pair.first.getID() << " (" << pair.first.getTime() << ") [" << pair.first.getRemainingCapacity() 
-            << "] matched with Cargo: " << pair.second.getID() << " (" << pair.second.getTime() << ")\n";
+    for (const auto& tup : matched) {
+        const auto& freight = std::get<0>(tup);
+        const auto& cargo = std::get<1>(tup);
+        int capLeft = std::get<2>(tup);
+        int cargoCount = std::get<3>(tup);
+        std::cout << "Freight: " << freight.getID() << " (" << freight.getTime() << ") [Capacity left: " << capLeft
+            << ", Cargos assigned: " << cargoCount << "] matched with Cargo: " << cargo.getID() << " (" << cargo.getTime() << ")\n";
     }
 
     delete scheduler;

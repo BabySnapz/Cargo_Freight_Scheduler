@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <iostream>
 #include <filesystem>
+#include <unordered_map>
 
 using namespace std;
 namespace fs = std::filesystem;
@@ -41,7 +42,7 @@ void SchedulerManager::exportSchedule(const std::string& filepath)
     // Export logic would go here (if needed)
 }
 
-std::vector<std::pair<const iFreight&, const iCargo&>> SchedulerManager::getMatchedList()
+std::vector<std::tuple<const iFreight&, const iCargo&, int, int>> SchedulerManager::getMatchedList()
 {
 	if (matchedList.empty()) 
     {
@@ -51,9 +52,9 @@ std::vector<std::pair<const iFreight&, const iCargo&>> SchedulerManager::getMatc
     return matchedList;
 }
 
-std::vector<std::pair<const iFreight&, const iCargo&>> SchedulerManager::createMatchedList(
-    const std::vector< iFreight*>& freights,
-    const std::vector< iCargo*>& cargos)
+std::vector<std::tuple<const iFreight&, const iCargo&, int, int>> SchedulerManager::createMatchedList(
+    const std::vector<iFreight*>& freights,
+    const std::vector<iCargo*>& cargos)
 {
     if (!sortStrategy) {
         std::cout << "[DEBUG] Sort strategy not set!\n";
@@ -68,6 +69,7 @@ std::vector<std::pair<const iFreight&, const iCargo&>> SchedulerManager::createM
     matchedList.clear();
     std::vector<bool> cargoMatched(sortedCargos.size(), false);
 
+    std::vector<std::tuple<const iFreight&, const iCargo&, int, int>> matchedList;
     for (auto* freight : sortedFreights) {
         int remainingCapacity = freight->getRemainingCapacity();
         for (size_t i = 0; i < sortedCargos.size(); ++i) {
@@ -78,16 +80,17 @@ std::vector<std::pair<const iFreight&, const iCargo&>> SchedulerManager::createM
             if (!SchedulerPairVerifier::isMatched(*cargo, *freight)) continue;
 
             if (cargoGrouping <= remainingCapacity) {
-                matchedList.emplace_back(*freight, *cargo);
                 freight->useCapacity(cargoGrouping);
                 cargo->useCargoGrouping(cargoGrouping);
                 cargoMatched[i] = true;
+                matchedList.emplace_back(*freight, *cargo, freight->getRemainingCapacity(), cargoGrouping);
                 remainingCapacity = freight->getRemainingCapacity();
                 if (remainingCapacity == 0) break;
-            } else if (cargoGrouping > remainingCapacity) {
+            }
+            else if (cargoGrouping > remainingCapacity) {
                 freight->useCapacity(remainingCapacity);
                 cargo->useCargoGrouping(remainingCapacity);
-                matchedList.emplace_back(*freight, *cargo);
+                matchedList.emplace_back(*freight, *cargo, freight->getRemainingCapacity(), remainingCapacity);
                 remainingCapacity = freight->getRemainingCapacity();
                 if (remainingCapacity == 0) break;
             }
