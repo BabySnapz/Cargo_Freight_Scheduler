@@ -10,7 +10,7 @@ class iFreightManager
 {
 public:
     virtual ~iFreightManager() = default;
-
+    virtual bool loadFromFile(const std::string& filePath) = 0;
     virtual bool addFreight(std::unique_ptr<Freight> freight) = 0;
     virtual bool createFreight(const std::string& id, const std::string& location,
         const std::string& time, const FreightType& freightType) = 0;

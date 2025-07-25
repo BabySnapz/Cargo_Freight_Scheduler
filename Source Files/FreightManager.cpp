@@ -3,20 +3,33 @@
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
+#include <iostream>
 
 using namespace std;
 
 #include "FreightManager.h"
 
-//Records* FreightManager::makeRecord(const string& id, const string& destination, const string& arrivalTime) 
-//{
-//	return new Freight(id, destination, arrivalTime);
-//}
-//
-//bool FreightManager::addFreight(Freight* freight)
-//{
-//  return addRecordToVector(freight);
-//}
+bool FreightManager::loadFromFile(const string& filepath) {
+    // 1) parse+build+type-filter all in one go
+    vector<unique_ptr<Freight>> list;
+    try {
+        list = aFileHandler.loadTyped<Freight>(filepath, f_Factory);
+    }
+    catch (const exception& e) {
+        cerr << "Failed to load freights from “"
+            << filepath << "”: " << e.what() << "\n";
+        return false;
+    }
+
+    // 2) store them
+    for (auto& f : list) {
+        if (!addFreight(move(f))) {
+            cerr << "Duplicate freight ID\n";
+            return false;
+        }
+    }
+    return true;
+}
 
 bool FreightManager::addFreight(std::unique_ptr<Freight> freight)
 {

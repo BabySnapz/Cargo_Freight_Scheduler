@@ -2,16 +2,26 @@
 #include <string>
 #include <vector>
 #include "iFreightManager.h"
-#include "FreightFactory.h"
+#include "iRecordFactory.h"
+#include "FileHandler.h"
 
 class FreightManager : public iFreightManager
 {
 private:
 	std::vector<std::unique_ptr<Freight>> freights;
-	FreightFactory f_Factory;
-
+	FileHandler& aFileHandler;
+	iRecordFactory& f_Factory;
+	
 public:
 	~FreightManager() override = default;
+
+	FreightManager(FileHandler& aFileHandler_, iRecordFactory& aFactory)
+		: aFileHandler(aFileHandler_), f_Factory(aFactory) 
+	{
+		
+	}
+
+	bool loadFromFile(const std::string& filepath) override;
 
 	bool addFreight(std::unique_ptr<Freight> freight) override;
 
