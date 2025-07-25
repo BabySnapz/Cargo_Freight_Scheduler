@@ -45,27 +45,6 @@ int main() {
     return 0;
 }
 
-int getValidatedChoice()
-{
-    int choice;
-    while (true)
-    {
-        cout << "Enter your choice: ";
-        cin >> choice;
-        if (cin.fail() || choice < 0 || choice > 3)
-        {
-            cin.clear(); // clear the error flag
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input
-            cout << "Invalid input. Please enter a number between 0 and 3.\n";
-        }
-        else
-        {
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear newline
-            return choice;
-        }
-    }
-
-};
 
 //int main()
 //{

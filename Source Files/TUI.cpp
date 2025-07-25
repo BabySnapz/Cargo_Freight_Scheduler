@@ -54,14 +54,14 @@ void TUI::displayMenu()
     cout << "2. Cargo Management\n";
     cout << "3. Scheduler Management\n";
     cout << "0. Exit\n";
-    cout << "Enter your choice: ";
+    /*cout << "Enter your choice: ";*/
 }
 
 void TUI::welcome() {
     system("CLS");
-    cout << "===========================================\n";
-    cout << "**       Welcome to Freight System       **\n";
-    cout << "===========================================\n";
+    cout << "===============================================================\n";
+    cout << "**       Welcome to Freight & Cargo Scheduling System        **\n";
+    cout << "===============================================================\n";
     system("pause");
 }
 int TUI::getValidatedChoice() {
@@ -108,7 +108,7 @@ void TUI::showFreightOptions() {
 
             if (freightmgr->loadFromFile(filepath)) {
                 std::cout << "\n File loaded successfully!\n";
-                std::vector<Freight*> freights = freightmgr->getAllFreights();
+                std::vector<iFreight*> freights = freightmgr->getAllFreights();
 
                 if (freights.empty()) {
                     std::cout << "\n No freight records loaded from the file.\n";
@@ -261,7 +261,7 @@ void TUI::showFreightOptions() {
             std::cout << "\n=== All Freight Records ===\n";
 
             try {
-                std::vector<Freight*> freights = freightmgr->getAllFreights();
+                std::vector<iFreight*> freights = freightmgr->getAllFreights();
 
                 if (freights.empty()) {
                     std::cout << "\n? No freight records available.\n";
@@ -343,7 +343,7 @@ void TUI::showCargoOptions() {
             if (cargomgr->loadFromFile(filepath))
             {
                 std::cout << "\n? File loaded successfully!\n";
-                std::vector<Cargo*> cargos = cargomgr->getAllCargos();
+                std::vector<iCargo*> cargos = cargomgr->getAllCargos();
 
                 if (cargos.empty())
                 {
@@ -459,9 +459,9 @@ void TUI::showCargoOptions() {
             std::cout << "\n=== Edit Cargo ===\n";
 
             // First, check if cargo exists and display current values
-            std::vector<Cargo*> allCargos = cargomgr->getAllCargos();
+            std::vector<iCargo*> allCargos = cargomgr->getAllCargos();
             auto cargoIt = std::find_if(allCargos.begin(), allCargos.end(),
-                [](Cargo* cargo) { return false; }); // Will be replaced with actual ID check
+                [](iCargo* cargo) { return false; }); // Will be replaced with actual ID check
 
             std::cout << "Enter ID of cargo to edit: ";
             std::getline(std::cin, id);
@@ -552,7 +552,7 @@ void TUI::showCargoOptions() {
             std::cout << "\n=== All Cargo Records ===\n";
 
             try {
-                std::vector<Cargo*> cargos = cargomgr->getAllCargos();
+                std::vector<iCargo*> cargos = cargomgr->getAllCargos();
 
                 if (cargos.empty())
                 {
@@ -600,8 +600,10 @@ void TUI::showScheduleOptions() {
     int choice, strategyOption;
     bool exitMenu = false;
 
+    system("CLS");
+
     while (!exitMenu) {
-        system("CLS");
+        
         std::cout << "\n=== Scheduler Management System ===\n";
         std::cout << "1. Set Scheduling Strategy\n";
         std::cout << "2. Export Schedule to File\n";
@@ -628,6 +630,10 @@ void TUI::showScheduleOptions() {
                 {
                     SortByTime sorter;
                     schedulermgr->setStrategy(&sorter);
+
+                    // Run matching process
+                    auto matched = schedulermgr->createMatchedList(freightmgr->getAllFreights(), cargomgr->getAllCargos());
+
                     break;
                 }
                 case 2:
