@@ -9,11 +9,25 @@ using namespace std;
 
 #include "CargoManager.h"
 
-//Records* CargoManager::makeRecord(const string& id, const string& refuelStop, const string& refuelTime) {
-//    return new Cargo(id, refuelStop, refuelTime);
-//}
-
-
+bool CargoManager::loadFromFile(const std::string& filepath) 
+{
+    vector<unique_ptr<Cargo>> list;
+    try {
+        list = fileHandler.loadTyped<Cargo>(filepath, c_Factory);
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Failed to load cargos from “"
+            << filepath << "”: " << e.what() << "\n";
+        return false;
+    }
+    for (auto& c : list) {
+        if (!addCargo(std::move(c))) {
+            std::cerr << "Duplicate cargo ID\n";
+            return false;
+        }
+    }
+    return true;
+}
 
 bool CargoManager::addCargo(std::unique_ptr<Cargo> cargo)
 {
