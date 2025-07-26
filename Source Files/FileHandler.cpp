@@ -78,8 +78,16 @@ FileHandler::loadTyped(const string& path,
 void FileHandler::exportSchedule(const std::string& filepath,
 	const std::vector<std::tuple<const iFreight&, const iCargo&, int, int>>& matchedList) const
 {
+
+	std::string cleanPath = filepath;
+
+	// 0. Trim surrounding double quotes, if present
+	if (!cleanPath.empty() && cleanPath.front() == '"' && cleanPath.back() == '"') {
+		cleanPath = cleanPath.substr(1, cleanPath.length() - 2);
+	}
+
 	// 1. Resolve path
-	fs::path p(filepath);
+	fs::path p(cleanPath);
 	fs::path out;
 	if (p.has_filename() && p.extension() == ".txt") {
 		out = p;
@@ -104,13 +112,13 @@ void FileHandler::exportSchedule(const std::string& filepath,
 		ofs << "No matches found.\n";
 	}
 	else {
-		for (size_t i = 0; i < matchedList.size(); ++i) {
-			const auto& [freight, cargo, used, remain] = matchedList[i];
-			ofs << "Match " << (i + 1) << ":\n"
-				<< "  Freight: " << freight << "\n"
-				<< "  Cargo:   " << cargo << "\n"
-				<< "  Used:    " << used << "\n"
-				<< "  Remain:  " << remain << "\n\n";
+		int matchNum = 1;
+		for (const auto& [freight, cargo, capUsed, capRemain] : matchedList) {
+			ofs << "Match " << matchNum++ << ": "
+				<< "Freight " << freight.getID()
+				<< " with Cargo " << cargo.getID() << "\n"
+				<< "Capacity taken by Cargo " << cargo.getID() << " : " << capUsed
+				<< " | Remaining Freight Capacity " << freight.getID() << " : " << capRemain << "\n\n";
 		}
 	}
 	ofs.close();

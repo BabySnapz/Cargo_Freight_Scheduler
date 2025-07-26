@@ -25,7 +25,7 @@ std::vector<std::tuple<const iFreight&, const iCargo&, int, int>> SchedulerManag
 {
     if (matchedList.empty())
     {
-        std::cout << "[DEBUG] Matched list is empty!\n";
+        std::cout << "Error: Matched list is empty!\n";
         return {};
     }
     return matchedList;
@@ -36,7 +36,7 @@ std::vector<std::tuple<const iFreight&, const iCargo&, int, int>> SchedulerManag
     const std::vector<iCargo*>& cargos)
 {
     if (!sortStrategy) {
-        std::cout << "[DEBUG] Sort strategy not set!\n";
+        std::cout << "Error: Sort strategy not set!\n";
         return {};
     }
 
@@ -53,7 +53,7 @@ std::vector<std::tuple<const iFreight&, const iCargo&, int, int>> SchedulerManag
             freightClones.emplace_back(clonedFreight);
         }
         else {
-            std::cerr << "[ERROR] clone() did not return an iFreight*\n";
+            std::cerr << "Error: clone() did not return an iFreight*\n";
         }
     }
 
@@ -65,7 +65,7 @@ std::vector<std::tuple<const iFreight&, const iCargo&, int, int>> SchedulerManag
             cargoClones.emplace_back(clonedCargo);
         }
         else {
-            std::cerr << "[ERROR] clone() did not return an iCargo*\n";
+            std::cerr << "Error: clone() did not return an iCargo*\n";
         }
     }
 
