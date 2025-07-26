@@ -102,10 +102,9 @@ void TUI::handleFreightMenu() {
         cout << "\n--- Freight Menu ---\n"
             << "1. Load Freight from file\n"
             << "2. Create Freight\n"
-            << "3. Add Freight\n"
-            << "4. Edit Freight\n"
-            << "5. Remove Freight\n"
-            << "6. View All Freights\n"
+            << "3. Edit Freight\n"
+            << "4. Remove Freight\n"
+            << "5. View All Freights\n"
             << "0. Back to Main Menu\n"
             << "========================\n"
             << "Enter your choice: ";
@@ -113,10 +112,9 @@ void TUI::handleFreightMenu() {
         switch (choice) {
         case 1: loadFreight(); break;
         case 2: createFreight(); break;
-        case 3: addFreight(); break;
-        case 4: editFreight(); break;
-        case 5: removeFreight(); break;
-        case 6: viewAllFreights(); break;
+        case 3: editFreight(); break;
+        case 4: removeFreight(); break;
+        case 5: viewAllFreights(); break;
         case 0: return;
         default:
             cout << "Invalid option. Try again.\n";
@@ -219,10 +217,9 @@ void TUI::handleCargoMenu() {
         cout << "\n--- Cargo Menu ---\n"
             << "1. Load Cargo from file\n"
             << "2. Create Cargo\n"
-            << "3. Add Cargo\n"
-            << "4. Edit Cargo\n"
-            << "5. Delete Cargo\n"
-            << "6. View All Cargos\n"
+            << "3. Edit Cargo\n"
+            << "4. Delete Cargo\n"
+            << "5. View All Cargos\n"
             << "0. Back to Main Menu\n"
             << "========================\n"
             << "Enter your choice: ";
@@ -230,10 +227,9 @@ void TUI::handleCargoMenu() {
         switch (choice) {
         case 1: loadCargo(); break;
         case 2: createCargo(); break;
-        case 3: addCargo(); break;
-        case 4: editCargo(); break;
-        case 5: removeCargo(); break;
-        case 6: viewAllCargos(); break;
+        case 3: editCargo(); break;
+        case 4: removeCargo(); break;
+        case 5: viewAllCargos(); break;
         case 0: return;
         default:
             cout << "Invalid option. Try again.\n";
@@ -266,21 +262,6 @@ void TUI::createCargo() {
     clearInputBuffer();
     cargomgr->createCargo(id, location, time, grouping);
     cout << "Cargo created successfully!\n";
-    pauseForEnter();
-}
-
-void TUI::addCargo() {
-    string id, location, time;
-    int grouping;
-    cout << "\nEnter Cargo ID: "; getline(cin, id);
-    cout << "Enter Location: "; getline(cin, location);
-    cout << "Enter Time: "; getline(cin, time);
-    cout << "Enter Cargo Grouping: ";
-    cin >> grouping;
-    clearInputBuffer();
-    auto cargo = make_unique<Cargo>(id, location, time, grouping);
-    cargomgr->addCargo(move(cargo));
-    cout << "Cargo added successfully!\n";
     pauseForEnter();
 }
 
@@ -319,19 +300,17 @@ void TUI::viewAllCargos() {
     pauseForEnter();
 }
 
-
-
 /****************** Scheduler Menu *******************************/
 void TUI::handleSchedulerMenu() {
     while (true) {
         clearScreen();
         cout << "\n=== Scheduler Management ===\n"
-            << "1. Set Scheduling Strategy\n"
-            << "2. Export Schedule to file\n"
-            << "3. View Current Schedule\n"
-            << "0. Back to Main Menu\n"
-            << "========================\n"
-            << "Enter your choice: ";
+                << "1. Set Scheduling Strategy\n"
+                << "2. Export Schedule to file\n"
+                << "3. View Current Schedule\n"
+                << "0. Back to Main Menu\n"
+                << "========================\n"
+                << "Enter your choice: ";
         int choice = getValidatedChoice();
         switch (choice) {
         case 1: setStrategy(); break;
@@ -379,17 +358,38 @@ void TUI::exportSchedule() {
 
 void TUI::viewSchedule() {
     auto matches = schedulermgr->getMatchedList();
-    if (matches.empty()) cout << "No matches found.\n";
+    if (matches.empty()) {
+        std::cout << "No matches found.\n";
+    }
     else {
-        cout << "\nCurrent Matches:\n";
-        for (size_t i = 0; i < matches.size(); ++i) {
-            auto [freight, cargo, capUsed, capRemain] = matches[i];
-            cout << "Match " << (i + 1) << ":\n"
-                << " Freight: " << freight << "\n"
-                << " Cargo:   " << cargo << "\n"
-                << " Capacity Used: " << capUsed
-                << ", Capacity Remaining: " << capRemain << "\n";
+        std::cout << "\n=== Current Matches ===\n";
 
+        int matchNum = 1;
+        for (const auto& [freight, cargo, capUsed, capRemain] : matches) {
+            std::cout << " Match " << matchNum++ << ": "
+                << "Freight " << freight.getID()
+                << " with Cargo " << cargo.getID() << "\n"
+                << "Capacity taken by Cargo " << cargo.getID() << " : " << capUsed
+                << " | Remaining Freight Capacity " << freight.getID() << " : " <<capRemain << "\n";
+        }
+
+        // Now print all clone freight and cargo states
+        std::cout << "\n=== Current Freight States ===\n";
+        const auto& clonedFreights = schedulermgr->getClonedFreights();
+        for (const auto& f : clonedFreights) {
+            std::cout << "Freight " << f->getID()
+                << ", Location: " << f->getLocation()
+                << ", Time: " << f->getTime()
+                << " | Remaining Capacity: " << f->getRemainingCapacity() << "\n";
+        }
+
+        std::cout << "\n=== Current Cargo States ===\n";
+        const auto& clonedCargos = schedulermgr->getClonedCargos();
+        for (const auto& c : clonedCargos) {
+            std::cout << "Cargo " << c->getID()
+                << ", Location: " << c->getLocation()
+                << ", Time: " << c->getTime()
+                << " | Remaining Cargo in Group: " << c->getCargoGrouping() << "\n";
         }
     }
     pauseForEnter();

@@ -17,5 +17,9 @@ public:
     virtual std::vector<std::tuple<const iFreight&, const iCargo&, int, int>> createMatchedList(
         const std::vector<iFreight*>& freights,
         const std::vector<iCargo*>& cargos) = 0;
+
+    virtual const std::vector<std::unique_ptr<iFreight>>& getClonedFreights() const = 0;
+    virtual const std::vector<std::unique_ptr<iCargo>>& getClonedCargos() const = 0;
+
     virtual ~iSchedulerManager() = default;
 };
