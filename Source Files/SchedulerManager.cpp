@@ -21,46 +21,6 @@ void SchedulerManager::exportSchedule(const std::string& filepath)
     fileHandler.exportSchedule(filepath, matchedList); // uses existing FileHandler
 }
 
-//void SchedulerManager::exportSchedule(const std::string& filepath) {
-//    // --- 1. Resolve path ---
-//    fs::path p(filepath);
-//    fs::path out;
-//    if (p.has_filename() && p.extension() == ".txt") {
-//        out = p;
-//    }
-//    else {
-//        if (!fs::exists(p)) fs::create_directories(p);
-//        out = p / "Schedule.txt";
-//    }
-//
-//    // --- 2. Open file ---
-//    std::ofstream ofs(out);
-//    if (!ofs) {
-//        std::cerr << "Failed to open " << out << "\n";
-//        return;
-//    }
-//
-//    // --- 3. Write header (optional) ---
-//    ofs << "=== Freight???Cargo Schedule ===\n";
-//
-//    // --- 4. Stream each match exactly as viewSchedule() does ---
-//    auto list = getMatchedList();
-//    if (list.empty()) {
-//        ofs << "No matches found.\n";
-//    }
-//    else {
-//        for (size_t i = 0; i < list.size(); ++i) {
-//            const auto& [freight, cargo, used, remain] = list[i];
-//            ofs << "Match " << (i + 1) << ":\n"
-//                << "  Freight: " << freight << "\n"
-//                << "  Cargo:   " << cargo << "\n"
-//                << "  Used:    " << used << "\n"
-//                << "  Remain:  " << remain << "\n\n";
-//        }
-//    }
-//    ofs.close();
-//}
-
 std::vector<std::tuple<const iFreight&, const iCargo&, int, int>> SchedulerManager::getMatchedList()
 {
     if (matchedList.empty())

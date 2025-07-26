@@ -27,4 +27,8 @@ public:
     std::vector<std::tuple<const iFreight&, const iCargo&, int, int>> createMatchedList(
         const std::vector<iFreight*>& freights,
         const std::vector<iCargo*>& cargos) override;
+
+    const std::vector<std::unique_ptr<iFreight>>& getClonedFreights() const { return freightClones; }
+    const std::vector<std::unique_ptr<iCargo>>& getClonedCargos() const { return cargoClones; }
+
 };
