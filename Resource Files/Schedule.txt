@@ -1,41 +1,16 @@
 === Freight¨CCargo Schedule ===
-Match 1:
-  Freight: F001, SG, 09:20AM, MiniMover
+Match 1: Freight F001 with Cargo C001
+Capacity taken by Cargo C001 : 2 | Remaining Freight Capacity F001 : 0
 
-  Cargo:   C001, SG, 09:15AM, 0
+Match 2: Freight F002 with Cargo C001
+Capacity taken by Cargo C001 : 3 | Remaining Freight Capacity F002 : 9
 
-  Used:    2
-  Remain:  0
+Match 3: Freight F002 with Cargo C002
+Capacity taken by Cargo C002 : 4 | Remaining Freight Capacity F002 : 5
 
-Match 2:
-  Freight: F002, SG, 09:25AM, MegaCarrier
+Match 4: Freight F002 with Cargo C003
+Capacity taken by Cargo C003 : 5 | Remaining Freight Capacity F002 : 0
 
-  Cargo:   C001, SG, 09:15AM, 0
-
-  Used:    3
-  Remain:  9
-
-Match 3:
-  Freight: F002, SG, 09:25AM, MegaCarrier
-
-  Cargo:   C002, SG, 09:15AM, 0
-
-  Used:    4
-  Remain:  5
-
-Match 4:
-  Freight: F002, SG, 09:25AM, MegaCarrier
-
-  Cargo:   C003, SG, 09:15AM, 0
-
-  Used:    5
-  Remain:  0
-
-Match 5:
-  Freight: F003, SG, 09:30AM, CargoCruiser
-
-  Cargo:   C003, SG, 09:15AM, 0
-
-  Used:    5
-  Remain:  1
+Match 5: Freight F003 with Cargo C003
+Capacity taken by Cargo C003 : 5 | Remaining Freight Capacity F003 : 1
 

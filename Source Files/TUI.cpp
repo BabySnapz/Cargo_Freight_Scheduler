@@ -4,9 +4,6 @@
 #include <limits>
 
 #include "TUI.h"
-#include "FreightManager.h"
-#include "CargoManager.h"
-#include "SchedulerManager.h"
 #include "FileHandler.h"
 
 using namespace std;
@@ -152,25 +149,6 @@ void TUI::createFreight() {
         : FreightType::MiniMover);
     freightmgr->createFreight(id, location, time, type);
     cout << "Freight created successfully!\n";
-    pauseForEnter();
-}
-
-void TUI::addFreight() {
-    string id, location, time;
-    int typeChoice;
-    cout << "\nEnter Freight ID: "; getline(cin, id);
-    cout << "Enter Location: "; getline(cin, location);
-    cout << "Enter Time: "; getline(cin, time);
-    cout << "Select Freight Type (1=MiniMover,2=CargoCruiser,3=MegaCarrier): ";
-    typeChoice = getValidatedChoice();
-    FreightType type = (typeChoice == 2 ? FreightType::CargoCruiser
-        : typeChoice == 3 ? FreightType::MegaCarrier
-        : FreightType::MiniMover);
-    FreightParams params;
-    params.setID(id).setLocation(location).setTime(time).setFreightType(type);
-    auto freight = make_unique<Freight>(params.getID(), params.getLocation(), params.getTime(), params.getFreightType());
-    freightmgr->addFreight(move(freight));
-    cout << "Freight added successfully!\n";
     pauseForEnter();
 }
 
