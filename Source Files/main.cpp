@@ -20,7 +20,7 @@ int main() {
 
     std::unique_ptr<iCargoManager> cargoManager =
         std::make_unique<CargoManager>(fileHandler, cargoFactory);
-    std::unique_ptr<iSchedulerManager> schedulerManager = std::make_unique<SchedulerManager>();
+    std::unique_ptr<iSchedulerManager> schedulerManager = std::make_unique<SchedulerManager>(fileHandler);
 
     // Pass raw pointers to TUI (if TUI expects raw pointers)
     TUI tui(freightManager.get(), cargoManager.get(), schedulerManager.get());

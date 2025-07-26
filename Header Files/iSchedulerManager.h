@@ -6,6 +6,7 @@
 #include "iFreight.h"
 #include "iCargo.h"
 #include "SortAlgorithms.h"
+#include "FileHandler.h"
 
 class iSchedulerManager
 {

@@ -20,5 +20,7 @@ public:
     const std::string& getTime() const override;
     int getCargoGrouping() const override;
     bool useCargoGrouping(int amount) override;
+
+    std::unique_ptr<iRecord> clone() const override;
 };
 

@@ -75,6 +75,7 @@ void TUI::displayMenu() {
         << "2. Cargo Management\n"
         << "3. Scheduler Management\n"
         << "0. Exit\n"
+        << "========================\n"
         << "Enter your choice: ";
 }
 
@@ -106,6 +107,7 @@ void TUI::handleFreightMenu() {
             << "5. Remove Freight\n"
             << "6. View All Freights\n"
             << "0. Back to Main Menu\n"
+            << "========================\n"
             << "Enter your choice: ";
         int choice = getValidatedChoice();
         switch (choice) {
@@ -222,6 +224,7 @@ void TUI::handleCargoMenu() {
             << "5. Delete Cargo\n"
             << "6. View All Cargos\n"
             << "0. Back to Main Menu\n"
+            << "========================\n"
             << "Enter your choice: ";
         int choice = getValidatedChoice();
         switch (choice) {
@@ -327,6 +330,7 @@ void TUI::handleSchedulerMenu() {
             << "2. Export Schedule to file\n"
             << "3. View Current Schedule\n"
             << "0. Back to Main Menu\n"
+            << "========================\n"
             << "Enter your choice: ";
         int choice = getValidatedChoice();
         switch (choice) {
@@ -381,9 +385,11 @@ void TUI::viewSchedule() {
         for (size_t i = 0; i < matches.size(); ++i) {
             auto [freight, cargo, capUsed, capRemain] = matches[i];
             cout << "Match " << (i + 1) << ":\n"
-                << "  Freight: " << freight << "\n"
-                << "  Cargo:   " << cargo << "\n"
-                << "  Used: " << capUsed << ", Remaining: " << capRemain << "\n";
+                << " Freight: " << freight << "\n"
+                << " Cargo:   " << cargo << "\n"
+                << " Capacity Used: " << capUsed
+                << ", Capacity Remaining: " << capRemain << "\n";
+
         }
     }
     pauseForEnter();

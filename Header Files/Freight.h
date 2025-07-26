@@ -26,4 +26,6 @@ public:
     int getRemainingCapacity() const override;
     bool useCapacity(int amount) override;
 
+    std::unique_ptr<iRecord> clone() const override;
+
 };

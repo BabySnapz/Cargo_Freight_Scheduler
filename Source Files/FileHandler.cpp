@@ -1,5 +1,6 @@
 #include <fstream>
 #include <iostream>
+#include <filesystem>
 #include "FileHandler.h"
 #include "StringTools.h"
 #include "Freight.h"
@@ -7,6 +8,7 @@
 
 using namespace std;
 using namespace StringTools;
+namespace fs = std::filesystem;
 
 vector<unique_ptr<iRecord>> FileHandler::load(const string& filePath, 
 	const iRecordFactory& factory) const {
@@ -71,6 +73,47 @@ FileHandler::loadTyped(const string& path,
 		}
 	}
 	return out;
+}
+
+void FileHandler::exportSchedule(const std::string& filepath,
+	const std::vector<std::tuple<const iFreight&, const iCargo&, int, int>>& matchedList) const
+{
+	// 1. Resolve path
+	fs::path p(filepath);
+	fs::path out;
+	if (p.has_filename() && p.extension() == ".txt") {
+		out = p;
+	}
+	else {
+		if (!fs::exists(p)) fs::create_directories(p);
+		out = p / "Schedule.txt";
+	}
+
+	// 2. Open file
+	std::ofstream ofs(out);
+	if (!ofs) {
+		std::cerr << "Failed to open " << out << "\n";
+		return;
+	}
+
+	// 3. Write header
+	ofs << "=== Freight¨CCargo Schedule ===\n";
+
+	// 4. Write matches
+	if (matchedList.empty()) {
+		ofs << "No matches found.\n";
+	}
+	else {
+		for (size_t i = 0; i < matchedList.size(); ++i) {
+			const auto& [freight, cargo, used, remain] = matchedList[i];
+			ofs << "Match " << (i + 1) << ":\n"
+				<< "  Freight: " << freight << "\n"
+				<< "  Cargo:   " << cargo << "\n"
+				<< "  Used:    " << used << "\n"
+				<< "  Remain:  " << remain << "\n\n";
+		}
+	}
+	ofs.close();
 }
 
 template std::vector<std::unique_ptr<Freight>>
