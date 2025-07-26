@@ -1,0 +1,41 @@
+=== Freight¨CCargo Schedule ===
+Match 1:
+  Freight: F001, SG, 09:20AM, MiniMover
+
+  Cargo:   C001, SG, 09:15AM, 0
+
+  Used:    2
+  Remain:  0
+
+Match 2:
+  Freight: F002, SG, 09:25AM, MegaCarrier
+
+  Cargo:   C001, SG, 09:15AM, 0
+
+  Used:    3
+  Remain:  9
+
+Match 3:
+  Freight: F002, SG, 09:25AM, MegaCarrier
+
+  Cargo:   C002, SG, 09:15AM, 0
+
+  Used:    4
+  Remain:  5
+
+Match 4:
+  Freight: F002, SG, 09:25AM, MegaCarrier
+
+  Cargo:   C003, SG, 09:15AM, 0
+
+  Used:    5
+  Remain:  0
+
+Match 5:
+  Freight: F003, SG, 09:30AM, CargoCruiser
+
+  Cargo:   C003, SG, 09:15AM, 0
+
+  Used:    5
+  Remain:  1
+

@@ -33,11 +33,15 @@ int Cargo::getCargoGrouping() const {
 }
 
 bool Cargo::useCargoGrouping(int amount) {
-	if (amount <= cargoGrouping) {
-		cargoGrouping -= amount;
-		return true;
+	if (amount <= 0 || amount > cargoGrouping) {
+		return false;
 	}
-	return false;
+	cargoGrouping -= amount;
+	return true;
+}
+
+std::unique_ptr<iRecord> Cargo::clone() const {
+	return std::make_unique<Cargo>(*this);
 }
 
 ostream& operator<<(ostream& out, const iCargo& aCargo) {

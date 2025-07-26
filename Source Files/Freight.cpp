@@ -52,11 +52,15 @@ int Freight::getRemainingCapacity() const {
 }
 
 bool Freight::useCapacity(int amount) {
-    if (amount <= remainingCapacity) {
-        remainingCapacity -= amount;
-        return true;
+    if (amount <= 0 || amount > remainingCapacity) {
+        return false;
     }
-    return false;
+    remainingCapacity -= amount;
+    return true;
+}
+
+std::unique_ptr<iRecord> Freight::clone() const {
+    return std::make_unique<Freight>(*this);
 }
 
 ostream& operator<<(ostream& out, const iFreight& aFreight) {
